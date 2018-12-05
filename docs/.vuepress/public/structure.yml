@@ -1,0 +1,17 @@
+shoefony/          # Racine du projet
+  bin/             # Fichier executable
+  config/          # Configuration de l'application
+    packages/
+    routes/
+    ...
+  public/          # Racine public du projet
+    index.php      # Point d'entrée (ou "Front controller")
+  src/             # Code sources PHP du projet
+  templates/       # Les vues du projet, le V de MVC
+  tests/
+  translations/
+  var/             # Fichiers temporaires (cache, logs, ...)
+  vendor/          # Dépendances installées par Composer
+  .env             # Variables d'environnement
+  composer.json    # Configuration de Composer
+  ...

@@ -1,0 +1,27 @@
+lang: 'fr-FR'
+title: 'Symfony - LP SIL Metz'
+description: 'Ou comment devenir un ninja du web'
+head: [
+  ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat' }]
+]
+markdown:
+  lineNumbers: true
+themeConfig:
+  displayAllHeaders: true
+  sidebarDepth: 2
+  nav: [
+    { text: 'Home', link: '/' },
+    { text: 'Cours', link: '/courses/' },
+    #{ text: 'Projets', link: '/projects/' },
+  ]
+  sidebar: {
+    /courses/: [
+      '/courses/',
+      '/courses/installation',
+    ],
+    /projects/: [
+      '/projects/',
+    ]
+  }
+  
+  
