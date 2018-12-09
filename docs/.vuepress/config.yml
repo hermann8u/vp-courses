@@ -18,6 +18,8 @@ themeConfig:
     /courses/: [
       '/courses/',
       '/courses/installation',
+      '/courses/structure',
+      # '/courses/bundle',
     ],
     /projects/: [
       '/projects/',

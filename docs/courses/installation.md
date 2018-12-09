@@ -63,40 +63,9 @@ Nous apprendrons à nous en servir tout au long de la formation, celle-ci permet
 - D’analyser les requêtes HTTP envoyées
 - ...
 
-## Observons notre nouveau projet
-
-### Structure du projet
-La structure du nouveau projet est la suivante :
-
-![Structure d'un projet Symfony 4](/img/structure.png)
-
-### Console de Symfony
-
-Le framework mets à votre disposition une console au sein de son application, celle-ci est exécutable grâce à PHP. Vous pouvez y accéder de la manière suivante :
-
-``` sh{4}
-php bin/console
-```
-
-Vous pouvez accéder à la liste des commandes disponibles dans Symfony en faisant :
-
-``` sh{4}
-php bin/console list
-```
-
-Dans la liste des commandes disponibles, vous trouverez notamment une commande permettant de connaître la version de Symfony installée :
-
-``` sh{4}
-php bin/console -V
-```
-
-Ce qui devrait vous afficher le résultat suivant :
-
-![Symfony version commande](/img/symfony-v.png)
-
 ## Pour aller plus loin
 
 - [Documentation de Symfony sur l'installation](https://symfony.com/doc/current/setup.html)
+- [Symfony Best Pratices: Creating the project](https://symfony.com/doc/current/best_practices/creating-the-project.html)
 - [Symfony coding standard](https://symfony.com/doc/current/contributing/code/standards.html)
-- [Symfony Best Pratices](https://symfony.com/doc/current/best_practices/index.html)
 - [Demo d'application complète Symfony](https://github.com/symfony/demo)
