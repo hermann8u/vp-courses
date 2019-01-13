@@ -1,3 +1,7 @@
+---
+sidebarDepth: 0
+---
+
 # Conventions de codage
 
 Lorsque l'on travaille en équipe, il est toujours agréable de trouver du code bien formatté dès qu'on ouvre un projet. D'ailleurs, il n'est pas rare que des collègues partagent entre eux des conventions.
@@ -25,7 +29,7 @@ class FooBar
 	 */
 	public function __construct(DummyClass $dummy)
 	{
-		$this->fooBar = $this->transformText($dummy);
+        $this->fooBar = $this->transformText($dummy);
 	}
 }
 

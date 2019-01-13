@@ -1,18 +1,14 @@
 lang: 'fr-FR'
 title: 'Symfony - LP WMCE Metz'
 description: 'Ou comment devenir un ninja du web'
-head: [
-  ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat' }]
-]
 markdown:
   lineNumbers: true
 themeConfig:
   displayAllHeaders: true
   nav: [
-    { text: 'Home', link: '/' },
     { text: 'Cours', link: '/cours/' },
-    # { text: 'Projets', link: '/projets/' },
-    { text: 'Conventions', link: '/conventions/' },
+    { text: 'Projets', link: '/projets/' },
+    { text: 'Ressources', link: '/ressources/conventions' },
   ]
   sidebar: {
     /cours/: [
@@ -20,10 +16,16 @@ themeConfig:
       '/cours/installation',
       '/cours/structure',
       # '/cours/bundle',
+      # '/cours/controleur-et-routing',
     ],
     /projets/: [
       '/projets/',
       '/projets/shoefony',
+    ],
+    /ressources/: [
+      '/ressources/conventions',
+      '/ressources/commandes',
+      '/ressources/bundles'
     ]
   }
   
