@@ -4,6 +4,7 @@ description: 'Ou comment devenir un ninja du web'
 markdown:
   lineNumbers: true
 themeConfig:
+  sidebarDepth: 2
   displayAllHeaders: true
   nav: [
     { text: 'Cours', link: '/cours/' },
@@ -16,7 +17,7 @@ themeConfig:
       '/cours/installation',
       '/cours/structure',
       # '/cours/bundle',
-      # '/cours/controleur-et-routing',
+      '/cours/controleur-et-routing',
     ],
     /projets/: [
       '/projets/',
