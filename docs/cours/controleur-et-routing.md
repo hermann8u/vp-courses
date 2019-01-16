@@ -22,7 +22,7 @@ Le routing rentre alors en jeu.
 
 ## Routing
 
-Le rôle du routeur est, à partir d'une URL, de déterminer quel contrôleur appeler et avec quels arguments. Cela permet de configurer son application pour avoir de belles URL. Il s’agit là d’un point important pour le référencement et même pour le confort des visiteurs.
+Le rôle du routeur est, à partir d'une URL, de déterminer quel contrôleur appeler et avec quels arguments. Cela permet de configurer son application pour avoir de belles URL. Il s'agit là d'un point important pour le référencement et même pour le confort des visiteurs.
 
 > Exemple :
 > - **Non réécrite** : /index.php?controleur=produit&id=2&name=pantalon-jean-homme
@@ -91,7 +91,7 @@ Ce paramètre est un
 
 ### Les paramètres d'une route
 
-Certaines routes peuvent nécessiter la prise en compte de paramètres, par exemple lorsque vous voudrez afficher la fiche d’un produit sur votre site vitrine, il vous faudra passer en paramètre l’identifiant du produit.
+Certaines routes peuvent nécessiter la prise en compte de paramètres, par exemple lorsque vous voudrez afficher la fiche d'un produit sur votre site vitrine, il vous faudra passer en paramètre l'identifiant du produit.
 
 ``` php
 /**
@@ -102,13 +102,13 @@ Certaines routes peuvent nécessiter la prise en compte de paramètres, par exem
 Grâce au paramètre **{id}** dans notre route, toutes les URLs du type **/product/{id}/details** seront
 gérées par cette route, par exemple : **/product/3/details**
 
-La paramètre **{id}** est obligatoire et devra impérativement correspondre à un nombre, c’est la propriété indiquée dans requirements qui l’impose. Sans cette dernière, vous pourriez passer ce que vous voulez en paramètre, même une chaîne de type texte. Bien entendu, vous pouvez tout à fait multiplier les paramètres. 
+La paramètre **{id}** est obligatoire et devra impérativement correspondre à un nombre, c'est la propriété indiquée dans requirements qui l'impose. Sans cette dernière, vous pourriez passer ce que vous voulez en paramètre, même une chaîne de type texte. Bien entendu, vous pouvez tout à fait multiplier les paramètres. 
 
-L’intérêt du routeur n’est pas simplement de créer des URLs jolies, il va vous permettre de rendre ces paramètres accessibles depuis votre contrôleur afin de les utiliser et éventuellement les transmettre à la vue (votre template).
+L'intérêt du routeur n'est pas simplement de créer des URLs jolies, il va vous permettre de rendre ces paramètres accessibles depuis votre contrôleur afin de les utiliser et éventuellement les transmettre à la vue (votre template).
 
 ### Debug des routes
 
-Afin de vous aider à vous y retrouver un peu plus facilement dans votre routage, vous pouvez utiliser la barre de debug Symfony. Si votre application est en environnement de développement, vous avez la possibilité d’accéder au détail de la route empruntée en passant la souris sur le nom de la route.
+Afin de vous aider à vous y retrouver un peu plus facilement dans votre routage, vous pouvez utiliser la barre de debug Symfony. Si votre application est en environnement de développement, vous avez la possibilité d'accéder au détail de la route empruntée en passant la souris sur le nom de la route.
 
 ![Routing debug bar](/img/routing-debug.png)
 
@@ -122,7 +122,7 @@ php bin/console debug:router
 
 ## Contrôleur
 
-L’objectif du contrôleur est très simple, il exécute une action qui doit retourner une instance de Response. Voici un exemple de contrôleur fictif :
+L'objectif du contrôleur est très simple, il exécute une action qui doit retourner une instance de Response. Voici un exemple de contrôleur fictif :
 
 ``` php
 <?php
@@ -155,9 +155,9 @@ class MainController extends AbstractController
     }
 }
 ```
-Deux actions sont présentes dans ce contrôleur, la première correspond à l’affichage d’une fiche produit en prenant en charge un paramètre et la deuxième correspond à l’affichage de la liste de produits.
+Deux actions sont présentes dans ce contrôleur, la première correspond à l'affichage d'une fiche produit en prenant en charge un paramètre et la deuxième correspond à l'affichage de la liste de produits.
 
-Un contrôleur est donc composé d’actions, il s’agit des fonctions ciblées par le routing et effectuant les traitements nécessaires à l’affichage de notre page. Une action renvoie toujours une instance de Response :
+Un contrôleur est donc composé d'actions, il s'agit des fonctions ciblées par le routing et effectuant les traitements nécessaires à l'affichage de notre page. Une action renvoie toujours une instance de Response :
 - Dans l'action **product**, on instancie nous même un objet Response avec son contenu.
 - Dans l'action **products**, on se sert de la méthode **render** fournit par l'AbstractController étendu par notre classe. Cette fonction renvoie une Response avec comme contenu un template Twig traité.
 
@@ -165,7 +165,7 @@ Un contrôleur est donc composé d’actions, il s’agit des fonctions ciblées
 
 Nous pouvons générer des URLs à partir du nom des routes directement depuis notre contrôleur. En effet, vu que le routeur a toutes les routes à sa disposition, il est capable d'associer une route à une certaine URL, mais également de reconstruire l'URL correspondant à une certaine route.
 
-Par exemple, nous avons une route nommée **store_products** qui écoute l'URL **/store/products**. Vous décidez un jour de changer vos URLs afin d’y faire apparaître le mot clé en rapport avec la catégorie des produits affichés et vous aimeriez bien que vos produits soient disponibles depuis **/store/{category}/products**. Si vous aviez écrit toutes vos URLs à la main dans vos fichiers, vous auriez dû toutes les changer une par une. Grâce à la génération d'URLs, vous ne modifiez que la route : ainsi, toutes les URLs générées seront mises à jour !
+Par exemple, nous avons une route nommée **store_products** qui écoute l'URL **/store/products**. Vous décidez un jour de changer vos URLs afin d'y faire apparaître le mot clé en rapport avec la catégorie des produits affichés et vous aimeriez bien que vos produits soient disponibles depuis **/store/{category}/products**. Si vous aviez écrit toutes vos URLs à la main dans vos fichiers, vous auriez dû toutes les changer une par une. Grâce à la génération d'URLs, vous ne modifiez que la route : ainsi, toutes les URLs générées seront mises à jour !
 
 Pour générer une URL, vous devez le demander au routeur en lui donnant deux arguments : le nom de la route ainsi que les éventuels paramètres de cette route. Depuis un contrôleur, c'est la méthode **$this->get('router')->generate()** qu'il faut appeler.
 
@@ -185,7 +185,7 @@ $url = $this->generateUrl('main_products', [
 ```
 ### Manipuler l'objet Request
 
-Nous avons vu un peu plus haut comment récupérer simplement un paramètre dans notre contrôleur lorsque ce dernier passe par une route. Heureusement, nous avons la possibilité de récupérer les paramètres ne passant pas par ce chemin mais tous types de paramètres d’une requête HTTP classique.
+Nous avons vu un peu plus haut comment récupérer simplement un paramètre dans notre contrôleur lorsque ce dernier passe par une route. Heureusement, nous avons la possibilité de récupérer les paramètres ne passant pas par ce chemin mais tous types de paramètres d'une requête HTTP classique.
 
 Pour ça, il faut injecter la Request dans l'action de notre contrôleur de cette manière :
 
@@ -204,7 +204,7 @@ use Symfony\Component\HttpFoundation\Request;
 ...
 ```
 
-En admettant que l’on décide d’appeler notre page produit en y ajoutant un paramètre "slug" correspondant au titre de notre article, nous pourrions procéder de la manière suivante afin de récupérer ce paramètre : **/store/product/3/details?slug=titre-de-mon-produit**
+En admettant que l'on décide d'appeler notre page produit en y ajoutant un paramètre "slug" correspondant au titre de notre article, nous pourrions procéder de la manière suivante afin de récupérer ce paramètre : **/store/product/3/details?slug=titre-de-mon-produit**
 
 ``` php {3}
     public function product(Request $request, int $id)
@@ -213,23 +213,24 @@ En admettant que l’on décide d’appeler notre page produit en y ajoutant un 
         ...
 ```
 
-Nous avons utilisé dans ce cas précis $request->query, cela permet de récupérer un paramètre de type GET, néanmoins il y a bien d’autres possibilités :
+Nous avons utilisé dans ce cas précis $request->query, cela permet de récupérer un paramètre de type GET, néanmoins il y a bien d'autres possibilités :
 
-| Variables de Request  | Variables Globales  | Exemple                              |
-| --------------------- | ------------------- | ------------------------------------ |
-| $request->query       | $_GET               | $request->query->get('tag')          |
-| $request->request     | $_POST              | $request->request->get('tag')        |
-| $request->cookies     | $_COOKIE            | $request->cookies->get('tag')        |
-| $request->server      | $_SERVER            | $request->server->get('REQUEST_URI') |
-| $request->headers     | $_SERVER['HTTP\_*'] | $request->header->get('USER_AGENT')  |
+| Variables de Request   | Variables Globales  | Exemple                              |
+| ---------------------- | ------------------- | ------------------------------------ |
+| $request->query        | $_GET               | $request->query->get('tag')          |
+| $request->request      | $_POST              | $request->request->get('tag')        |
+| $request->cookies      | $_COOKIE            | $request->cookies->get('tag')        |
+| $request->server       | $_SERVER            | $request->server->get('REQUEST_URI') |
+| $request->headers      | $_SERVER['HTTP\_*'] | $request->header->get('USER_AGENT')  |
+| $request->getSession() | $_SESSION           | $request->getSession()->get('tag')   |
 
 ## A vous de jouer
 
 1. Créer un **CmsController**
-2. Nommer la route vous permettant d’accéder à la page d’accueil de votre projet ( avec l'URL */*) de la manière suivante : **cms_homepage**
-3. Créer une route, une action et un template vous permettant d’accéder à la présentation de la boutique Shoefony via l’URL suivant **/presentation** et nommer la route **cms_presentation**.
+2. Nommer la route vous permettant d'accéder à la page d'accueil de votre projet ( avec l'URL */*) de la manière suivante : **cms_homepage**
+3. Créer une route, une action et un template vous permettant d'accéder à la présentation de la boutique Shoefony via l'URL suivant **/presentation** et nommer la route **cms_presentation**.
 4. Créer un **StoreController**
-5. Créer une route, une action et un template vous permettant d’accéder à la fiche détaillée d’un produit en prenant en paramètre son identifiant, ainsi que son slug, via l’URL suivante **/store/product/{id}/details/{slug}** et nommer la route **store_product**.
-6. Créer une route, une action et un template vous permettant d’accéder la page de contact via l’URL suivante **/contact** et nommer la route **cms_contact**
-7. Associer un template à la page en charge de l’affichage d’une fiche produit et trouver un moyen d’y afficher l’identifiant et le slug passés en paramètres au contrôleur.
-8. Afficher également sur la page détaillée d’un produit l’adresse IP du client ainsi que l’URL de la page en utilisant la méthode associée au composant router.
+5. Créer une route, une action et un template vous permettant d'accéder à la fiche détaillée d'un produit en prenant en paramètre son identifiant, ainsi que son slug, via l'URL suivante **/store/product/{id}/details/{slug}** et nommer la route **store_product**.
+6. Créer une route, une action et un template vous permettant d'accéder la page de contact via l'URL suivante **/contact** et nommer la route **cms_contact**
+7. Associer un template à la page en charge de l'affichage d'une fiche produit et trouver un moyen d'y afficher l'identifiant et le slug passés en paramètres au contrôleur.
+8. Afficher également sur la page détaillée d'un produit l'adresse IP du client ainsi que l'URL de la page en utilisant la méthode associée au composant router.

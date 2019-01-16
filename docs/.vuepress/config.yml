@@ -18,6 +18,7 @@ themeConfig:
       '/cours/structure',
       # '/cours/bundle',
       '/cours/controleur-et-routing',
+      '/cours/twig',
     ],
     /projets/: [
       '/projets/',

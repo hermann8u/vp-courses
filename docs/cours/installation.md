@@ -2,7 +2,7 @@
 
 ## Prérequis
 
-L’installation de Symfony nécessite un environnement de travail spécifique, pour cela vous avez plusieurs possibilités : 
+L'installation de Symfony nécessite un environnement de travail spécifique, pour cela vous avez plusieurs possibilités : 
 - Créer une machine virtuelle avec une distribution Linux
 - Déployer un serveur web physique avec Linux
 - Utiliser un environnement local avec Wamp, Lamp, etc.
@@ -10,7 +10,7 @@ L’installation de Symfony nécessite un environnement de travail spécifique, 
 
 Dans tous les cas il est impératif de posséder un serveur web (Apache, Nginx), un moteur de base de données (MySQL dans notre cas) et PHP 7.1.3 (ou plus) correctement installé.
 
-Vous l’aurez remarqué juste au dessus, il est préconisé d’utiliser un environnement de développement web fonctionnant sur le système d’exploitation Linux.
+Vous l'aurez remarqué juste au dessus, il est préconisé d'utiliser un environnement de développement web fonctionnant sur le système d'exploitation Linux.
 
 ## Télécharger et installer Symfony
 
@@ -57,10 +57,10 @@ En vous rendant à l'url indiqué (qui devrait être quelque chose comme [http:/
 Vous constaterez la présence en bas de votre navigateur de la barre de debug Symfony.
 Nous apprendrons à nous en servir tout au long de la formation, celle-ci permet notamment :
 - De voir le nombre de requêtes exécutés sur sa page
-- De mesurer le temps d’exécution de sa page
-- D’intercepter des emails envoyés depuis l’environnement de développement
+- De mesurer le temps d'exécution de sa page
+- D'intercepter des emails envoyés depuis l'environnement de développement
 - De consulter les logs
-- D’analyser les requêtes HTTP envoyées
+- D'analyser les requêtes HTTP envoyées
 - ...
 
 Nous n'allons pas utiliser ce serveur fournit par symfony, mais notre installation locale (Wamp, ...). Vous pouvez donc stopper la commande. Cependant, il va nous falloir exécuter la commande suivante afin d'installer un fichier .htaccess adapté à Symfony :
