@@ -131,7 +131,44 @@ Outre le fait que Twig offre une syntaxe plus lisible, vous pouvez remarquer que
 
 ### Les filtres
 
-Twig contient également des **filtres**. Ce sont des fonctions qui s'appliquent à des variables afin de les formatter pour l'affichage.
+Twig contient également des **filtres**. Ce sont des fonctions qui s'appliquent à des variables afin de les formatter pour l'affichage. La syntaxe est la suivante :
+
+``` twig
+{# Affiche le premier caractère en majuscules et le reste en minuscule #}
+
+{{ user.fistName|capitalize }}
+```
+
+::: tip
+Il est possible d'enchainer les filtres pour en appliquer plusieurs ! Le filtre suivant utilisera le contenu renvoyé par le précédent. L'ordre dans lequel vous les écrivez a donc de l'importance.
+:::
+
+Vous trouverez la liste complètes des filtres Twig dans la [documentation](https://twig.symfony.com/doc/2.x/filters/index.html), mais en voici déjà quelques uns.
+
+| Filtre                                                         | Description                                                                                             |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [title](https://twig.symfony.com/doc/2.x/filters/title.html)   | Met la première lettre de chaque mots en majuscule, le reste en minuscule.                              |
+| [date](https://twig.symfony.com/doc/2.x/filters/date.html)     | Formatte un objet DateTime en texte. Le format du paramètre correspond à celui de la fonction PHP date. |
+| [length](https://twig.symfony.com/doc/2.x/filters/length.html) | Nombre d'éléments d'un tableau, ou nombre de caractères d'une chaine.                                   |
+| [raw](https://twig.symfony.com/doc/2.x/filters/raw.html)       | Permet au code dans une variable d'être interprété.                                                     |
+
+Démonstration :
+
+``` twig
+{# title #}
+{{ var|title }}
+
+{# date #}
+{{ myDate|date('d-m-Y') }} {# Va afficher la date donnée avec le format "19-01-2019" #}
+{{ "now"|date('d-m-Y \\à H:i') }} {# Va afficher la date courrante avec le format "19-01-2019 à 09h40" #}
+
+{# length #}
+{{ stringOrArray|length }}
+
+{# raw #}
+{{ '<p>Ce code HMTL sera interprété.<br/>Essayez de l\'utiliser en enlevant le filtre !</p>'|raw }}
+
+```
 
 ## A vous de jouer
 
