@@ -170,6 +170,163 @@ Démonstration :
 
 ```
 
+## Intégration dans Symfony
+
+Contrairement à d'autres moteurs de templates, il n'est pas possible d'écrire du code PHP à l'intérieur de fichier Twig. Par contre, il est possible d'étendre Twig pour y ajouter vos propre fonctions, tags, ou filtres.
+
+C'est exactement ce que fait Symfony avec les fonctions que nous allons voir maintenant (cette intégration se fait grâce au bundle **symfony/twig-bundle**).
+
+### Génération de lien
+
+Enfin, nous allons voir comment il est possible de créer des liens avec Twig. Il serait en effet fort déplaisant d’avoir des liens écrit manuellement alors que nous avons mis en place des règles de routage censées nous simplifier la vie.
+
+C'est la fonction **path** qui sera utilisé pour ça.
+
+``` twig
+{# Génération de lien relatif #}
+<a href={{ path('nom_de_la_route') }}>Le lien</a>
+
+{# Génération de lien avec paramètres dynamiques #}
+<a href={{ path('nom_de_la_route_avec_param', {'id': id, 'slug': slug}) }}>Le lien</a>
+
+{# Génération de lien absolue (pratique pour les emails) #}
+<a href={{ url('nom_de_la_route') }}>Le lien absolue</a>
+```
+
+### Gestion des assets
+
+Les templates font aussi très souvent référence à des images, du Javascript, des feuilles de style et d'autres fichiers. Bien sûr vous pouvez coder en dur le chemin vers ces fichiers (/images/logo.png par exemple), mais Symfony fournit une façon de faire plus souple via la fonction **asset** de Twig. L'argument donné à la fonction est une chaîne de caractères représentant un chemin relatif depuis le dossier **/public/** de notre application.
+
+``` twig
+<img src="{{ asset('images/logo.png') }}" />
+
+<link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+```
+
+Le principal objectif de la fonction **asset** est de rendre votre application plus portable. Si votre application se trouve à la racine de votre hôte (http://example.com par exemple), alors le chemin retourné sera /images/logo.png. Mais si votre application se trouve dans un sous répertoire (http://example.com/my_app par exemple), chaque chemin vers les fichiers sera alors généré avec le sous répertoire (/my_app/images/logo.png). La fonction **asset** fait attention à cela en déterminant comment votre application est utilisée et en générant les chemins corrects.
+
+
+## Héritage de templates
+
+Bien souvent, les templates d'un projet partagent des éléments communs, comme les entêtes, pieds de page et menus latéraux. Dans Symfony, nous abordons ce problème différemment : un template peut être décoré par un autre. Cela fonctionne exactement comme les classes PHP : l'héritage de template vous permet de bâtir un template « layout » de base qui contient tous les éléments communs de votre site et de définir des blocs (comprenez « classe PHP avec des méthodes de base »). Un template enfant peut étendre le template layout et surcharger n'importe lequel de ses blocs (comprenez « une sous-classe PHP qui surcharge certaines méthodes de sa classe parente »).
+
+Le modèle le plus couramment utilisé est l’héritage à trois niveaux. Ce dernier est composé d’un layout principal pour votre application, un template correspondant au layout de chacune de vos sections et héritant du layout principal. Puis enfin, un template pour chaque page héritant lui même du layout de la section de laquelle il dépend.
+
+Une notion à connaître et qui joue un rôle important dans notre héritage, est la notion de **block**. En effet, vos layouts vont en être composés et cela s’avère vraiment très pratique. Il faut voir un **block** comme un espace dans votre template qu’il va falloir compléter. Ce dernier peut par défaut être composé d’éléments au niveau de votre layout général mais est susceptible d’être complété par la suite par vos templates **enfants**.
+
+Prenons un exemple concret afin d’y voir un peu plus clair. Admettons que nous souhaitions intégrer la structure de page suivante qui reste assez simple :
+
+![Heritage sur 3 niveau](/img/twig-heritage.png)
+
+Cela correspond bien à un système d’héritage à trois niveaux dans lequel nous avons :
+
+- Le layout général **templates/base.html.twig**. Ce layout est commun sur toute l'application.
+- Le layout de second niveau **templates/layout.html.twig** héritant du layout général. Il peut y en avoir par exemple un pour le front et un pour le back.
+- Le template correspondant à la page actuelle **templates/main/index.html.twig** héritant du layout de second niveau.
+
+Voici à quoi pourraient ressembler le contenu des différents templates en choisissant de les intégrer dans un héritage à 3 niveaux avec Twig.
+
+``` twig
+{# base.html.twig #}
+
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block title %}Shoefony{% endblock %}</title>
+        {% block stylesheets %}
+            {# Ce CSS est utilisé sur toute l'application #}
+            <link href="{{ asset('css/global.css') }}" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+
+        {% block javascripts %}
+            {# jQuery sera utilisé sur toute l'application #}
+            <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        {% endblock %}
+    </body>
+</html>
+```
+
+``` twig
+{# layout.html.twig #}
+
+{% extends 'base.html.twig'%}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/css-du-front.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <header>
+        <span>Shoefony</span>
+        <nav>
+            <a href="{{ path('cms_homepage') }}">Home</a>
+            <a href="{{ path('cms_presentation') }}">Présentation</a>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script href="{{ asset('js/js-du-front.js') }}"></script>
+{% endblock %}
+```
+
+``` twig
+{# main/index.html.twig #}
+
+{% extends 'layout.html.twig'%}
+
+{% block title %}Bienvenue | {{ parent() }}{% endblock %}
+
+{% block content %}
+    <h1>Bienvenue sur le site Shoefony</h1>
+    <p>Du contenu</p>
+{% endblock %}
+```
+
+Ce qui va générer le html suivant:
+
+``` html
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Bienvenue | Shoefony</title>
+        <link href="/css/global.css" rel="stylesheet">
+        <link href="/css/css-du-front.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <span>Shoefony</span>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/presentation">Présentation</a>
+            </nav>
+        </header>
+
+        <h1>Bienvenue sur le site Shoefony</h1>
+        <p>Du contenu</p>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script href="/js/js-du-front.js"></script>
+    </body>
+</html>
+```
+
+Ça peut paraître compliqué au début mais vous verrez qu’une fois adopté, vous ne pourrez plus vous en passer !
+
+
 ## A vous de jouer
 
 Les différentes pages de notre site existes mais elles ne ressemblent pour le moment à pas grand chose. Utilisons le template qui nous a été fourni pour mettre en page notre site web.
