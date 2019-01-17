@@ -40,8 +40,8 @@ $templateAsString = $this->renderView('email/resetting.html.twig', [
 Twig définit deux types de syntaxe spéciale :
 ::: v-pre
 - **{{ ... }}** : C'est l'instruction **d'affichage**. Elle permet d'afficher le contenu d'une variable. C'est donc l'équivalent de **echo** en PHP.
-- **{% ... %}** : C'est la syntaxe des **tags**. Ils sont utilisés pour exécuter des instructions spéciales comme la boucle **for** ou la condition **if** par exemples.
-- **{# ... #}** : C'est la syntaxe utilisé pour les **commentaires**. Il est préférable d'utiliser les commentaires de Twig à la place de ceux fournit par HTML afin qu'il n'apparaissent pas dans le code sur de la page renvoyé au client.
+- **{% ... %}** : C'est la syntaxe des **tags**. Ils sont utilisés pour exécuter des instructions spéciales comme la boucle **for** ou la condition **if** par exemple.
+- **{# ... #}** : C'est la syntaxe utilisée pour les **commentaires**. Il est préférable d'utiliser les commentaires de Twig à la place de ceux fournit par HTML afin qu'ils n'apparaissent pas dans le code de la page renvoyée au client.
 :::
 
 ### Comparaison entre PHP et Twig
@@ -131,10 +131,10 @@ Outre le fait que Twig offre une syntaxe plus lisible, vous pouvez remarquer que
 
 ### Les filtres
 
-Twig contient également des **filtres**. Ce sont des fonctions qui s'appliquent à des variables afin de les formatter pour l'affichage. La syntaxe est la suivante :
+Twig contient également des **filtres**. Ce sont des fonctions qui s'appliquent à des variables afin de les formater pour l'affichage. La syntaxe est la suivante :
 
 ``` twig
-{# Affiche le premier caractère en majuscules et le reste en minuscule #}
+{# Affiche le premier caractère en majuscules et le reste en minuscules #}
 
 {{ user.fistName|capitalize }}
 ```
@@ -147,8 +147,8 @@ Vous trouverez la liste complètes des filtres Twig dans la [documentation](http
 
 | Filtre                                                         | Description                                                                                             |
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| [title](https://twig.symfony.com/doc/2.x/filters/title.html)   | Met la première lettre de chaque mots en majuscule, le reste en minuscule.                              |
-| [date](https://twig.symfony.com/doc/2.x/filters/date.html)     | Formatte un objet DateTime en texte. Le format du paramètre correspond à celui de la fonction PHP date. |
+| [title](https://twig.symfony.com/doc/2.x/filters/title.html)   | Met la première lettre de chaque mot en majuscule, le reste en minuscule.                              |
+| [date](https://twig.symfony.com/doc/2.x/filters/date.html)     | Formate un objet DateTime en texte. Le format du paramètre correspond à celui de la fonction PHP date. |
 | [length](https://twig.symfony.com/doc/2.x/filters/length.html) | Nombre d'éléments d'un tableau, ou nombre de caractères d'une chaine.                                   |
 | [raw](https://twig.symfony.com/doc/2.x/filters/raw.html)       | Permet au code dans une variable d'être interprété.                                                     |
 
@@ -160,7 +160,7 @@ Démonstration :
 
 {# date #}
 {{ myDate|date('d-m-Y') }} {# Va afficher la date donnée avec le format "19-01-2019" #}
-{{ "now"|date('d-m-Y \\à H:i') }} {# Va afficher la date courrante avec le format "19-01-2019 à 09h40" #}
+{{ "now"|date('d-m-Y \\à H:i') }} {# Va afficher la date courante avec le format "19-01-2019 à 09h40" #}
 
 {# length #}
 {{ stringOrArray|length }}
@@ -172,7 +172,7 @@ Démonstration :
 
 ## Intégration dans Symfony
 
-Contrairement à d'autres moteurs de templates, il n'est pas possible d'écrire du code PHP à l'intérieur de fichier Twig. Par contre, il est possible d'étendre Twig pour y ajouter vos propre fonctions, tags, ou filtres.
+Contrairement à d'autres moteurs de templates, il n'est pas possible d'écrire du code PHP à l'intérieur de fichier Twig. Par contre, il est possible d'étendre Twig pour y ajouter vos propres fonctions, tags, ou filtres.
 
 C'est exactement ce que fait Symfony avec les fonctions que nous allons voir maintenant (cette intégration se fait grâce au bundle **symfony/twig-bundle**).
 
