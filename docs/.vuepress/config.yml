@@ -16,7 +16,7 @@ themeConfig:
       '/cours/',
       '/cours/installation',
       '/cours/structure',
-      # '/cours/bundle',
+      '/cours/bundle',
       '/cours/controleur-et-routing',
       '/cours/twig',
     ],

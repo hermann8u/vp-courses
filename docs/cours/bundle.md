@@ -9,21 +9,77 @@ Avant la version 4 de Symfony, il était recommandé d'organiser son code en uti
 Les bundles restent très important dans Symfony. Sur internet, on trouve une multitude de bundles nous permettant d'intégrer des fonctionnalités déjà développer.
 :::
 
-### Quelques bundles à connaître/utiliser
+Pour être fonctionnelle dans votre application, les bundles doivent être définis dans le fichier **/config/bundles.php**. Il contient une array associative avec, en clé, le namespace complet la classe du bundle pour l'initialisation, et en valeur, les environnements pour lequel/lesquels ce bundle est activé.
 
-- symfony/maker-bundle
-- symfony/webpack-encore-bundle
-- WhiteOctoberPagerFantaBundle
-- StofDoctrineExtensionsBundle
-- FosRestBundle
-- FosElasticaBundle
-- FosJsRoutingBundle
-- lexik/jwt-authentication-bundle
-- easycorp/easyadmin-bundle
-- api-platform/api-pack
-- liip/imagine-bundle
-- sensio/framework-extra-bundle
+Je vous ai préparé une liste de quelques bundles à connaître/utiliser. Vous pouvez les retrouver dans la partie [ressources/bundles](/ressources/bundles.html) de ce site.
+
+Le site [http://knpbundles.com/](http://knpbundles.com/) recense également un grand nombre de bundles. Cependant, il faut faire attention à leur compatibilité avec Symfony 4.
 
 ## Symfony 4 et Flex
 
-Symfony Flex est une nouveauté de Symfony 4.
+Symfony Flex est un plugin pour Composer qui a été introduit avec Symfony 4. Son but est d'auto-configurer les bundles et composants que vous installez dans votre projet. Pour faire ça, le bundle doit avoir **une recette**, c'est à dire des instructions sur la manière dont il doit être configuré par défaut.
+
+Les bundles et composants disposant d'une recette sont tous référencés sur le site [https://flex.symfony.com](https://flex.symfony.com). Je vous conseille de regarder d'abord sur ce site si vous êtes à la recherche d'une librairie pour répondre à une fonctionnalité dont vous avez besoin.
+
+Les principales fonctionnalités de Flex sont les suivantes :
+- Configuration automatiques des librairies
+- Définition d'alias : Il n'est plus nécessaire de taper le nom complet d'un package s'il possède un alias, par exemple **composer req admin** à la place de **composer require easycorp/easyadmin-bundle**
+- Plus besoin non plus de taper *symfony* pour installer un package de Symfony (**composer req serializer**)
+- Le fichier **/config/bundles.php** se remplit automatiquement à l'installation d'un bundle, même si celui-ci n'a pas de recette.
+
+### Nettoyage du projet
+
+Je vous ai précisé dans le chapitre d'installation qu'il y avait deux façons de commencer un projet Symfony :
+- **symfony/website-skeleton** : C'est la méthode que nous avons utilisée. Notre projet est initialisé avec beaucoup de dépendances.
+- **symfony/skeleton** : Le projet est initialisé avec le minimum de dépendances. Il faut ensuite les installer une à une, ou au fur et à mesure que le projet grossit.
+
+Puisque nous avons choisi la première solution, nous allons nous servir de Flex, non pas pour configurer, mais pour dé-configurer les dépendances dont nous nous ne servirons pas.
+
+::: danger
+Sans doutes dû à un bug, le fichier **/config/bootstrap.php** va être supprimé lors des étapes suivantes. Faites-en une copie pour pouvoir le recréer plus tard.
+:::
+
+#### Unpack le pack
+
+Pour faciliter l'installation avec Flex, certaines dépendances ont été groupées par pack. Nous avons besoin de supprimer une seule dépendances du pack **symfony/orm-pack**, donc on va commencer par le dépacker pour faire apparaître les dépendances explicitement.
+
+``` sh
+composer unpack orm
+```
+
+#### Suppression des packages
+
+La suppression des packages se fait en une étape en utilisant la commande Composer **remove** :
+``` sh
+composer rem test-pack web-server-bundle web-link process serializer-pack security-bundle expression-language translation doctrine/doctrine-migrations-bundle
+```
+
+Vous pouvez maintenant remettre votre fichier **/config/bootstrap.php** et vider le cache.
+
+#### Comparaison
+
+Et voilà, notre projet est déjà un peu plus léger ! Regardons ce qui a changé :
+
+##### Le dossier /config/packages
+
+![config packages](/img/flex/config.png)
+
+Trois fichiers de configuration ont disparu : translation, security et doctrine-migrations
+
+##### composer.json
+
+![Le fichier composer.json](/img/flex/composer-json.png)
+
+C'est le fichier qui a le plus changer, même si il reste encore pas mal de dépendances !
+
+##### vendor
+
+![Le dossier vendor](/img/flex/vendor.png)
+
+Il faudrait regarder les sous-dossier ici pour voir une réelle différence, mais quand même trois dossier ont disparus.
+
+##### Bundles
+
+![Les bundles](/img/flex/bundles.png)
+
+Là aussi, trois bundles de moins. Toujours ça de moins à instancier : SecurityBundle, WebServerBundle et DoctrineMigrationsBundle
