@@ -1,6 +1,8 @@
-lang: 'fr-FR'
-title: 'Symfony - LP WMCE Metz'
-description: 'Ou comment devenir un ninja du web'
+locales:
+  '/':
+    lang: 'fr-FR'
+    title: 'Symfony - LP WMCE Metz'
+    description: 'Ou comment devenir un ninja du web'
 markdown:
   lineNumbers: true
 themeConfig:
