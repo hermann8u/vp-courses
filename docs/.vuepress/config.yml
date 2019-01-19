@@ -33,7 +33,8 @@ themeConfig:
     /ressources/: [
       '/ressources/conventions',
       '/ressources/commandes',
-      '/ressources/bundles'
+      '/ressources/bundles',
+      '/ressources/sources'
     ]
   }
   
