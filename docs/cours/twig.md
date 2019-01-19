@@ -16,6 +16,8 @@ Il y a 2 options par défaut pour les templates lorsque l'on utilise Symfony : *
 
 - **Twig est extensible** : Twig propose de base un certain nombre de fonctionnalités récurrentes que vous êtes en droit d'attendre d'un moteur de template, mais pour les situations où vous pourriez avoir des besoins spécifiques, il est facile d'étendre Twig.
 
+En somme, Twig a un objectif : Se rapprocher du langage naturel pour être compris par les intégrateurs et graphistes amenés à travailler sur le projet.
+
 Les templates Twig peuvent et doivent être utilisés partout dans Symfony, même dans la conception des emails.
 
 Le contrôleur peut renvoyer vers une vue, mais également en récupérer son contenu sans pour autant l'afficher directement, afin de l'envoyer par email par exemple :
@@ -42,6 +44,10 @@ Twig définit deux types de syntaxe spéciale :
 - **{{ ... }}** : C'est l'instruction **d'affichage**. Elle permet d'afficher le contenu d'une variable. C'est donc l'équivalent de **echo** en PHP.
 - **{% ... %}** : C'est la syntaxe des **tags**. Ils sont utilisés pour exécuter des instructions spéciales comme la boucle **for** ou la condition **if** par exemple.
 - **{# ... #}** : C'est la syntaxe utilisée pour les **commentaires**. Il est préférable d'utiliser les commentaires de Twig à la place de ceux fournit par HTML afin qu'ils n'apparaissent pas dans le code de la page renvoyée au client.
+:::
+
+::: tip
+Avec Twig, on utilise le snake_case dans nos fichiers, mais également pour les nommés (sauf pour les méthodes provenant de nos objets).
 :::
 
 ### Comparaison entre PHP et Twig
@@ -178,7 +184,7 @@ C'est exactement ce que fait Symfony avec les fonctions que nous allons voir mai
 
 ### Génération de lien
 
-Enfin, nous allons voir comment il est possible de créer des liens avec Twig. Il serait en effet fort déplaisant d’avoir des liens écrit manuellement alors que nous avons mis en place des règles de routage censées nous simplifier la vie.
+Enfin, nous allons voir comment il est possible de créer des liens avec Twig. Il serait en effet fort déplaisant d'avoir des liens écrit manuellement alors que nous avons mis en place des règles de routage censées nous simplifier la vie.
 
 C'est la fonction **path** qui sera utilisé pour ça.
 
@@ -210,15 +216,15 @@ Le principal objectif de la fonction **asset** est de rendre votre application p
 
 Bien souvent, les templates d'un projet partagent des éléments communs, comme les entêtes, pieds de page et menus latéraux. Dans Symfony, nous abordons ce problème différemment : un template peut être décoré par un autre. Cela fonctionne exactement comme les classes PHP : l'héritage de template vous permet de bâtir un template « layout » de base qui contient tous les éléments communs de votre site et de définir des blocs (comprenez « classe PHP avec des méthodes de base »). Un template enfant peut étendre le template layout et surcharger n'importe lequel de ses blocs (comprenez « une sous-classe PHP qui surcharge certaines méthodes de sa classe parente »).
 
-Le modèle le plus couramment utilisé est l’héritage à trois niveaux. Ce dernier est composé d’un layout principal pour votre application, un template correspondant au layout de chacune de vos sections et héritant du layout principal. Puis enfin, un template pour chaque page héritant lui même du layout de la section de laquelle il dépend.
+Le modèle le plus couramment utilisé est l'héritage à trois niveaux. Ce dernier est composé d'un layout principal pour votre application, un template correspondant au layout de chacune de vos sections et héritant du layout principal. Puis enfin, un template pour chaque page héritant lui même du layout de la section de laquelle il dépend.
 
-Une notion à connaître et qui joue un rôle important dans notre héritage, est la notion de **block**. En effet, vos layouts vont en être composés et cela s’avère vraiment très pratique. Il faut voir un **block** comme un espace dans votre template qu’il va falloir compléter. Ce dernier peut par défaut être composé d’éléments au niveau de votre layout général mais est susceptible d’être complété par la suite par vos templates **enfants**.
+Une notion à connaître et qui joue un rôle important dans notre héritage, est la notion de **block**. En effet, vos layouts vont en être composés et cela s'avère vraiment très pratique. Il faut voir un **block** comme un espace dans votre template qu'il va falloir compléter. Ce dernier peut par défaut être composé d'éléments au niveau de votre layout général mais est susceptible d'être complété par la suite par vos templates **enfants**.
 
-Prenons un exemple concret afin d’y voir un peu plus clair. Admettons que nous souhaitions intégrer la structure de page suivante qui reste assez simple :
+Prenons un exemple concret afin d'y voir un peu plus clair. Admettons que nous souhaitions intégrer la structure de page suivante qui reste assez simple :
 
 ![Heritage sur 3 niveau](/img/twig-heritage.png)
 
-Cela correspond bien à un système d’héritage à trois niveaux dans lequel nous avons :
+Cela correspond bien à un système d'héritage à trois niveaux dans lequel nous avons :
 
 - Le layout général **templates/base.html.twig**. Ce layout est commun sur toute l'application.
 - Le layout de second niveau **templates/layout.html.twig** héritant du layout général. Il peut y en avoir par exemple un pour le front et un pour le back.
@@ -324,7 +330,7 @@ Ce qui va générer le html suivant:
 </html>
 ```
 
-Ça peut paraître compliqué au début mais vous verrez qu’une fois adopté, vous ne pourrez plus vous en passer !
+Ça peut paraître compliqué au début mais vous verrez qu'une fois adopté, vous ne pourrez plus vous en passer !
 
 
 ## A vous de jouer

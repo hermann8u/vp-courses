@@ -3,6 +3,9 @@ locales:
     lang: 'fr-FR'
     title: 'Symfony - LP WMCE Metz'
     description: 'Ou comment devenir un ninja du web'
+head: [
+  ["meta", { name: "robots", content: "noindex, nofollow" }]
+]
 markdown:
   lineNumbers: true
 themeConfig:
@@ -21,6 +24,7 @@ themeConfig:
       '/cours/bundle',
       '/cours/controleur-et-routing',
       '/cours/twig',
+      '/cours/formulaire',
     ],
     /projets/: [
       '/projets/',
