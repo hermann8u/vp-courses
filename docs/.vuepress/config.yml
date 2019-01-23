@@ -25,6 +25,7 @@ themeConfig:
       '/cours/controleur-et-routing',
       '/cours/twig',
       '/cours/formulaire',
+      '/cours/service',
     ],
     /projets/: [
       '/projets/',
