@@ -22,6 +22,8 @@ Toutes ces commandes s'exécutent par défaut pour l'environnement défini par l
 ## Debug
 - **php bin/console debug:router** : Permet d'afficher toutes les routes de notre application avec leur nom, leur méthode HTTP et leur path
 - **php bin/console debug:autowiring** : Listes les classes et interfaces à utiliser pour l'autowiring.
+- **php bin/console debug:container** : Listes tous les services disponibles dans l'application.
 
 ## Maker
 - **php bin/console make:controller** : Génère un contrôleur vide avec le nom donné
+- **php bin/console make:entity** : Génère ou modifie une Entity Doctrine, ses propriétés et son Repository

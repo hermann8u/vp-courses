@@ -26,6 +26,7 @@ themeConfig:
       '/cours/twig',
       '/cours/formulaire',
       '/cours/service',
+      '/cours/entities',
     ],
     /projets/: [
       '/projets/',

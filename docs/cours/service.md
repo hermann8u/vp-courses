@@ -92,7 +92,9 @@ class MessageSender
 
     public function send()
     {
-        $message = $this->messageGenerator->getHappyMessage();
+        $content = $this->messageGenerator->getHappyMessage();
+
+        // ... Message generation
 
         $this->mailer->send($message);
     }
@@ -107,6 +109,12 @@ Afin de lister tous les services que vous pouvez injecter avec l'autowiring, vou
 
 ``` sh
 php bin/console debug:autowiring
+```
+
+Certains services sont également utilisé par Symfony pour réaliser des tâches internes au framework. Ils ne sont pas forcement disponible pour l'autowiring car vous n'avez pas besoin de les utiliser. Il existe quand même une commande pour lister tous les services de l'application.
+
+``` sh
+php bin/console debug:container
 ```
 
 ::: warning
@@ -180,16 +188,42 @@ L'objet $message supporte beaucoup plus d'options, comme inclure des pièces joi
 
 A noter qu'en plus d'indiquer des adresses "to" via "setTo", vous pouvez ajouter des destinataires en copie ou copie cachée via "cc".
 
-### Travailler les emails en développement
+### Les emails en développement
+
+Lorsque vous développez une application qui envoie des emails, vous voudrez souvent que cette dernière n'en envoie pas au destinataire spécifié pendant le développement. Vous pouvez facilement réaliser cela à travers les paramètres de configuration sans avoir à faire de quelconques changements dans votre code.
+
+Vous pouvez désactiver l'envoi d'emails en définissant l'option **disable_delivery** à **true**. Comme nous l'avons déjà vu, le dossier **/config/dev/** permet de surcharger la configuration uniquement pour l'environnement de développement, donc si vous faites cela dans le fichier **/config/dev/swiftmailer.yaml**, alors cette configuration sera activée seulement pour le développement.
+
+``` yaml {3}
+swiftmailer:
+    # send all emails to a specific address
+    delivery_addresses: ['youremail@example.com']
+
+```
 
 ### Analyser ses envoies
 
+Vous pouvez voir tous les emails envoyés durant une unique réponse lorsque vous êtes dans l'environnement dev via la barre de debug. L'icône d'email dans la barre d'outils montrera combien d'emails ont été envoyés. Si vous cliquez dessus, un rapport s'ouvrira montrant les détails des emails envoyés.
+
+Si vous envoyez un email et puis redirigez immédiatement vers une autre page, la barre d'outils de debug n'affichera pas d'icône d'email ni de rapport sur la page d'après.
+
+Il est possible d'intercepter cette redirection grâce à une configuration du web-profiler-bundle. Encore une fois, nous allons activé cette option uniquement pour le développement, dans le fichier **/config/dev/web_profiler.yaml**.
+
+``` yaml {3}
+web_profiler:
+    toolbar: true
+    intercept_redirects: true
+```
+
 ## A vous de jouer
 
-1. Configurez Swiftmailer afin de pouvoir envoyer des emails depuis votre projet.
-2. Intégrez un envoi d’email simple (sans utiliser de template et en indiquant dans l’email "Bonjour, ceci est mon premier email !") au niveau de la validation du formulaire de contact et testez le résultat depuis la barre de débogage. Vous aurez donc besoin d'injecter le service de mailer.
-3. Améliorez le rendu de votre email en utilisant un template HTML de mail.
-4. Intégrez les informations récupérées par le formulaire de contact dans l’email envoyé à l’administrateur.
+Améliorons à présent notre formulaire de contact afin d’alerter l’administrateur lorsqu’une nouvelle demande est envoyée.
+
+1. Configurez **Swiftmailer** afin de pouvoir envoyer des emails depuis votre projet.
+2. Injectez le service **\Swift_Mailer** dans votre contrôleur depuis le constructeur. Vérifiez ensuite que ça fonctionne avec la function de debug **dd()**.
+3. Intégrez un envoi d’email simple (sans utiliser de template et en indiquant dans l’email "Bonjour, ceci est mon premier email !") au niveau de la validation du formulaire de contact et testez le résultat depuis la barre de debug.
+4. Améliorez le rendu de votre email en utilisant un template **Twig**.
+5. Intégrez les informations récupérées par le formulaire de contact dans l’email envoyé à l’administrateur.
 
 ## Pour aller plus loin
 
