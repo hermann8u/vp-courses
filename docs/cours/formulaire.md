@@ -95,7 +95,7 @@ Il ne s'agit que d'un rapide exemple des types de champs disponibles, mais [de n
 
 Nous disposons à présent de toute la matière nécessaire permettant de générer notre formulaire depuis le contrôleur.
 
-Rendons-nous dans notre contrôleur **CmsController** et procédons à la construction du formulaire depuis l’action associée à notre page de contact :
+Rendons-nous dans notre contrôleur **CmsController** et procédons à la construction du formulaire depuis l'action associée à notre page de contact :
 
 ``` php
 ...
@@ -127,17 +127,17 @@ public function contact(Request $request)
 }
 ```
 
-Nous commençons par créer une instance de l’entité **Contact**. Cette entité représente les données d’un message sur la page de contact. Nous créons ensuite le formulaire correspondant en spécifiant le type **ContactType** créé précédemment, et passons en paramètres notre objet entité **$contact**. La méthode createForm est capable d’utiliser ces 2 patrons pour créer la représentation d’un formulaire.
+Nous commençons par créer une instance de l'entité **Contact**. Cette entité représente les données d'un message sur la page de contact. Nous créons ensuite le formulaire correspondant en spécifiant le type **ContactType** créé précédemment, et passons en paramètres notre objet entité **$contact**. La méthode createForm est capable d'utiliser ces 2 patrons pour créer la représentation d'un formulaire.
 
-Comme cette action du contrôleur va maintenant s’occuper d’afficher et traiter le formulaire qui lui est soumis, nous devons faire attention à la méthode HTTP utilisée. Les formulaires soumis sont généralement envoyés via la méthode POST, et notre formulaire n’y fera pas exception. Si la requête est de type POST, un appel à la méthode **handleRequest** va transformer les données soumises pour les associer à notre objet **$contact**. A ce moment-là, l’objet **$contact** contiendra une représentation de ce que l’utilisateur aura envoyé.
+Comme cette action du contrôleur va maintenant s'occuper d'afficher et traiter le formulaire qui lui est soumis, nous devons faire attention à la méthode HTTP utilisée. Les formulaires soumis sont généralement envoyés via la méthode POST, et notre formulaire n'y fera pas exception. Si la requête est de type POST, un appel à la méthode **handleRequest** va transformer les données soumises pour les associer à notre objet **$contact**. A ce moment-là, l'objet **$contact** contiendra une représentation de ce que l'utilisateur aura envoyé.
 
-Nous vérifions ensuite que le formulaire est valide. Comme nous n’avons pas précisé de validateurs pour le moment, le formulaire sera toujours valide.
+Nous vérifions ensuite que le formulaire est valide. Comme nous n'avons pas précisé de validateurs pour le moment, le formulaire sera toujours valide.
 
-Enfin, nous précisons le template à utiliser pour l’affichage. Notez que nous passons également à la vue une représentation du formulaire à afficher, ce qui nous permet d’effectuer l’affichage adéquat dans la vue.
+Enfin, nous précisons le template à utiliser pour l'affichage. Notez que nous passons également à la vue une représentation du formulaire à afficher, ce qui nous permet d'effectuer l'affichage adéquat dans la vue.
 
 ## Affichage du formulaire
 
-Grâce à Twig, l’affichage de formulaire est très simple. Le composant, en combinaison avec Twig, propose en effet un système par couches pour l’affichage de formulaire qui permet soit d’afficher un formulaire comme une unique entité, soit comme des éléments individuels, selon le besoin de personnalisation nécessaire.
+Grâce à Twig, l'affichage de formulaire est très simple. Le composant, en combinaison avec Twig, propose en effet un système par couches pour l'affichage de formulaire qui permet soit d'afficher un formulaire comme une unique entité, soit comme des éléments individuels, selon le besoin de personnalisation nécessaire.
 
 Afin de démontrer la puissance des méthodes de Twig fournit, nous allons utiliser le bout de code suivant pour afficher le formulaire entier :
 
@@ -148,7 +148,7 @@ Afin de démontrer la puissance des méthodes de Twig fournit, nous allons utili
 {{ form_end(form) }}
 ```
 
-Bien que cette méthode soit utile et très simple durant la phase de prototypage, cela s’avère limité lorsque le besoin de personnalisation est important, ce qui est souvent le cas avec les formulaires.
+Bien que cette méthode soit utile et très simple durant la phase de prototypage, cela s'avère limité lorsque le besoin de personnalisation est important, ce qui est souvent le cas avec les formulaires.
 
 Voici comment améliorer le rendu :
 
@@ -218,7 +218,7 @@ Rechargez votre page, et voilà ! En un clin d'oeil, nous sommes protégés cont
 
 ## Validation du formulaire
 
-Le composant **validator** de Symfony permet de valider les données. La validation est une tâche courante lorsqu’il est question de valider les données de formulaire. Cette tâche doit être réalisée avant que les données ne soient envoyées vers une base de données. Les validateurs du framework nous permettent de séparer notre logique de validation des composants qui pourraient s’en servir, tels que les composants de formulaire ou de base de données. Cette approche signifie que nous allons avoir un jeu de règles de validation par objet.
+Le composant **validator** de Symfony permet de valider les données. La validation est une tâche courante lorsqu'il est question de valider les données de formulaire. Cette tâche doit être réalisée avant que les données ne soient envoyées vers une base de données. Les validateurs du framework nous permettent de séparer notre logique de validation des composants qui pourraient s'en servir, tels que les composants de formulaire ou de base de données. Cette approche signifie que nous allons avoir un jeu de règles de validation par objet.
 
 Commençons avant tout par mettre à jour notre objet **Contact** dans **src/Entity/Contact.php** pour spécifier quelques validateurs.
 
@@ -258,29 +258,29 @@ class Contact
     private $message;
 ```
 
-Afin de définir les validateurs, nous devons mettre en place des annotations sur les propriétés de notre classe. Nous pouvons utiliser ces dernières pour définir des contraintes par l’intermédiaire de ce qu'on appelle des **Asserts**.
+Afin de définir les validateurs, nous devons mettre en place des annotations sur les propriétés de notre classe. Nous pouvons utiliser ces dernières pour définir des contraintes par l'intermédiaire de ce qu'on appelle des **Asserts**.
 
-La première ligne applique la contrainte **NotBlank** à la propriété **name**. Les validateurs sont aussi simples qu’ils y paraissent, celui-ci se contente de renvoyer vrai si la valeur à valider n’est pas vide. Nous mettons ensuite en place la validation pour le champ email. Le système de validation nous fournit en effet une règle de validation pour ce type de champ. Pour l’attribut message, nous voulons à la fois nous assurer que le champ n’est pas vide et qu’il soit composé au minimum de 25 caractères, ce qui est fait avec les contraintes **NotBlank** et **Length**.
+La première ligne applique la contrainte **NotBlank** à la propriété **name**. Les validateurs sont aussi simples qu'ils y paraissent, celui-ci se contente de renvoyer vrai si la valeur à valider n'est pas vide. Nous mettons ensuite en place la validation pour le champ email. Le système de validation nous fournit en effet une règle de validation pour ce type de champ. Pour l'attribut message, nous voulons à la fois nous assurer que le champ n'est pas vide et qu'il soit composé au minimum de 25 caractères, ce qui est fait avec les contraintes **NotBlank** et **Length**.
 
 Une liste complète des contraintes de validation est disponible dans la [documentation du composant](https://symfony.com/doc/current/validation.html#constraints).
 
 Il est également possible de créer des **règles de validation personnalisées**.
 
-Vous pouvez maintenant soumettre le formulaire de contact, et les données soumises passent dans les contraintes de validation. Essayez de mettre une adresse email invalide. Vous devriez voir un message d’erreur qui vous informe que l’adresse n’est pas valide. Chaque validateur propose un message par défaut qui peut être remplacé si nécessaire.
+Vous pouvez maintenant soumettre le formulaire de contact, et les données soumises passent dans les contraintes de validation. Essayez de mettre une adresse email invalide. Vous devriez voir un message d'erreur qui vous informe que l'adresse n'est pas valide. Chaque validateur propose un message par défaut qui peut être remplacé si nécessaire.
 
 ::: tip
 Si nous n'avions pas supprimé le composant **translation**, nous n'aurions pas été obligé de préciser les messages d'erreurs. Ils auraient été donnés en fonction de la locale configurée dans la bonne langue. Dommage !
 :::
 
 ::: danger
-Il est nécessaire de toujours mettre en place cette validation ! En effet, vous l’aurez peut-être constaté, sans celle-ci une validation est proposée en HTML5, celle-ci est très pratique mais n’est appliquée que côté client. Donc si votre visiteur arrive à contourner ces règles il pourra sans problème soumettre les valeurs qu’il souhaite, sauf si vous avez mis en place une validation effectuant un contrôle côté serveur également.
+Il est nécessaire de toujours mettre en place cette validation ! En effet, vous l'aurez peut-être constaté, sans celle-ci une validation est proposée en HTML5, celle-ci est très pratique mais n'est appliquée que côté client. Donc si votre visiteur arrive à contourner ces règles il pourra sans problème soumettre les valeurs qu'il souhaite, sauf si vous avez mis en place une validation effectuant un contrôle côté serveur également.
 :::
 
 ## Les messages flash
 
-Nous disposons d’un formulaire qui, certes ne fait pas grand chose pour l’instant, mais une fois ce dernier validé il n’y a aucun message de confirmation indiquant au visiteur que ce dernier a bien été envoyé. Nous allons donc voir comment créer des **messages flash** permettant l’affichage de petits messages de confirmation. Ces messages passent par la session.
+Nous disposons d'un formulaire qui, certes ne fait pas grand chose pour l'instant, mais une fois ce dernier validé il n'y a aucun message de confirmation indiquant au visiteur que ce dernier a bien été envoyé. Nous allons donc voir comment créer des **messages flash** permettant l'affichage de petits messages de confirmation. Ces messages passent par la session.
 
-Ajoutons dans le contrôleur, à l’endroit où le formulaire est considéré comme valide, un nouveau message flash :
+Ajoutons dans le contrôleur, à l'endroit où le formulaire est considéré comme valide, un nouveau message flash :
 
 ``` php
 if ($form->isSubmitted() && $form->isValid()) {
@@ -314,14 +314,14 @@ Ou encore, si comme moi, vous voulez utiliser les noms de classes Bootstrap comm
 {% endfor %}
 ```
 
-Le message flash ne s’affichera donc que lorsque ce dernier aura été inscrit en session par vos soins depuis le contrôleur. Cette session ne sera néanmoins valable que pour le premier affichage de vos messages. Si vous actualisez, ils disparaîtront.
+Le message flash ne s'affichera donc que lorsque ce dernier aura été inscrit en session par vos soins depuis le contrôleur. Cette session ne sera néanmoins valable que pour le premier affichage de vos messages. Si vous actualisez, ils disparaîtront.
 
 ## A vous de jouer
 
 1. Créer la classe **App\Entity\Contact** représentant une demande de contact. Vous nommerez les informations liées à une demande de contact de la manière suivante : firstName, lastName, email, message.
 2. Créer la classe **App\Form\ContactType** lié à votre nouvelle classe.
 3. Modifier la afin de typer les champs du formulaire en fonction des besoins.
-4. Compléter l’action liée à la page de contact au sein du contrôleur approprié afin d’y construire votre formulaire.
+4. Compléter l'action liée à la page de contact au sein du contrôleur approprié afin d'y construire votre formulaire.
 5. Afficher le formulaire dans le template associé à la page de contact.
-6. Mettre à jour votre classe Contact en y intégrant une validation à l’aide des annotations.
-7. Mettre en place un message de confirmation s’affichant une fois le formulaire validé.
+6. Mettre à jour votre classe Contact en y intégrant une validation à l'aide des annotations.
+7. Mettre en place un message de confirmation s'affichant une fois le formulaire validé.
