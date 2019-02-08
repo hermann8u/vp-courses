@@ -1,6 +1,6 @@
 # Les services
 
-## Découverte
+## Introduction
 Notre application est remplie d'objets utiles. Par exemple, dans le chapitre précédent, nous avons utilisé le FlashBag afin de gérer les messages flash. Ce n'est qu'un exemple de ce que l'on appelle **service** dans Symfony.
 
 Vous l'aurez compris, les services sont omniprésent à travers le framework. Ils sont chacun responsable de tâches bien spécifiques. Parmi les services que nous avons déjà utilisés sans que vous vous en aperceviez, nous pouvons citer :
@@ -13,7 +13,7 @@ Ces services sont un peu particuliers car ils sont mis à disposition de manièr
 
 En fait, tous les services "vivent" dans un objet particulier appelé **Container**. Il centralise la façon dont les services sont créés, ne gérant qu'une seule instance pour chacun d'entre eux, ce qui limite l'impact sur la mémoire.
 
-### Créer un service
+## Créer un service
 
 Par définition, un **service** est une classe qui nous rend ... service ! Là où ils sont intéressants, c'est qu'ils nous permettent de segmenter notre code en briques réutilisables plus petites.
 
@@ -45,7 +45,7 @@ class MessageGenerator
 
 Finalement, c'est une classe toute simple ! Il ne nous reste plus qu'à l'utiliser.
 
-### Utiliser un service
+## Utiliser un service
 
 Pour utiliser un service, il faut utiliser l'**autowiring**. Ce mécanisme permet d'injecter les dépendances simplement en utilisant le type de l'objet le représentant. En exemple vaut mieux que des explications :
 
@@ -121,7 +121,7 @@ php bin/console debug:container
 Depuis Symfony 4, les services sont privés par défaut (à part quelques exceptions), ce qui signifie qu'il n'est pas possible de les obtenir directement depuis le **Container**, mais qu'il faut utiliser le système d'**autowiring** pour les utiliser.
 :::
 
-### Configuration
+## Configuration
 
 Avant l'arrivée de l'autowiring dans Symfony, il fallait également configurer chacun de nos services manuellement. Heureusement ce n'est plus le cas, car un mécanisme d'auto-configuration existe aussi. Pour nous en rendre compte, regardons en détail le fichier **/config/services.yaml** :
 
@@ -150,13 +150,13 @@ Comme vous pouvez le voir sous la clé **services => _defaults**, on active l'au
 Comme le commentaire en fin de fichier le précise, il peut arriver que vous deviez configurer quelques services manuellement. Nous ne rentrerons pas dans les détails dans ce cours, mais sachez que c'est ici que ça doit se faire.
 :::
 
-### Les paramètres
+## Les paramètres
 
 Nous allons profiter d'être dans le fichier **/config/services.yaml** pour parler des paramètres de l'application.
 
-#### Utilité et définition
+### Utilité et définition
 
-Nous avons déjà vu que les paramètres sensibles et ceux dépendant de la machine se gèrent dans les fichiers **/.env\***, mais il peut être intéressant de disposer d'autre paramètre en rapport direct avec notre projet. Par exemple, la langue par défaut de notre site, ou l'adresse email de réception pour notre formulaire de contact.
+Nous avons déjà vu que les paramètres sensibles et ceux dépendant de la machine se gèrent dans les fichiers **/.env\***, mais il peut être intéressant de disposer d'autres paramètres en rapport direct avec notre projet. Par exemple, la langue par défaut de notre site, ou l'adresse email de réception pour notre formulaire de contact.
 
 Au lieu de définir en dure et à plusieurs endroits ces paramètres, nous pouvons les définir dans ce fichier sous la clé **parameters** :
 
@@ -166,7 +166,7 @@ parameters:
     email_address.contact: 'contact@shoefony.com'
 ```
 
-#### Utilisation dans la configuration
+### Utilisation dans la configuration
 
 Maintenant qu'ils sont définis, on peut les utiliser dans toutes la configuration. Nous allons modifier la locale par défaut de notre site dans le fichier **/config/packages/framework.yaml** :
 
@@ -188,7 +188,7 @@ twig:
 Dans cet exemple, nous utilisons un paramètre fournit par Symfony qui contient le chemin complet vers la racine de notre projet. C'est très souvent utilisé pour obtenir le chemin complet vers un fichier, ou ici un dossier, en concaténant.
 :::
 
-#### Utilisation dans un service
+### Utilisation dans un service
 
 Les paramètres peuvent aussi s'injecter en dépendances de services avec l'autowiring ! Mais pour que ça fonctionne, il faut faire un peu de configuration :
 
@@ -234,7 +234,7 @@ Swiftmailer est donc une librairie d'envoie d'email pour PHP développer par Fab
 
 Afin de l'utiliser, il faut commencer par le configurer, mais Symfony Flex a déjà fait une bonne partie du travail pour nous. Voici les étapes étapes qu'il nous reste à faire :
 1. Comme nous ne l'avons pas encore fait, il faut dupliquer le fichier **/.env** en **/.env.local** afin d'y ajouter vos données sensibles.
-2. Dans le fichier **/.env.local**, modifier le paramètre **MAILER_URL** en *gmail://youraddressemail@gmail.com:yourSuperPwd@localhost* (si vous avez une adresse Gmail).
+2. Dans le fichier **/.env.local**, modifier le paramètre **MAILER_URL** en *gmail://username:password@localhost* (si vous avez une adresse Gmail).
 
 ::: warning
 L'envoie de mail en locale est toujours quelque chose qui reste bancale. C'est possible que, même si votre configuration est bonne, rien ne se passe.

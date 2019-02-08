@@ -6,7 +6,7 @@ sidebarDepth: 0
 
 Lorsque l'on travaille en équipe, il est toujours agréable de trouver du code bien formatté dès qu'on ouvre un projet. D'ailleurs, il n'est pas rare que des collègues partagent entre eux des conventions.
 
-Il existe des [conventions de codages](https://symfony.com/doc/current/contributing/code/standards.html) pour les développeurs Symfony. Je ne vous demande pas de toutes les suivre, mais il est important d'en avoir quelques-unes tout de même (d'autant plus quelles compteront dans la note du projet final) !
+Il existe des [conventions de codages](https://symfony.com/doc/current/contributing/code/standards.html) pour les développeurs Symfony. Je ne vous demande pas de toutes les suivre, mais il est important d'en avoir quelques-unes tout de même (d'autant plus qu'elles compteront dans la note du projet final) !
 
 ## Les classes et fonctions
  Les classes et fonctions doivent toutes avoir leur accolade ouvrante à la ligne :

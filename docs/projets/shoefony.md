@@ -68,4 +68,4 @@ La page de contact permet simplement, à l'aide d'un formulaire, d'envoyer un me
 
 ## Templates
 
-[Télécharger les templates](/shoefony-template.zip)
+[Télécharger les templates](/projects/shoefony-template.zip)

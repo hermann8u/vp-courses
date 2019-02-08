@@ -27,3 +27,8 @@ Toutes ces commandes s'exécutent par défaut pour l'environnement défini par l
 ## Maker
 - **php bin/console make:controller** : Génère un contrôleur vide avec le nom donné
 - **php bin/console make:entity** : Génère ou modifie une Entity Doctrine, ses propriétés et son Repository
+
+## Doctrine
+- **php bin/console doctrine:database:create** : Créer la base de données à partir des paramètres définis
+- **php bin/console doctrine:schema:update --dump-sql** : Affiche toutes les requêtes SQL nécessaire pour que la base de données correspondent à la définition de nos entités.
+- **php bin/console doctrine:schema:update --force** : Execute les requêtes SQL pour mettre à jour notre base de données par rapport à la définition de nos entités.

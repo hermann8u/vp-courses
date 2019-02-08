@@ -27,6 +27,8 @@ themeConfig:
       '/cours/formulaire',
       '/cours/service',
       '/cours/entities',
+      '/cours/relations',
+      '/cours/repositories',
     ],
     /projets/: [
       '/projets/',
