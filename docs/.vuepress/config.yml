@@ -29,7 +29,8 @@ themeConfig:
       '/cours/entities',
       '/cours/relations',
       '/cours/repositories',
-      '/cours/mise-en-ligne'
+      '/cours/mise-en-ligne',
+      '/cours/plus-loin'
     ],
     /projets/: [
       '/projets/',
