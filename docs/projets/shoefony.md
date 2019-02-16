@@ -66,6 +66,6 @@ La page de contact permet simplement, à l'aide d'un formulaire, d'envoyer un me
 
 ![Shoefony contact](/img/shoefony/contact.png)
 
-## Templates
+## Ressources
 
 [Télécharger les templates](/projects/shoefony-template.zip)

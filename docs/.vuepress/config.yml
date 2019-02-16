@@ -29,10 +29,12 @@ themeConfig:
       '/cours/entities',
       '/cours/relations',
       '/cours/repositories',
+      '/cours/mise-en-ligne'
     ],
     /projets/: [
       '/projets/',
       '/projets/shoefony',
+      '/projets/procom'
     ],
     /ressources/: [
       '/ressources/conventions',

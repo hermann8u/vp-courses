@@ -27,6 +27,7 @@ Toutes ces commandes s'exécutent par défaut pour l'environnement défini par l
 ## Maker
 - **php bin/console make:controller** : Génère un contrôleur vide avec le nom donné
 - **php bin/console make:entity** : Génère ou modifie une Entity Doctrine, ses propriétés et son Repository
+- **php bin/console make:form** : Génère un formulaire en se basant (ou non) sur une entité Doctrine
 
 ## Doctrine
 - **php bin/console doctrine:database:create** : Créer la base de données à partir des paramètres définis

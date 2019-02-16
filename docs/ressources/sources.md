@@ -12,3 +12,5 @@ Au fûr et mesure, je vous mettrai à disposition le corrigé pour chaque chapit
 - [Formulaires](/sources/shoefony-form.zip)
 - [Les services](/sources/shoefony-service.zip)
 - [Les entités Doctrine](/sources/shoefony-entities.zip)
+- [Relations entre entités](/sources/shoefony-relations.zip)
+- [Les repositories](/sources/shoefony-repositories.zip)
