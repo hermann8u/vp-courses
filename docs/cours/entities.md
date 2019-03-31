@@ -31,7 +31,7 @@ Nous avions déjà créer une entité dans le chapitre sur les formulaires, **Ap
 
 Pour générer nos entités, nous n'allons pas le faire manuellement, mais nous servir de la commande mis à disposition par le **maker-bundle** :
 
-``` sh
+``` bash
 php bin/console make:entity Store\Product
 ```
 
@@ -100,13 +100,13 @@ Et ensuite, encore des commandes ! Cette fois-ci, on ne va pas utiliser une comm
 
 D'abord, si vous ne l'avez pas déjà fait, il faut créer la base de données. Pour cela, il suffit d'exécuter la commande (vous n'avez à le faire qu'une seule fois évidemment) :
 
-``` sh
+``` bash
 php bin/console doctrine:database:create
 ```
 
 On peut ensuite y modifier nos tables avec la commande :
 
-``` sh
+``` bash
 php bin/console doctrine:schema:update --dump-sql
 ```
 
@@ -114,7 +114,7 @@ Cette dernière commande est vraiment performante. Elle va comparer l'état actu
 
 Pour l'instant, rien n'a été fait en base de données, Doctrine nous a seulement affiché la ou les requêtes qu'il s'apprête à exécuter. Pensez à toujours valider rapidement ces requêtes, pour être sûrs de ne pas avoir fait d'erreur dans le mapping des entités. Mais maintenant, il est temps de passer aux choses sérieuses, et d'exécuter concrètement cette requête ! Lancez la commande suivante :
 
-``` sh
+``` bash
 php bin/console doctrine:schema:update --force
 ```
 
@@ -270,13 +270,13 @@ Les **fixtures** sont utilisées pour charger un ensemble de données dans une b
 
 La mise en place de fixtures nécessite l'utilisation d'un bundle :
 
-``` sh
+``` bash
 composer require --dev doctrine/doctrine-fixtures-bundle
 ```
 
 ou en version courte grâce à Flex:
 
-``` sh
+``` bash
 composer req --dev orm-fixtures
 ```
 
@@ -328,7 +328,7 @@ Vous pouvez écrire n'importe quoi pour générer vos fixtures donc si vous voul
 
 Il ne reste plus qu'à charger les fixtures en exécutant la commande suivante :
 
-``` sh
+``` bash
 $ php bin/console doctrine:fixtures:load
 ```
 

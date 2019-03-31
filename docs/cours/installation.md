@@ -27,7 +27,7 @@ Pour l'installation [https://getcomposer.org/download](https://getcomposer.org/d
 
 Pour vérifier que composer est installé correctement, ouvrez une nouvelle invite de commande et taper la commande suivante :
 
-``` sh{4}
+``` bash{4}
 composer -v
 ```
 
@@ -35,7 +35,7 @@ composer -v
 
 Une fois Composer installé, on peut exécuter la commande suivante pour créer notre premier projet Symfony (où "shoefony" est le nom du dossier dans lequel sera créé votre projet) :
 
-``` sh{4}
+``` bash{4}
 composer create-project symfony/website-skeleton shoefony
 ```
 Il ne reste plus qu'à attendre que Composer installe toutes les dépendances et initialise votre projet.
@@ -45,7 +45,7 @@ Symfony propose deux différents projets de base lors de l'installation. Si vous
 :::
 
 Une fois l'installation terminée, rendez-vous dans le dossier du projet nouvellement créé et lancer le serveur de développement intégré à Symfony :
-``` sh{4}
+``` bash{4}
 cd shoefony
 php bin/console server:run
 ```
@@ -65,7 +65,7 @@ Nous apprendrons à nous en servir tout au long de la formation, celle-ci permet
 
 Nous n'allons pas utiliser ce serveur fournit par symfony, mais notre installation locale (Wamp, ...). Vous pouvez donc stopper la commande. Cependant, il va nous falloir exécuter la commande suivante afin d'installer un fichier .htaccess adapté à Symfony :
 
-``` sh{4}
+``` bash{4}
 composer require symfony/apache-pack
 ```
 

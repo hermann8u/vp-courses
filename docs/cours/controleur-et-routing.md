@@ -116,7 +116,7 @@ Vous pouvez également cliquer sur cet élément pour entrer dans le **profiler*
 
 Pour lister toutes les routes de votre application, vous avez également à disposition une commande :
 
-``` sh
+``` bash
 php bin/console debug:router
 ```
 

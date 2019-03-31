@@ -114,7 +114,7 @@ Nous pouvons également optimiser l'autoload fournit par Composer avec l'option 
 
 Ce qui nous donne :
 
-``` sh
+``` bash
 # Mise à jour des dépendances sans celles de dev et en optimisant l'autoload
 composer update --no-dev -o
 
@@ -165,7 +165,7 @@ Normalement, votre client FTP devrait vous permettre de régler les droits sur l
 
 En ligne de commande sur Linux, ça se fait de la manière suivante :
 
-``` sh
+``` bash
 chmod 751 -R ./var
 ```
 

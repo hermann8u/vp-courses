@@ -107,13 +107,13 @@ Dans le cas d'un contrôleur, les deux méthodes fonctionnent, car ce sont eux-m
 
 Afin de lister tous les services que vous pouvez injecter avec l'autowiring, vous pouvez utiliser la commande suivante:
 
-``` sh
+``` bash
 php bin/console debug:autowiring
 ```
 
 Certains services sont également utilisés par Symfony pour réaliser des tâches internes au framework. Ils ne sont pas forcement disponible pour l'autowiring car vous n'avez pas besoin de les utiliser. Il existe quand même une commande pour lister tous les services de l'application.
 
-``` sh
+``` bash
 php bin/console debug:container
 ```
 

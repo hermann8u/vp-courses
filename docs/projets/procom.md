@@ -98,7 +98,9 @@ Le but de ce projet étant de mesurer vos compétences dans le framework de dév
 
 ### Comment
 
-Vous créerez un repository privé sur [GitHub](https://github.com/) en respectant la convention de nommage suivante : **symfony_procom_pnom** (« pnom » devra être remplacé par la première lettre de votre prénom suivi de votre nom) Vous accorderez les droits à l'utilisateur suivant : **hermann8u**
+Vous créerez un repository privé sur [GitHub](https://github.com/) en respectant la convention de nommage suivante : **symfony_procom_pnom** (« pnom » devra être remplacé par la première lettre de votre prénom suivi de votre nom) Vous accorderez les droits à l'utilisateur suivant : **hermann8u**.
+
+Je vous ai écrit un petit guide pour vous expliquer comment procéder ici : [Partager son projet avec Git et Github](/ressources/git.html)
 
 ### Quoi
 

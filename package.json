@@ -2,5 +2,11 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
+  },
+  "devDependencies": {
+    "webpack-dev-middleware": "^3.6.0"
+  },
+  "dependencies": {
+    "vuepress": "^0.14.10"
   }
 }

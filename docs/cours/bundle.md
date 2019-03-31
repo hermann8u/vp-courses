@@ -43,14 +43,14 @@ Sans doutes dû à un bug, le fichier **/config/bootstrap.php** va être supprim
 
 Pour faciliter l'installation avec Flex, certaines dépendances ont été groupées par pack. Nous avons besoin de supprimer une seule dépendances du pack **symfony/orm-pack**, donc on va commencer par le dépacker pour faire apparaître les dépendances explicitement.
 
-``` sh
+``` bash
 composer unpack orm
 ```
 
 #### Suppression des packages
 
 La suppression des packages se fait en une étape en utilisant la commande Composer **remove** :
-``` sh
+``` bash
 composer rem test-pack web-server-bundle web-link process serializer-pack security-bundle expression-language translation doctrine/doctrine-migrations-bundle
 ```
 

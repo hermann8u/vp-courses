@@ -41,7 +41,8 @@ themeConfig:
       '/ressources/conventions',
       '/ressources/commandes',
       '/ressources/bundles',
-      '/ressources/sources'
+      '/ressources/sources',
+      '/ressources/git'
     ]
   }
   

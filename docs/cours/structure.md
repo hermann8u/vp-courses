@@ -8,19 +8,19 @@ La structure du nouveau projet est la suivante :
 
 Le framework mets à votre disposition une console au sein de son application. C'est un fichier PHP qui s'exécute, à partir de la racine de notre projet, de la manière suivante :
 
-``` sh{4}
+``` bash{4}
 php bin/console
 ```
 
 Vous pouvez accéder à la liste des commandes disponibles dans Symfony en faisant :
 
-``` sh{4}
+``` bash{4}
 php bin/console list
 ```
 
 Dans la liste des commandes disponibles, vous trouverez notamment une commande permettant de connaître la version de Symfony installée :
 
-``` sh{4}
+``` bash{4}
 php bin/console -V
 ```
 

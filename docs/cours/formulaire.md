@@ -210,7 +210,7 @@ Comme vous le voyez, il nous manque une dépendance !
 
 Rappelez-vous, nous avons désinstallé le package **security-bundle** dans le chapitre sur [Flex](/cours/bundle.html#suppression-des-packages). En fait, nous n'avons pas besoin de tout le bundle, mais juste de **symfony/security-csrf**. Lancez donc la commande :
 
-``` sh
+``` bash
 composer req security-csrf
 ```
 
