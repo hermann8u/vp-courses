@@ -10,5 +10,5 @@ Voici une liste de quelques points à découvrir ou approfondir par vous-même.
 - **Webpack encore** : Webpack encore est une librairie javascript spécialement conçue pour intégrer Webpack à Symfony avec un minimum d'effort. Cette librairie simplifie notamment la configuration de webpack à travers un wrapper et tout en nous en fournissant une par défaut.
 
 D'une manière générale, si vous avez l'intention de continuer à développer avec Symfony, je vous conseille de commencer par :
-- Lire les [bonnes pratiques](https://symfony.com/doc/current/best_practices/index.html) dans leur ensemble
+- Lire les [bonnes pratiques](https://symfony.com/doc/current/best_practices.html) dans leur ensemble
 - Jeter un coup d'oeil à [l'application de démo de Symfony](https://github.com/symfony/demo) et d'apprendre du code

@@ -6,6 +6,7 @@ sidebarDepth: 0
 
 Au fûr et mesure, je vous mettrai à disposition le corrigé pour chaque chapitre ici sous forme de zip :
 
+<!--
 - [Bundles, Flex et auto-configuration](/sources/shoefony-flex.zip)
 - [Contrôleur et Routing](/sources/shoefony-controleur-routing.zip)
 - [Le moteur de template Twig](/sources/shoefony-twig.zip)
@@ -15,3 +16,4 @@ Au fûr et mesure, je vous mettrai à disposition le corrigé pour chaque chapit
 - [Relations entre entités](/sources/shoefony-relations.zip)
 - [Les repositories](/sources/shoefony-repositories.zip)
 - [Shoefony final](/sources/shoefony-final.zip) : Templates d'erreur, recherche et EventSubscriber pour l'envoi de mail.
+-->

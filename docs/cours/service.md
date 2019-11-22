@@ -303,6 +303,6 @@ Améliorons à présent notre formulaire de contact afin d'alerter l'administrat
 
 ## Pour aller plus loin
 
-- [Symfony best practices : Organizing Your Business Logic](https://symfony.com/doc/current/best_practices/business-logic.html)
+- [Symfony best practices : Organizing Your Business Logic](https://symfony.com/doc/current/best_practices.html#business-logic)
 - [Symfony best practices : Configuration](https://symfony.com/doc/current/best_practices/configuration.html)
-- [Documentation de Symfony sur l'envoie d'email](https://symfony.com/doc/current/email.html)
+- [Documentation de Symfony sur l'envoie d'email](https://symfony.com/doc/current/best_practices.html#configuration)
