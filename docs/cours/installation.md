@@ -33,7 +33,7 @@ Pour vérifier que composer est installé correctement, ouvrez une nouvelle invi
 composer -v
 ```
 
-### Mon premier projet Symfony
+### Premier projet Symfony
 
 Une fois Composer installé, on peut exécuter la commande suivante pour créer notre premier projet Symfony (où "shoefony" est le nom du dossier dans lequel sera créé votre projet) :
 

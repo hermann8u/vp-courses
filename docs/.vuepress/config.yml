@@ -1,7 +1,7 @@
 locales:
   '/':
     lang: 'fr-FR'
-    title: 'Symfony - Cours d''introduction'
+    title: 'Introduction à Symfony'
     description: 'Licence Professionnelle SIL - Web et Mobile pour le Commerce Électronique'
 head: [
   ["meta", { name: "robots", content: "noindex, nofollow" }]

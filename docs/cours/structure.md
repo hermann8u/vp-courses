@@ -24,7 +24,7 @@ Dans la liste des commandes disponibles, vous trouverez notamment une commande p
 php bin/console -V
 ```
 
-Ce qui devrait vous afficher le résultat suivant :
+Ce qui devrait vous afficher un résultat similaire au suivant :
 
 ![Symfony version commande](/img/symfony-v.png)
 

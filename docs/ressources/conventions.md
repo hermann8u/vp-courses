@@ -4,9 +4,13 @@ sidebarDepth: 0
 
 # Conventions de codage
 
-Lorsque l'on travaille en équipe, il est toujours agréable de trouver du code bien formatté dès qu'on ouvre un projet. D'ailleurs, il n'est pas rare que des collègues partagent entre eux des conventions.
+Lorsque l'on travaille en équipe, il est toujours agréable de trouver du code bien formaté dès qu'on ouvre un projet. D'ailleurs, il n'est pas rare que des collègues partagent entre eux des conventions.
 
 Il existe des [conventions de codages](https://symfony.com/doc/current/contributing/code/standards.html) pour les développeurs Symfony. Je ne vous demande pas de toutes les suivre, mais il est important d'en avoir quelques-unes tout de même (d'autant plus qu'elles compteront dans la note du projet final) !
+
+::: tip
+Il faut savoir que les conventions de codage de Symfony sont une extension de celles définies par la [PSR-2](https://www.php-fig.org/psr/psr-2/) et la plus récente [PSR-12](https://www.php-fig.org/psr/psr-12/)
+:::
 
 ## Les classes et fonctions
  Les classes et fonctions doivent toutes avoir leur accolade ouvrante à la ligne :
