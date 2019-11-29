@@ -56,7 +56,7 @@ composer unpack orm
 
 La suppression des packages se fait en une étape en utilisant la commande Composer **remove** :
 ``` bash
-composer rem annot test-pack web-link process serializer-pack expression-language translation doctrine/doctrine-migrations-bundle
+composer rem annot intl security test-pack web-link process serializer-pack expression-language translation doctrine/doctrine-migrations-bundle
 ```
 
 Vous pouvez maintenant remettre votre fichier **/config/bootstrap.php** et vider le cache.
@@ -69,7 +69,7 @@ Et voilà, notre projet est déjà un peu plus léger ! Regardons ce qui a chang
 
 ![config packages](/img/flex/config.png)
 
-Trois fichiers de configuration ont disparu : **translation.yaml**, **sensio_framework_extra.yaml** et **doctrine_migrations.yaml**
+Quatre fichiers de configuration ont disparu : **translation.yaml**, **sensio_framework_extra.yaml**, **security.yaml** et **doctrine_migrations.yaml**
 
 ##### composer.json
 
@@ -87,4 +87,4 @@ Il faudrait regarder les sous-dossier ici pour voir une réelle différence, mai
 
 ![Les bundles](/img/flex/bundles.png)
 
-Là aussi, deux bundles de moins. Toujours ça de moins à instancier : **SensioFrameworkExtraBundle**, et **DoctrineMigrationsBundle**
+Là aussi, trois bundles de moins. Toujours ça de moins à instancier : **SensioFrameworkExtraBundle**, **SecurityBundle** et **DoctrineMigrationsBundle**

@@ -4,15 +4,15 @@ Nos templates HTML de base en places, il est désormais temps de créer une des 
 
 Celle-ci existe déjà, car dans le précédent chapitre nous avons mis en place le routing l'action du contrôleur et la vue permettant d'afficher notre page de contact. Néanmoins, pour le moment le formulaire affiché l'est grâce à de simples balises HTML, nous allons voir comment implémenter le composant Form de Symfony et établir des règles de validation sur ce dernier.
 
-## Création d'un objet
+## Création d'un objet Contact
 
 Dans Symfony, un formulaire se construit le plus souvent sur un objet existant, et son objectif est d'hydrater cet objet. Néanmoins, à l'heure actuelle nous ne disposons d'aucun objet au sein de notre projet. Nous allons en créer un permettant de créer une nouvelle demande de contact, celle-ci devrait permettre de récupérer le prénom, le nom, l'adresse email ainsi que le message que l'utilisateur souhaite envoyer.
 
 On va donc créer une classe Contact dans le dossier **/src/Entity/**
 
-Cette classe devra être composée d'un namespace afin de permettre d'identifier son emplacement au sein du projet, de propriétés privées composants une demande de contact, mais également des accesseurs liés à ces informations. Ce type de classe est appelé **POPO** (Plain Old PHP Object), il n'a rien à voir avec Symfony et une autre librairie.
+Cette classe devra être composée d'un namespace afin de permettre d'identifier son emplacement au sein du projet, de propriétés **privées** composants une demande de contact, mais également des accesseurs liés à ces informations. Ce type de classe est appelé **POPO** (Plain Old PHP Object), il n'a rien à voir avec Symfony ou une autre librairie.
 
-Pour cette fois, nous la créerons manuellement car nous n'avons pas encore vu le chapitre sur Doctrine.
+Pour cette fois, nous la créerons manuellement car nous n'avons pas encore vu le chapitre sur **Doctrine**.
 
 ## Création d'une classe de formulaire
 
@@ -51,7 +51,7 @@ class ContactType extends AbstractType
 }
 ```
 
-Ce type de classe est votre meilleur atout lorsqu'il est question de créer des formulaires. Elle est capable de simplifier le processus de définition des champs à partir des métadonnées qu'un champ possède. Comme notre objet est très simple et que nous n'avons pas encore défini aucune métadonnée, donc notre classe va créer des champs de texte par défaut. C'est adapté à la plupart des champs, sauf pour le corps du message pour lequel nous souhaitons utiliser une textarea, et pour l'adresse email pour laquelle nous allons utiliser le champ d'adresse email de HTML5.
+Ce type de classe est votre meilleur atout lorsqu'il est question de créer des formulaires. Elle est capable de simplifier le processus de définition des champs à partir des métadonnées qu'un champ possède. Comme notre objet est très simple et que nous n'avons pas encore défini aucune métadonnée, donc notre classe va créer des champs de texte par défaut. C'est adapté à la plupart des champs, sauf pour le corps du message pour lequel nous souhaitons utiliser une **textarea**, et pour l'adresse email pour laquelle nous allons utiliser l'input de type **email** de HTML5.
 
 Il va donc falloir modifier la méthode buildForm afin qu'elle prenne en compte le type que nous souhaitons attribuer aux différents champs.
 
@@ -95,39 +95,42 @@ Il ne s'agit que d'un rapide exemple des types de champs disponibles, mais [de n
 
 Nous disposons à présent de toute la matière nécessaire permettant de générer notre formulaire depuis le contrôleur.
 
-Rendons-nous dans notre contrôleur **CmsController** et procédons à la construction du formulaire depuis l'action associée à notre page de contact :
+Rendons-nous dans notre contrôleur **MainController** et procédons à la construction du formulaire depuis l'action associée à notre page de contact :
 
 ``` php
 ...
-// Ne pas oublier les use adéquat
+// Ne pas oublier les use adéquats
 use App\Entity\Contact;
 use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 ...
 
 /**
- * @Route("/contact", name="contact")
+ * @Route("/contact", name="contact", methods={"GET", "POST"})
  */
 public function contact(Request $request)
 {
+    // Création de notre entité et du formulaire basé dessus
     $contact = new Contact();
     $form = $this->createForm(ContactType::class, $contact);
     
+    // Demande au formulaire d'interpréter la Request
     $form->handleRequest($request);
     
+    // Dans le cas de la soumission d'un formulaire valide
     if ($form->isSubmitted() && $form->isValid()) {
         // Actions à effectuer après envoi du formulaire
         
-        return $this->redirectToRoute('cms_contact');
+        return $this->redirectToRoute('main_contact');
     }
     
-    return $this->render('cms/contact.html.twig', [
+    return $this->render('main/contact.html.twig', [
         'form' => $form->createView()
     ]);
 }
 ```
 
-Nous commençons par créer une instance de l'entité **Contact**. Cette entité représente les données d'un message sur la page de contact. Nous créons ensuite le formulaire correspondant en spécifiant le type **ContactType** créé précédemment, et passons en paramètres notre objet entité **$contact**. La méthode createForm est capable d'utiliser ces 2 patrons pour créer la représentation d'un formulaire.
+Nous commençons par créer une instance de l'entité **Contact**. Cette entité représente les données d'un message sur la page de contact. Nous créons ensuite le formulaire correspondant en spécifiant le type **ContactType** créé précédemment, et passons en paramètres notre objet entité **$contact**. La méthode createForm va créer notre instance de formulaire en se basant sur ces deux paramètres.
 
 Comme cette action du contrôleur va maintenant s'occuper d'afficher et traiter le formulaire qui lui est soumis, nous devons faire attention à la méthode HTTP utilisée. Les formulaires soumis sont généralement envoyés via la méthode POST, et notre formulaire n'y fera pas exception. Si la requête est de type POST, un appel à la méthode **handleRequest** va transformer les données soumises pour les associer à notre objet **$contact**. A ce moment-là, l'objet **$contact** contiendra une représentation de ce que l'utilisateur aura envoyé.
 
@@ -139,7 +142,7 @@ Enfin, nous précisons le template à utiliser pour l'affichage. Notez que nous 
 
 Grâce à Twig, l'affichage de formulaire est très simple. Le composant, en combinaison avec Twig, propose en effet un système par couches pour l'affichage de formulaire qui permet soit d'afficher un formulaire comme une unique entité, soit comme des éléments individuels, selon le besoin de personnalisation nécessaire.
 
-Afin de démontrer la puissance des méthodes de Twig fournit, nous allons utiliser le bout de code suivant pour afficher le formulaire entier :
+Afin de démontrer la puissance des méthodes intégrer à Twig, nous allons utiliser le bout de code suivant pour afficher le formulaire entier :
 
 ``` twig
 {{ form_start(form) }}
@@ -150,7 +153,7 @@ Afin de démontrer la puissance des méthodes de Twig fournit, nous allons utili
 
 Bien que cette méthode soit utile et très simple durant la phase de prototypage, cela s'avère limité lorsque le besoin de personnalisation est important, ce qui est souvent le cas avec les formulaires.
 
-Voici comment améliorer le rendu :
+Voici une solution pour améliorer le rendu :
 
 ``` twig
 {{ form_start(form) }}
@@ -218,7 +221,7 @@ Rechargez votre page, et voilà ! En un clin d'oeil, nous sommes protégés cont
 
 ## Validation du formulaire
 
-Le composant **validator** de Symfony permet de valider les données. La validation est une tâche courante lorsqu'il est question de valider les données de formulaire. Cette tâche doit être réalisée avant que les données ne soient envoyées vers une base de données. Les validateurs du framework nous permettent de séparer notre logique de validation des composants qui pourraient s'en servir, tels que les composants de formulaire ou de base de données. Cette approche signifie que nous allons avoir un jeu de règles de validation par objet.
+Le composant [Validator](https://symfony.com/doc/current/components/validator.html) de Symfony permet de valider les données. La validation est une tâche courante lorsqu'il est question de valider les données de formulaire. Cette tâche doit être réalisée avant que les données ne soient envoyées vers une base de données. Les validateurs du framework nous permettent de séparer notre logique de validation des composants qui pourraient s'en servir, tels que les composants de formulaire ou de base de données. Cette approche signifie que nous allons avoir un jeu de règles de validation par objet.
 
 Commençons avant tout par mettre à jour notre objet **Contact** dans **src/Entity/Contact.php** pour spécifier quelques validateurs.
 
@@ -260,6 +263,10 @@ class Contact
 
 Afin de définir les validateurs, nous devons mettre en place des annotations sur les propriétés de notre classe. Nous pouvons utiliser ces dernières pour définir des contraintes par l'intermédiaire de ce qu'on appelle des **Asserts**.
 
+:::tip
+Par convention, nous avons donné un alias de **Assert** au dossier **Symfony\Component\Validator\Constraints** lors de l'import grâce au mot-clés PHP **as**. Cette astuce permet de faciliter l'utilisation des différentes classes de **Constraints**.
+:::
+
 La première ligne applique la contrainte **NotBlank** à la propriété **name**. Les validateurs sont aussi simples qu'ils y paraissent, celui-ci se contente de renvoyer vrai si la valeur à valider n'est pas vide. Nous mettons ensuite en place la validation pour le champ email. Le système de validation nous fournit en effet une règle de validation pour ce type de champ. Pour l'attribut message, nous voulons à la fois nous assurer que le champ n'est pas vide et qu'il soit composé au minimum de 25 caractères, ce qui est fait avec les contraintes **NotBlank** et **Length**.
 
 Une liste complète des contraintes de validation est disponible dans la [documentation du composant](https://symfony.com/doc/current/validation.html#constraints).
@@ -286,7 +293,7 @@ Ajoutons dans le contrôleur, à l'endroit où le formulaire est considéré com
 if ($form->isSubmitted() && $form->isValid()) {
     $this->addFlash('success', 'Merci, votre message a été pris en compte !');
 
-    return $this->redirectToRoute('cms_contact');
+    return $this->redirectToRoute('main_contact');
 }
 ```
 
@@ -314,7 +321,7 @@ Ou encore, si comme moi, vous voulez utiliser les noms de classes Bootstrap comm
 {% endfor %}
 ```
 
-Le message flash ne s'affichera donc que lorsque ce dernier aura été inscrit en session par vos soins depuis le contrôleur. Cette session ne sera néanmoins valable que pour le premier affichage de vos messages. Si vous actualisez, ils disparaîtront.
+Le message flash ne s'affichera donc que lorsque ce dernier aura été inscrit en session par vos soins depuis le contrôleur. Cette session ne sera néanmoins valable que pour le **premier** affichage de vos messages. Si vous actualisez, ils disparaîtront.
 
 ## A vous de jouer
 

@@ -11,7 +11,7 @@ markdown:
 themeConfig:
   sidebarDepth: 2
   displayAllHeaders: true
-  smoothScroll: true
+  smoothScroll: false
   nav: [
     { text: 'Cours', link: '/cours/' },
     { text: 'Projets', link: '/projets/' },
@@ -22,10 +22,10 @@ themeConfig:
       '/cours/',
       '/cours/installation',
       '/cours/structure',
-      '/cours/bundle',
-      # '/cours/controleur-et-routing',
-      # '/cours/twig',
-      # '/cours/formulaire',
+      '/cours/bundle-et-flex',
+      '/cours/controleur-et-routing',
+      '/cours/twig',
+      '/cours/formulaire',
       # '/cours/service',
       # '/cours/entities',
       # '/cours/relations',

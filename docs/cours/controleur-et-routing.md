@@ -82,8 +82,8 @@ public function show(int $id): Response
 }
 ```
 
-Grâce au paramètre **{id}** dans notre route, toutes les URLs du type **/product/{id}/details** seront
-gérées par cette route, par exemple : **/product/3/details**
+Grâce au paramètre **{id}** dans notre route, toutes les URLs du type **/product/{id}** seront
+gérées par cette route, par exemple : **/product/3**
 
 La paramètre **{id}** est **obligatoire** et devra **impérativement correspondre à un nombre**, c'est la propriété indiquée dans requirements qui l'impose. Sans cette dernière, vous pourriez passer ce que vous voulez en paramètre, même une chaîne de type texte.
 

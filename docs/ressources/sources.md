@@ -6,8 +6,11 @@ sidebarDepth: 0
 
 Au fûr et mesure, je vous mettrai à disposition le corrigé pour chaque chapitre ici sous forme de zip :
 
+
+- [Bundles, Flex et auto-configuration](/sources/shoefony-bundle_flex.zip)
+- [Contrôleur et Routing](/sources/shoefony-controller_routing.zip)
+
 <!--
-- [Bundles, Flex et auto-configuration](/sources/shoefony-flex.zip)
 - [Contrôleur et Routing](/sources/shoefony-controleur-routing.zip)
 - [Le moteur de template Twig](/sources/shoefony-twig.zip)
 - [Formulaires](/sources/shoefony-form.zip)

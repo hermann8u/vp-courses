@@ -49,7 +49,7 @@ Symfony propose deux différents projets de base lors de l'installation. Si vous
 Une fois l'installation terminée, rendez-vous dans le dossier du projet nouvellement créé et lancer le [PHP built-in server](https://www.php.net/manual/fr/features.commandline.webserver.php) :
 ``` bash{4}
 cd shoefony
-php -S localhost:8000 -tv public
+php -S localhost:8000 -t public
 ```
 
 ::: tip OPTIONNEL
