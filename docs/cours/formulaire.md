@@ -1,12 +1,12 @@
 # Formulaires
 
-Nos templates HTML de base en places, il est désormais temps de créer une des pages fonctionnelles. Nous allons commencer avec une des pages les plus simples, la page de contact.
+Nos templates HTML de base en places, il est désormais temps de créer une des pages fonctionnelles. Nous allons commencer avec **la page de contact**.
 
-Celle-ci existe déjà, car dans le précédent chapitre nous avons mis en place le routing l'action du contrôleur et la vue permettant d'afficher notre page de contact. Néanmoins, pour le moment le formulaire affiché l'est grâce à de simples balises HTML, nous allons voir comment implémenter le composant Form de Symfony et établir des règles de validation sur ce dernier.
+Celle-ci existe déjà, car dans le précédent chapitre nous avons mis en place le routing l'action du contrôleur et la vue permettant d'afficher notre page de contact. Néanmoins, pour le moment le formulaire affiché l'est grâce à de simples balises HTML, nous allons voir comment implémenter **le composant Form** de Symfony et établir des règles de validation sur ce dernier.
 
 ## Création d'un objet Contact
 
-Dans Symfony, un formulaire se construit le plus souvent sur un objet existant, et son objectif est d'hydrater cet objet. Néanmoins, à l'heure actuelle nous ne disposons d'aucun objet au sein de notre projet. Nous allons en créer un permettant de créer une nouvelle demande de contact, celle-ci devrait permettre de récupérer le prénom, le nom, l'adresse email ainsi que le message que l'utilisateur souhaite envoyer.
+Dans Symfony, un formulaire se construit le plus souvent sur un objet existant, et son objectif est d'**hydrater** cet objet. Néanmoins, à l'heure actuelle nous ne disposons d'aucun objet au sein de notre projet. Nous allons en créer un permettant de créer une nouvelle demande de contact, celle-ci devrait permettre de récupérer le prénom, le nom, l'adresse email ainsi que le message que l'utilisateur souhaite envoyer.
 
 On va donc créer une classe Contact dans le dossier **/src/Entity/**
 
@@ -285,7 +285,7 @@ Il est nécessaire de toujours mettre en place cette validation ! En effet, vous
 
 ## Les messages flash
 
-Nous disposons d'un formulaire qui, certes ne fait pas grand chose pour l'instant, mais une fois ce dernier validé il n'y a aucun message de confirmation indiquant au visiteur que ce dernier a bien été envoyé. Nous allons donc voir comment créer des **messages flash** permettant l'affichage de petits messages de confirmation. Ces messages passent par la session.
+Nous disposons d'un formulaire qui, certes ne fait pas grand chose pour l'instant, mais une fois ce dernier validé il n'y a aucun message de confirmation indiquant au visiteur que ce dernier a bien été envoyé. Nous allons donc voir comment créer des **messages flash** permettant l'affichage de petits messages de confirmation. Ces messages passent par la **session**.
 
 Ajoutons dans le contrôleur, à l'endroit où le formulaire est considéré comme valide, un nouveau message flash :
 

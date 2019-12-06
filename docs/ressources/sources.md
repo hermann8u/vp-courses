@@ -9,10 +9,9 @@ Au fûr et mesure, je vous mettrai à disposition le corrigé pour chaque chapit
 
 - [Bundles, Flex et auto-configuration](/sources/shoefony-bundle_flex.zip)
 - [Contrôleur et Routing](/sources/shoefony-controller_routing.zip)
+- [Le moteur de template Twig](/sources/shoefony-twig.zip)
 
 <!--
-- [Contrôleur et Routing](/sources/shoefony-controleur-routing.zip)
-- [Le moteur de template Twig](/sources/shoefony-twig.zip)
 - [Formulaires](/sources/shoefony-form.zip)
 - [Les services](/sources/shoefony-service.zip)
 - [Les entités Doctrine](/sources/shoefony-entities.zip)
