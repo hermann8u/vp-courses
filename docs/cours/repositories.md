@@ -197,7 +197,7 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function myFindAll()
+    public function myFindAll(): array
     {
         // On crée notre un queryBuilder
         $qb = $this->createQueryBuilder('p');
@@ -216,7 +216,7 @@ Cette méthode **myFindAll()** retourne exactement le même résultat qu'un **fi
 Vous pouvez le voir, faire une simple requête est très facile. Pour mieux le visualiser, je vous propose la même méthode sans les commentaires et en raccourci :
 
 ``` php
-public function myFindAll()
+public function myFindAll(): array
 {
     return $this
         ->createQueryBuilder('p')
@@ -236,7 +236,7 @@ $products = $productRepository->myFindAll();
 Le QueryBuilder dispose de plusieurs méthodes afin de construire notre requête. Il y a une ou plusieurs méthodes par partie de requête : le WHERE, le ORDER BY, le FROM, etc
 
 ``` php
-public function findByNameAndCreatedBefore(string $name, \DateTime $createdAt)
+public function findByNameAndCreatedBefore(string $name, \DateTime $createdAt): array
 {
     return $this
         ->createQueryBuilder('p')
@@ -269,7 +269,7 @@ private function whereCurrentYear(QueryBuilder $qb)
 Vous notez donc que cette méthode ne traite pas une Query, mais bien uniquement le **QueryBuilder**. C'est en cela que ce dernier est très pratique, car faire cette méthode sur une requête en texte simple est possible, mais très compliqué. Il aurait fallu voir si le WHERE était déjà présent dans la requête, si oui mettre un AND au bon endroit, etc. Bref, pas simple. Pour utiliser cette méthode, voici la démarche :
 
 ``` php
-public function myFind(string $name)
+public function myFind(string $name): array
 {
     // On peut ajouter ce qu'on veut comme condition avant
     $qb = $this
@@ -294,7 +294,7 @@ Cette condition peut donc être utilisée dans n'importe laquelle des requêtes 
 La possibilité est également offerte de réaliser des jointures à l'aide du QueryBuilder, c'est assez simple à réaliser :
 
 ``` php
-public function findOneWithBrand(int $id)
+public function findOneWithBrand(int $id): Product
 {
     return $this
         ->createQueryBuilder('p')
@@ -312,7 +312,7 @@ public function findOneWithBrand(int $id)
 Ou depuis le BrandRepository, pour obtenir la marque avec tous ces produits :
 
 ``` php
-public function findOneWithProducts(int $id)
+public function findOneWithProducts(int $id): Brand
 {
     return $this
         ->createQueryBuilder('b')

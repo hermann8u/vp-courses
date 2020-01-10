@@ -28,7 +28,7 @@ namespace App\Service;
 
 class MessageGenerator
 {
-    public function getHappyMessage()
+    public function getHappyMessage(): string
     {
         $messages = [
             'You did it! You updated the system! Amazing!',
@@ -50,15 +50,16 @@ Finalement, c'est une classe toute simple ! Il ne nous reste plus qu'à l'utilis
 Pour utiliser un service, nous pouvons utiliser l'**autowiring** qui est activé par défaut dans notre application. Ce mécanisme permet d'injecter les dépendances simplement en utilisant le type de l'objet le représentant. En exemple vaut mieux que des explications :
 
 ``` php {2,7}
-...
+// ...
 use App\Service\MessageGenerator;
-...
+// ...
 /**
  * @Route("/products")
  */
-public function list(MessageGenerator $messageGenerator)
+public function list(MessageGenerator $messageGenerator): Response
 {
-    $message = $messageGenerator->getHappyMessage()
+    $message = $messageGenerator->getHappyMessage();
+    // ...
 }
 ```
 
@@ -87,7 +88,7 @@ class MessageSender
         $this->messageGenerator = $messageGenerator;
     }
 
-    public function send()
+    public function send(): void
     {
         $content = $this->messageGenerator->getHappyMessage();
 
@@ -258,10 +259,10 @@ Le composant fonctionne grâce à la création, la configuration et enfin à l'e
 Voici comment générer un message : 
 
 ``` php
-...
+// ...
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-...
+// ...
 
 $email = (new Email())
     ->from('hello@example.com')
@@ -315,11 +316,10 @@ Améliorons à présent notre formulaire de contact afin d'alerter l'administrat
 
 1. Ajoutez les paramètres **locale** et **email_address.contact** dans le bon fichier et configurez la locale par défaut de votre application avec le premier.
 2. Ajoutez le **bind** pour le paramètre **email_address.contact**.
-3. Configurez **Swiftmailer** afin de pouvoir envoyer des emails depuis votre projet.
-4. Injectez le service **\Swift_Mailer** et le paramètre **email_address.contact** dans votre contrôleur depuis le constructeur. Vérifiez ensuite que ça fonctionne avec la function de debug **dd()**.
-5. Intégrez un envoi d'email simple (sans utiliser de template et en indiquant dans l'email "Bonjour, ceci est mon premier email !") au niveau de la validation du formulaire de contact et testez le résultat depuis la barre de debug.
-6. Améliorez le rendu de votre email en utilisant un template **Twig**.
-7. Intégrez les informations récupérées par le formulaire de contact dans l'email envoyé à l'administrateur.
+3. Configurez le composant **Mailer** afin de pouvoir envoyer des emails depuis votre projet.
+4. Injectez le service **Mailer** et le paramètre **email_address.contact** dans votre contrôleur depuis le constructeur. Vérifiez ensuite que ça fonctionne avec la function de debug **dd()**.
+5. Intégrez un envoi d'email en utilisant un template **Twig** au niveau de la validation du formulaire de contact et testez le résultat depuis la barre de debug.
+6. Intégrez les informations récupérées par le formulaire de contact dans l'email envoyé à l'administrateur.
 
 ## Pour aller plus loin
 

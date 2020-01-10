@@ -180,23 +180,23 @@ Nous avons vu un peu plus haut comment récupérer simplement un paramètre dans
 Pour ça, il faut injecter la Request dans l'action de notre contrôleur de cette manière :
 
 ``` php {2,7}
-...
+// ...
 use Symfony\Component\HttpFoundation\Request;
-...
+// ...
     /**
      * @Route("/product/{id}", name="product_show", requirements={"id" = "\d+"})
      */
-    public function show(Request $request, int $id)
+    public function show(Request $request, int $id): Response
     {
         // ...
     }
-...
+// ...
 ```
 
 En admettant que l'on décide d'appeler notre page produit en y ajoutant un paramètre *slug* correspondant au titre de notre article, nous pourrions procéder de la manière suivante afin de récupérer ce paramètre : **/store/product/3/details?slug=titre-de-mon-produit**
 
 ``` php {3}
-    public function product(Request $request, int $id)
+    public function product(Request $request, int $id): Response
     {
         $slug = $request->query->get('slug');
         // ...

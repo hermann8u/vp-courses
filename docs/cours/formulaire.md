@@ -32,7 +32,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('firstName')
@@ -42,7 +42,7 @@ class ContactType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Contact::class,
@@ -56,12 +56,12 @@ Ce type de classe est votre meilleur atout lorsqu'il est question de créer des 
 Il va donc falloir modifier la méthode buildForm afin qu'elle prenne en compte le type que nous souhaitons attribuer aux différents champs.
 
 ``` php
-...
+// ...
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-...
-public function buildForm(FormBuilderInterface $builder, array $options)
+// ...
+public function buildForm(FormBuilderInterface $builder, array $options): void
 {
     $builder
         ->add('firstName', TextType::class, [
@@ -98,17 +98,18 @@ Nous disposons à présent de toute la matière nécessaire permettant de géné
 Rendons-nous dans notre contrôleur **MainController** et procédons à la construction du formulaire depuis l'action associée à notre page de contact :
 
 ``` php
-...
+// ...
 // Ne pas oublier les use adéquats
 use App\Entity\Contact;
 use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
-...
+use Symfony\Component\HttpFoundation\Response;
+// ...
 
 /**
- * @Route("/contact", name="contact", methods={"GET", "POST"})
+ * @Route("/contact", name="main_contact", methods={"GET", "POST"})
  */
-public function contact(Request $request)
+public function contact(Request $request): Response
 {
     // Création de notre entité et du formulaire basé dessus
     $contact = new Contact();

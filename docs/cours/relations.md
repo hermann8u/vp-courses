@@ -24,17 +24,17 @@ Il y a plusieurs façons de lier des entités entre elles. En effet, il n'est pa
 
 ### Relation OneToOne
 
-La relation **OneToOne**, ou 1..1, est assez classique. Elle correspond, comme son nom l'indique, à une relation unique entre deux objets. Pour illustrer cette relation dans le cadre de notre projet, nous allons créer une entité **Image**. Imaginons qu'on offre la possibilité de lier une image à un produit. Si à chaque produit on ne peut afficher qu'une seule image, et que chaque image ne peut être liée qu'à un seul produit, alors on est bien dans le cadre d'une relation OneToOne. La figure suivante schématise cela :
+La relation **OneToOne**, ou 1..1, est assez classique. Elle correspond, comme son nom l'indique, à une relation unique entre deux objets. Pour illustrer cette relation dans le cadre de notre projet, nous allons créer une entité **Image**. Imaginons qu'on offre la possibilité de lier une image à un produit. Si à chaque produit on ne peut afficher **qu'une seule image**, et que chaque image ne peut être liée **qu'à un seul produit**, alors on est bien dans le cadre d'une relation **OneToOne**. La figure suivante schématise cela :
 
 ![Relation OneToOne](/img/one-to-one.png)
 
 #### Définition
 
-Afin d'établir notre relation nous devons utiliser les annotations au niveau de nos entités. La relation OneToOne entre les entités **Product** et **Image** correspondrait à la syntaxe suivante (aucun ajout n'est nécessaire au niveau de l'entité Image) :
+Afin d'établir notre relation nous devons utiliser les annotations au niveau de nos entités. La relation **OneToOne** entre les entités **Product** et **Image** correspondrait à la syntaxe suivant. Aucun ajout n'est nécessaire au niveau de l'entité Image, car nous allons faire une **relation unidirectionnelle** :
 
 ``` php {4}
 // src/Entity/Store/Product.php
-...
+
 /**
  * @ORM\OneToOne(targetEntity="App\Entity\Store\Image", cascade={"persist"})
  */
@@ -58,7 +58,7 @@ Cette relation est simple et tout à fait fonctionnelle, néanmoins par défaut 
 
 ``` php {5}
 // src/Entity/Store/Product.php
-...
+
 /**
  * @ORM\OneToOne(targetEntity="App\Entity\Store\Image", cascade={"persist", "remove"})
  * @ORM\JoinColumn(nullable=false, name="sto_image_id")
@@ -67,7 +67,7 @@ private $image;
 ```
 
 ::: tip
-Vous pouvez remarquer que j'ai ajouté le nom de la colonne de jointure pour qu'il corresponde au nom de notre table, suivit de "_id".
+Vous pouvez remarquer que j'ai ajouté le nom de la colonne de jointure pour qu'il corresponde au nom de notre table, suivit de "_id". Par défaut, Doctrine l'aurait nommé "image_id".
 :::
 
 #### Utilisation
@@ -84,19 +84,19 @@ $url = $product->getImage()->getUrl();
 
 ### Relation ManyToOne
 
-La relation **Many-To-One**, ou n..1, est assez classique également. Elle correspond, comme son nom l'indique, à une relation qui permet à une entité A d'avoir une relation avec plusieurs entités B.
+La relation **ManyToOne**, ou n..1, est assez classique également. Elle correspond, comme son nom l'indique, à une relation qui permet à une entité A d'avoir une relation avec plusieurs entités B.
 
-Pour illustrer cette relation dans le cadre de notre projet, nous allons créer une entité **Brand** qui représente les marques associées aux produits. L'idée est de pouvoir ajouter plusieurs produits à une marque, et que chaque produit ne soit liée qu'à une seule marque. Nous avons ainsi plusieurs produits (Many) à lier (To) à une seule marque (One). La figure suivante schématise cela :
+Pour illustrer cette relation dans le cadre de notre projet, nous allons créer une entité **Brand** qui représente les marques associées aux produits. L'idée est de pouvoir ajouter plusieurs produits à une marque, et que chaque produit ne soit liée qu'à une seule marque. Nous avons ainsi plusieurs produits (Many) à lier à (To) une seule marque (One). La figure suivante schématise cela :
 
-![Relation OneToOne](/img/many-to-one.png)
+![Relation ManyToOne](/img/many-to-one.png)
 
 #### Définition
 
-Comme précédemment nous allons intervenir au niveau des annotations de nos entités pour établir une relation Many-To-One (aucun ajout n'est nécessaire au niveau de l'entité Brand) :
+Comme précédemment nous allons intervenir au niveau des annotations de nos entités pour établir une relation **ManyToOne** (de nouveau, aucun ajout n'est nécessaire au niveau de l'entité Brand) :
 
 ``` php {4}
 // src/Entity/Store/Product.php
-...
+
 /**
  * @ORM\ManyToOne(targetEntity="App\Entity\Store\Brand")
  * @ORM\JoinColumn(nullable=false, name="sto_brand_id")
@@ -109,12 +109,12 @@ private $brand;
 
 #### Utilisation
 
-De la même manière que pour la relation OneToOne, il vous faut définir le getter et setter en pensant à bien forcer le type à l'aide de l'entité à laquelle nous faisons référence. Puis nous pourrions ensuite les utiliser de la façon suivante :
+De la même manière que pour la relation **OneToOne**, il vous faut définir le **getter** et le **setter** en pensant à bien forcer le type à l'aide de l'entité à laquelle nous faisons référence. Puis nous pourrions ensuite les utiliser de la façon suivante :
 
 ``` php
 $brand = (new Brand)->setName('Adidas');
 
-$product1 = $this->productRepository->find(1);
+$product = $this->productRepository->find(1);
 
 $product->setBrand($brand);
 
@@ -124,13 +124,13 @@ $this->em->flush();
 
 #### Définition bidirectionnelle
 
-En ayant mis en place la relation ManyToOne ainsi, nous avons établi une règle d'unidirectionnalité. L'inconvénient est que nous pouvons bien accéder à notre marque depuis notre objet produit, mais pas l'inverse. C'est à dire qu'il ne nous est pas possible via une méthode depuis la marque de récupérer les listes de produits correspondants (vous pouvez le faire uniquement en utilisant manuellement les repositories).
+En ayant mis en place la relation **ManyToOne** ainsi, nous avons établi une règle d'unidirectionnalité. L'inconvénient est que nous pouvons bien accéder à notre marque depuis notre objet produit, **mais pas l'inverse**. C'est à dire qu'il ne nous est pas possible via une méthode depuis la marque de récupérer les listes de produits correspondants. Pour l'instant, vous pouvez le faire uniquement en utilisant les repositories.
 
 Voici les modifications à apporter pour mettre en place une notion de bidirectionnalité entre nos deux entités :
 
 ``` php {4}
 // src/Entity/Store/Product.php
-...
+
 /**
  * @ORM\ManyToOne(targetEntity="App\Entity\Store\Brand", inversedBy="products")
  * @ORM\JoinColumn(nullable=false, name="sto_brand_id")
@@ -139,10 +139,9 @@ private $brand;
 
 ```
 
-
 ``` php {4}
 // src/Entity/Store/Brand.php
-...
+
 /**
  * @ORM\OneToMany(targetEntity="App\Entity\Store\Product", mappedBy="brand")
  */
@@ -150,16 +149,19 @@ private $products;
 
 ```
 
-Les getters et setters pour la propriété **$products** sont un peu particulier puisqu'il s'agit d'une array, et plus précisément une **ArrayCollection**. C'est un objet utilisé par Doctrine pour gérer les relations entre entités lorsque le contenu est une array. Ce qui va nous donner les méthodes suivantes :
+Les **getters et setters** pour la propriété **$products** sont un peu particulier puisqu'il s'agit d'une array, et plus précisément une **ArrayCollection**. C'est un objet utilisé par Doctrine pour gérer les relations entre entités lorsque le contenu est une array. Ce qui va nous donner les méthodes suivantes :
 
 ``` php
+// src/Entity/Store/Brand.php
+
 use Doctrine\Common\Collections\ArrayCollection;
-...
+
+// ...
 public function __construct()
 {
     $this->products = new ArrayCollection();
 }
-...
+
 /**
  * @return Collection|Product[]
  */
@@ -200,19 +202,23 @@ $brand->addProduct($product);
 
 ### Relation ManyToMany
 
-La relation ManyToMany, ou n..n, correspond à une relation qui permet à plein d'objets d'être en relation avec plein d'autres !
+La relation **ManyToMany**, ou n..n, correspond à une relation qui permet à plein d'objets d'être en relation avec plein d'autres !
 
-Prenons l'exemple cette fois-ci de nos produits, répartis dans des colories différentes. Un produit peut appartenir à plusieurs colories. À l'inverse, une colorie peut contenir plusieurs produits. On a donc une relation ManyToMany entre Product et Color. La figure suivante schématise tout cela.
+Prenons l'exemple cette fois-ci de nos produits, ayant des couleurs différentes. Un produit peut avoir plusieurs couleurs. À l'inverse, une couleur peut $etre utilisé sur plusieurs produits. On a donc une relation **ManyToMany** entre Product et Color. La figure suivante schématise tout cela.
 
 ![Relation ManyToMany](/img/many-to-many.png)
 
 #### Définition
 
-Comme pour toutes relations, il suffit d'intervenir sur les annotations de nos entités (aucun ajout n'est nécessaire au niveau de l'entité Color) :
+Comme pour toutes relations, il suffit d'intervenir sur les annotations de nos entités :
 
 ``` php
 // src/Entity/Store/Product.php
-...
+
+use Doctrine\Common\Collections\ArrayCollection;
+
+// ...
+
 /**
  * @ORM\ManyToMany(targetEntity="App\Entity\Store\Color")
  * @ORM\JoinTable(name="sto_product_color")
@@ -221,10 +227,10 @@ private $colors;
 
 public function __construct()
 {
-    ...
+    // ...
     $this->colors = new ArrayCollection();
 }
-...
+
 /**
  * @return Collection|Color[]
  */
@@ -252,12 +258,12 @@ public function removeColor(Color $color): self
 }
 ```
 
-Les relations ManyToMany passe par une table intermédiaire. Sa clé primaire est une clé composée avec une référence sur l'id des deux entités qu'elle lie. Ca signifie aussi qu'il n'est pas possible d'avoir une entrée avec les deux même id (un produit ne peut avoir qu'une seule fois la couleur jaune).
+Les relations **ManyToMany** passe par une **table intermédiaire**. Sa clé primaire est une **clé composée** avec une référence sur l'id des deux entités qu'elle lie. Ca signifie aussi qu'il n'est pas possible d'avoir une entrée avec les deux même id (un produit ne peut avoir qu'une seule fois la couleur jaune).
 
-Vous pouvez remarquez à la ligne 5 que j'ai utilisé l'annotations **ORM\JoinTable** pour redéfinir le nom de cette table de liaison afin qu'elle respecte le préfixe "sto_".
+Vous pouvez remarquez à la **ligne 5** que j'ai utilisé l'annotation **ORM\JoinTable** pour redéfinir le nom de cette table de liaison afin qu'elle respecte le préfixe "sto_".
 
 ::: tip
-Si vous voulez ajouter d'autres champs à cette table intermédiaire, vous ne pouvez pas utiliser la relation ManyToMany. Il faudra créer une entité ProductColor avec une relation ManyToOne sur Product et Color (et rendre ces relations bidirectionnelles).
+Si vous voulez ajouter d'autres champs à cette table intermédiaire, vous ne pouvez pas utiliser la relation **ManyToMany**. Il faudra créer une entité **ProductColor** avec une relation **ManyToOne** sur Product et Color (et rendre ces relations bidirectionnelles).
 :::
 
 #### Utilisation
