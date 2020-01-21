@@ -167,7 +167,7 @@ $url = $this->get('router')->generate('main_products', [
 
 L'URL ainsi généré sera **/store/sport/products**
 
-Voici un raccourcie disponible dans notre contrôleur qui fournit le même résultat (**recommandé**).
+Voici un raccourci disponible dans notre contrôleur qui fournit le même résultat (**recommandé**).
 ``` php
 $url = $this->generateUrl('main_products', [
     'category' => 'sport'

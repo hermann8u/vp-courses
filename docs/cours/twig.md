@@ -47,7 +47,7 @@ Twig définit deux types de syntaxe spéciale :
 :::
 
 ::: tip
-Avec Twig, on utilise le snake_case dans nos fichiers, mais également pour les nommés (sauf pour les méthodes provenant de nos objets).
+Avec Twig, on utilise le snake_case dans nos fichiers, mais également pour les nommer (sauf pour les méthodes provenant de nos objets).
 :::
 
 ### Comparaison entre PHP et Twig
@@ -337,7 +337,7 @@ Ce qui va générer le html suivant:
 
 Les différentes pages de notre site existes mais elles ne ressemblent pour le moment à pas grand chose. Utilisons le template qui nous a été fourni pour mettre en page notre site web.
 
-1. Observer les sources des [templates]((/projets/shoefony.html#ressources)) qui vous ont été fournis dans le cadre du projet **Shoefony** et identifier un schéma d'héritage efficace sur **trois niveaux**.
+1. Observer les sources des [templates](/projets/shoefony.html#ressources) qui vous ont été fournis dans le cadre du projet **Shoefony** et identifier un schéma d'héritage efficace sur **trois niveaux**.
 2. Intégrer le layout de **base.html.twig**, le second niveau **layout.html.twig**, ainsi que le template de la page d'accueil.
 3. Inclure le **CSS**, le **Javascript** et les **images** grâce à la fonction Twig adéquate.
 4. Intégrer le reste des templates de vos pages et créer des liens vers chacune d'entre elles via le menu principal.
