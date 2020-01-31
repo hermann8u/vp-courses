@@ -1,12 +1,12 @@
 # Les repositories
 
-L'une des principales fonctions de la couche Modèle dans une application MVC, c'est la récupération des données. Récupérer des données n'est pas toujours évident, surtout lorsqu'on veut récupérer seulement certaines données, les classer selon des critères, etc. Tout cela se fait grâce aux **repositories**, que nous étudions dans ce chapitre.
+L'une des principales fonctions de la couche **Modèle** dans une application **MVC**, c'est la récupération des données. Récupérer des données n'est pas toujours évident, surtout lorsqu'on veut récupérer seulement certaines données, les classer selon des critères, etc. Tout cela se fait grâce aux **repositories**, que nous étudions dans ce chapitre.
 
-Un repository centralise tout ce qui touche à la récupération de vos entités. Concrètement, cela veut dire que vous ne devez pas faire la moindre requête SQL ailleurs que dans un repository, c'est la règle. On va donc y construire des méthodes pour récupérer une entité par son id, pour récupérer une liste d'entités suivant un critère spécifique. A chaque fois que vous devez récupérer des entités dans votre base de données, vous utiliserez le repository de l'entité correspondante.
+Un **repository** centralise tout ce qui touche à la **récupération de vos entités**. Concrètement, cela veut dire que vous ne devez pas faire la moindre requête SQL ailleurs que dans un repository, c'est la règle. On va donc y construire des méthodes pour récupérer une entité par son id, pour récupérer une liste d'entités suivant un critère spécifique. A chaque fois que vous devez récupérer des entités dans votre base de données, vous utiliserez le **repository** de l'entité correspondante.
 
-Il existe un repository par entité. Cela permet de bien organiser son code. Bien sûr, cela n'empêche pas qu'un repository utilise plusieurs entités, dans le cas d'une jointure par exemple.
+Il existe **un repository par entité**. Cela permet de bien organiser son code. Bien sûr, cela n'empêche pas qu'un repository utilise plusieurs entités, dans le cas d'une **jointure** par exemple.
 
-Les repositories ne fonctionnent pas par magie, ils utilisent en réalité directement l'**EntityManager** pour faire leur travail. Vous le verrez, parfois nous ferons directement appel à l'EntityManager depuis des méthodes du repository.
+Les **repositories** ne fonctionnent pas par magie, ils utilisent en réalité directement l'**EntityManager** pour faire leur travail. Vous le verrez, parfois nous ferons directement appel à l'EntityManager depuis des méthodes du repository.
 
 ## Les méthodes de construction de query
 
@@ -25,26 +25,26 @@ Vous venez de voir votre première requête DQL. Retenez le principe : avec une 
 
 ### QueryBuilder
 
-Comme son nom l'indique, il sert à construire une requête, par étape, en utilisant le principe de la programmation orientée objet. Si l'intérêt n'est pas évident au début, son utilisation se révèle vraiment pratique ! Voici la même requête que précédemment, mais en utilisant le QueryBuilder :
+Comme son nom l'indique, il sert à construire une requête, **par étape**, en utilisant le principe de la programmation orientée objet. Si l'intérêt n'est pas évident au début, son utilisation se révèle vraiment pratique ! Voici la même requête que précédemment, mais en utilisant le **QueryBuilder** :
 
 ``` php
-$results = $queryBuilder
+$results = $this->em->createQueryBuilder()
     ->select('p')
-    ->from('App\\Entity\\Store\\Product p')
+    ->from(Product::class, 'p')
     ->getQuery()
     ->getResult();
 ```
 
-Un des avantages est qu'il est possible de construire la requête en plusieurs fois. Ainsi, vous pouvez développer une méthode qui rajoute une condition à une requête, par exemple pour sélectionner tous les produits visibles. Il suffit pour cela de passer le QueryBuilder à une méthode données, et cette méthode peut modifier la requête comme elle veut : ajouter un WHERE, ajouter une jointure, etc. C'est quelque chose qui est beaucoup plus compliqué avec une requête textuelle uniquement ! Pas de panique, on verra des exemples dans la suite du chapitre.
+Un des avantages est qu'il est possible de construire la requête **en plusieurs fois**. Ainsi, vous pouvez développer une méthode qui rajoute une condition à une requête, par exemple pour sélectionner tous les produits visibles. Il suffit pour cela de passer le **QueryBuilder** à une méthode données, et cette méthode peut modifier la requête comme elle veut : ajouter un WHERE, ajouter une jointure, etc. C'est quelque chose qui est beaucoup plus compliqué avec une requête textuelle uniquement ! Pas de panique, on verra des exemples dans la suite du chapitre.
 
 ## Récupérer ses entités
 
 ### Les méthodes de base
 
-Vos repositories héritent de la classe **Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository**, qui propose déjà quelques méthodes très utiles pour récupérer des entités (et en même temps permettent de définir nos Repository comme des services notamment pour l'autowiring). Ce sont ces méthodes là que nous allons voir ici. Il existe quatre méthodes fournit de base, que voici :
+Vos repositories héritent de la classe **Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository**, qui propose déjà quelques méthodes très utiles pour récupérer des entités (et en même temps permet de définir nos **Repository** comme des **services**, notamment pour l'autowiring). Ce sont ces méthodes là que nous allons voir ici. Il existe quatre méthodes fournit de base, que voici :
 
 ::: tip
-Que vous ayez défini un repository pour votre classe existe ou non, ces méthodes sont toujours disponibles en utilisant **$em->getRepository(Product::class)** !
+Que vous ayez défini un repository pour votre classe existe ou non, ces méthodes sont toujours disponibles en utilisant **$em->getRepository(Product::class)** ! Mais, d'une manière générale, on préfère les définir quand même pour pouvoir les injecter avec l'injection de dépendances.
 :::
 
 #### find($id)
@@ -126,9 +126,9 @@ Je vous parle de ces méthodes pour que vous sachiez qu'elles existent, mais, pe
 :::
 
 #### findByX($value)
-Première méthode, en remplaçant « X » par le nom d'une propriété de votre entité. Dans notre cas, pour l'entité Product, nous avons donc plusieurs méthodes : findByName(), findByDescription(), findByCreatedAt(), etc.
+Première méthode, en remplaçant « X » par le nom d'une propriété de votre entité. Dans notre cas, pour l'entité **Product**, nous avons donc plusieurs méthodes : **findByName()**, **findByDescription()**, **findByCreatedAt()**, etc.
 
-Cette méthode fonctionne comme si vous utilisiez findBy() avec un seul critère, celui du nom de la méthode.
+Cette méthode fonctionne comme si vous utilisiez **findBy()** avec un seul critère, celui du nom de la méthode.
 
 ``` php
 // Depuis l'entity Manager ou avec l'injection de dépendance
@@ -140,7 +140,7 @@ $products = $productRepository->findByName('Product 1');
 
 #### findOneByX($value)
 
-Deuxième méthode, en remplaçant « X » par le nom d'une propriété de votre entité. Dans notre cas, pour l'entité Product, nous avons donc plusieurs méthodes : findOneByName(), findOneByDescription(), findOneByCreatedAt(), etc. Cette méthode fonctionne comme findOneBy(), sauf que vous ne pouvez mettre qu'un seul critère, celui du nom de la méthode.
+Deuxième méthode, en remplaçant « X » par le nom d'une propriété de votre entité. Dans notre cas, pour l'entité **Product**, nous avons donc plusieurs méthodes : **findOneByName()**, **findOneByDescription()**, **findOneByCreatedAt()**, etc. Cette méthode fonctionne comme **findOneBy()**, sauf que vous ne pouvez mettre qu'un seul critère, celui du nom de la méthode.
 
 ``` php
 // Depuis l'entity Manager ou avec l'injection de dépendance
@@ -152,9 +152,9 @@ $product = $productRepository->findOneByName('Product 1');
 
 ### Vos propres méthodes
 
-Toutes les méthodes vu précédemment permettent de récupérer vos entités dans la plupart des cas. Simplement, elles montrent rapidement leurs limites lorsqu'on doit faire des jointures, ou effectuer des conditions plus complexes. Pour cela il faudra faire nos propres méthodes de récupération.
+Toutes les méthodes vu précédemment permettent de récupérer vos entités dans la plupart des cas. Simplement, elles montrent rapidement leurs limites lorsqu'on doit faire des jointures, ou effectuer des conditions plus complexes. Pour cela il faudra faire **nos propres méthodes** de récupération.
 
-Avant tout, il nous faut créer un repository lié à notre entité, pour cela nous allons compléter la ligne suivante dans la déclaration de la classe de l'entité concernée :
+Avant tout, il nous faut créer un repository lié à notre entité, pour cela, assurez-vous que la ligne suivante dans la déclaration de la classe de l'entité concernée est bien définie :
 
 ``` php {2}
 /**
@@ -168,12 +168,12 @@ class Product
 ```
 
 ::: tip
-Vos repositories ont déjà été créés puisque nous avons généré nos entités avec le MakerBundle. Ils se trouvent dans le dossier **src/Repository/**. Il n'est donc pas nécessaire de complété votre entité.
+Vos repositories ont déjà été créés puisque nous avons généré nos entités avec le **MakerBundle**. Ils se trouvent dans le dossier **src/Repository/**. Il n'est donc pas nécessaire de compléter votre entité.
 :::
 
 #### Découverte du QueryBuilder
 
-Voici le ProductRepository complété par une première méthode personnalisée équivalente a findAll() (ce qui ne sert à rien car elle existe déjà) :
+Voici le **ProductRepository** complété par une première méthode personnalisée équivalente à findAll() :
 
 ``` php
 <?php
@@ -233,7 +233,7 @@ $productRepository = $this->em->getRepository(Product::class);
 $products = $productRepository->myFindAll();
 ```
 
-Le QueryBuilder dispose de plusieurs méthodes afin de construire notre requête. Il y a une ou plusieurs méthodes par partie de requête : le WHERE, le ORDER BY, le FROM, etc
+Le **QueryBuilder** dispose de plusieurs méthodes afin de construire notre requête. Il y a une ou plusieurs méthodes par partie de requête : le **WHERE**, le **ORDER BY**, le **FROM**, etc.
 
 ``` php
 public function findByNameAndCreatedBefore(string $name, \DateTime $createdAt): array
@@ -254,7 +254,7 @@ public function findByNameAndCreatedBefore(string $name, \DateTime $createdAt): 
 Les méthodes **select**, **where** et **orderBy** réinitialisent la partie de la query qui les concernent. Il faut les utiliser avec un préfixe add (par exemple addSelect) pour éviter ce comportement.
 :::
 
-Maintenant, voyons un des avantages du QueryBuilder. En considérant que la condition "produits publiés durant l'année en cours" est une condition dont on va se resservir souvent. Il faut donc en faire une méthode, que voici :
+Maintenant, voyons un des avantages du **QueryBuilder**. En considérant que la condition "produits publiés durant l'année en cours" est une condition dont on va se resservir souvent. Il faut donc en faire une méthode, que voici :
 
 ``` php
 private function whereCurrentYear(QueryBuilder $qb)
@@ -266,7 +266,7 @@ private function whereCurrentYear(QueryBuilder $qb)
 }
 ```
 
-Vous notez donc que cette méthode ne traite pas une Query, mais bien uniquement le **QueryBuilder**. C'est en cela que ce dernier est très pratique, car faire cette méthode sur une requête en texte simple est possible, mais très compliqué. Il aurait fallu voir si le WHERE était déjà présent dans la requête, si oui mettre un AND au bon endroit, etc. Bref, pas simple. Pour utiliser cette méthode, voici la démarche :
+Vous notez donc que cette méthode ne traite pas une Query, mais bien uniquement le **QueryBuilder**. C'est en cela que ce dernier est très pratique, car faire cette méthode sur une requête en texte simple est possible, mais très compliqué. Il aurait fallu voir si le **WHERE** était déjà présent dans la requête, si oui mettre un **AND** au bon endroit, etc. Bref, pas simple. Pour utiliser cette méthode, voici la démarche :
 
 ``` php
 public function myFind(string $name): array
@@ -291,7 +291,7 @@ Cette condition peut donc être utilisée dans n'importe laquelle des requêtes 
 
 #### Les jointures
 
-La possibilité est également offerte de réaliser des jointures à l'aide du QueryBuilder, c'est assez simple à réaliser :
+La possibilité est également offerte de réaliser des **jointures** à l'aide, c'est assez simple à réaliser :
 
 ``` php
 public function findOneWithBrand(int $id): Product
@@ -309,7 +309,7 @@ public function findOneWithBrand(int $id): Product
 }
 ```
 
-Ou depuis le BrandRepository, pour obtenir la marque avec tous ces produits :
+Ou depuis le **BrandRepository**, pour obtenir la marque avec tous ces produits :
 
 ``` php
 public function findOneWithProducts(int $id): Brand
@@ -325,13 +325,13 @@ public function findOneWithProducts(int $id): Brand
 }
 ```
 
-L'idée est donc très simple :
-- D'abord on crée une jointure avec la méthode **leftJoin()** (ou join() pour faire l'équivalent d'un INNER JOIN). Le premier argument de la méthode est l'attribut de l'entité principale (celle qui est dans le FROM de la requête) sur lequel faire la jointure. Dans l'exemple, l'entité **Brand** possède un attribut products. Le deuxième argument de la méthode est l'alias de l'entité jointe.
-- Puis on sélectionne également l'entité jointe, via un **addSelect()**. En effet, un select('p') tout court aurait écrasé le select('b') déjà fait par le createQueryBuilder(), rappelez-vous.
+L'idée est donc la suivante :
+- D'abord on crée une jointure avec la méthode **leftJoin()** (ou join() pour faire l'équivalent d'un **INNER JOIN**). Le premier argument de la méthode est la propriété de l'entité principale (celle qui est dans le **FROM** de la requête) sur lequel faire la jointure. Dans l'exemple, l'entité **Brand** possède une propriété **products**. Le deuxième argument de la méthode est l'alias de l'entité jointe.
+- Puis on sélectionne également l'entité jointe, via un **addSelect()**. En effet, un **select('p')** tout court aurait écrasé le **select('b')** déjà fait par le **createQueryBuilder()**, rappelez-vous !
 
 #### L'objet Query
 
-Vous l'avez vu, la Query est l'objet à partir duquel on extrait les résultats. Il n'y a pas grand chose à savoir sur cet objet en lui-même, car il ne permet pas grand-chose à part récupérer les résultats. Il sert en fait surtout à la gestion du cache des requêtes.
+Vous l'avez vu, la **Query** est l'objet à partir duquel on extrait les résultats. Il n'y a pas grand chose à savoir sur cet objet en lui-même, car il ne permet pas grand-chose à part récupérer les résultats. Il sert en fait surtout à la gestion du cache des requêtes.
 
 Mais détaillons tout de même les différentes façons d'extraire les résultats de la requête. Ces différentes manières sont toutes à maîtriser, car elles concernent chacune un type de requête.
 
@@ -344,16 +344,17 @@ Mais détaillons tout de même les différentes façons d'extraire les résultat
 - **execute()** : Exécute la requête. Cette méthode est utilisée principalement pour exécuter des requêtes qui ne retournent pas de résultats (des UPDATE, INSERT INTO, etc.)
 
 ## A vous de jouer
-Maintenant que nous savons comment utiliser le QueryBuilder et ainsi créer nos propres requêtes, poursuivons notre développement :
+Maintenant que nous savons comment utiliser le **QueryBuilder** et ainsi créer nos propres requêtes, poursuivons notre développement :
 
 1. Dans votre **ProductRepository**, créez une méthode permettant de récupérer les 4 derniers produits ajoutés (en vous basant sur le champ createdAt) et affichez-les sur la page d'accueil.
-2. Créez à présent une entité **Opinion** permettant de recueillir les avis des visiteurs pour chacun de nos produits (comprenant l'id, un pseudo, un message, une date et heure de création). Puis modifiez vos fixtures afin de générer un jeu de commentaires 
-3. Affichez sur la page d'accueil, en dessous des produits en nouveautés, les 4 produits les plus commentés.
+2. Créez à présent une entité **Comment** permettant de recueillir les avis des visiteurs pour chacun de nos produits (comprenant l'**id**, **un pseudo**, **un message**, **une date et heure de création**). Puis modifiez vos **fixtures** afin de générer un jeu de commentaires 
+3. Affichez sur la page d'accueil, en dessous des produits en nouveautés, **les 4 produits les plus commentés**.
 4. Votre page listant les produits dispose d'un menu des marques, celui-ci est également présent sur la page détail d'un produit. Faites-en sorte d'éviter le contenu dupliqué en créant un **composant partagé** entre ces deux pages.
-5. Maintenant que vous disposez de la liste de vos marques sur l'ensemble de vos pages produits, rendez actif les liens permettant d'aller voir une liste de produits en fonction de la marque sélectionnée (reposez-vous sur l'id de la marque et pensez à garder le lien cliqué actif afin de permettre en un seul coup d'oeil la marque sur laquelle on se trouve).
-6. Afin de mutualiser l'affichage des produits sur la page d'accueil, créez un template **partial** pour un item de la liste.
-7. Enfin, **affichez les avis** des visiteurs sur chaque produit (du plus récent au plus ancien) et rendez le **formulaire d'ajout d'un nouvel avis** fonctionnel.
+5. Maintenant que vous disposez de la liste de vos marques sur l'ensemble de vos pages produits, **rendez actif les liens** permettant d'aller voir une **liste de produits en fonction de la marque** sélectionnée (reposez-vous sur l'id de la marque et pensez à garder le **lien cliqué actif** afin de permettre en un seul coup d'oeil la marque sur laquelle on se trouve).
+6. Afin de **mutualiser l'affichage des produits** sur la page d'accueil, créez un template **partial** pour un item de la liste et utilisez le dans vos différents templates.
+7. Enfin, **affichez les avis** des visiteurs sur chaque produit, **du plus récent au plus ancien**, et rendez le **formulaire d'ajout d'un nouvel avis** fonctionnel.
+8. **Optimisez toutes les requêtes** de l'application afin d'en **limiter le nombre** au strict minimum.
 
-**Aides** :
-- [https://symfony.com/doc/current/templating/embedding_controllers.html](https://symfony.com/doc/current/templating/embedding_controllers.html)
-- [https://symfony.com/doc/current/templating.html#including-other-templates](https://symfony.com/doc/current/templating.html#including-other-templates)
+### Aides
+- [Embedding Controllers](https://symfony.com/doc/current/templates.html#embedding-controllers)
+- [Including Templates](https://symfony.com/doc/current/templates.html#including-templates)

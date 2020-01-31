@@ -4,7 +4,7 @@ sidebarDepth: 0
 
 # Fichiers sources
 
-Au fûr et mesure, je vous mettrai à disposition le corrigé pour chaque chapitre ici sous forme de zip :
+Au fur et mesure, je vous mettrai à disposition le corrigé pour chaque chapitre ici sous forme de zip :
 
 
 - [Bundles, Flex et auto-configuration](/sources/shoefony-bundle_flex.zip)
@@ -12,10 +12,10 @@ Au fûr et mesure, je vous mettrai à disposition le corrigé pour chaque chapit
 - [Le moteur de template Twig](/sources/shoefony-twig.zip)
 - [Formulaires](/sources/shoefony-form.zip)
 - [Les services](/sources/shoefony-services.zip)
-
-<!--
 - [Les entités Doctrine](/sources/shoefony-entities.zip)
 - [Relations entre entités](/sources/shoefony-relations.zip)
+
+<!--
 - [Les repositories](/sources/shoefony-repositories.zip)
 - [Shoefony final](/sources/shoefony-final.zip) : Templates d'erreur, recherche et EventSubscriber pour l'envoi de mail.
 -->

@@ -21,8 +21,9 @@ Toutes ces commandes s'exécutent par défaut pour l'environnement défini par l
 
 ## Debug
 - **php bin/console debug:router** : Permet d'afficher toutes les routes de notre application avec leur nom, leur méthode HTTP et leur path
-- **php bin/console debug:autowiring** : Listes les classes et interfaces à utiliser pour l'autowiring.
-- **php bin/console debug:container** : Listes tous les services disponibles dans l'application.
+- **php bin/console debug:autowiring** : Liste les classes et interfaces à utiliser pour l'autowiring.
+- **php bin/console debug:container** : Liste tous les services disponibles dans l'application.
+- **php bin/console debug:event-dispatcher** : Liste tous les events avec leurs listeners et subscribers associées.
 
 ## Maker
 - **php bin/console make:controller** : Génère un contrôleur vide avec le nom donné
@@ -30,6 +31,6 @@ Toutes ces commandes s'exécutent par défaut pour l'environnement défini par l
 - **php bin/console make:form** : Génère un formulaire en se basant (ou non) sur une entité Doctrine
 
 ## Doctrine
-- **php bin/console doctrine:database:create** : Créer la base de données à partir des paramètres définis
+- **php bin/console doctrine:database:create** : Crée la base de données à partir des variables d'environnement définis
 - **php bin/console doctrine:schema:update --dump-sql** : Affiche toutes les requêtes SQL nécessaire pour que la base de données correspondent à la définition de nos entités.
 - **php bin/console doctrine:schema:update --force** : Execute les requêtes SQL pour mettre à jour notre base de données par rapport à la définition de nos entités.

@@ -15,7 +15,7 @@ themeConfig:
   nav: [
     { text: 'Cours', link: '/cours/' },
     { text: 'Projets', link: '/projets/' },
-    { text: 'Ressources', link: '/ressources/conventions' },
+    { text: 'Ressources', link: '/ressources/' },
   ]
   sidebar: {
     /cours/: [
@@ -29,9 +29,9 @@ themeConfig:
       '/cours/service',
       '/cours/entities',
       '/cours/relations',
-      # '/cours/repositories',
-      # '/cours/mise-en-ligne',
-      # '/cours/plus-loin'
+      '/cours/repositories',
+      #'/cours/mise-en-ligne',
+      #'/cours/plus-loin'
     ],
     /projets/: [
       '/projets/',
@@ -39,7 +39,7 @@ themeConfig:
       # '/projets/procom'
     ],
     /ressources/: [
-      '/ressources/conventions',
+      '/ressources/',
       '/ressources/commandes',
       '/ressources/bundles',
       '/ressources/sources',

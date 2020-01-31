@@ -1,27 +1,54 @@
-code
-  user-select: none
-
 .site-name, h1, h2, h3, h4, h5, h6
-  color #1C3D5A !important
+  color: $titleColor !important
 
-p img
-  background #12283a
-  box-shadow 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)
-  display block
-  margin-left auto
-  margin-right auto
-
-body, .sidebar, .search-box input
-  background-color #F8FAFC !important
+html, body, .sidebar, .search-box input
+  background-color: $backgroundColor !important
 
 .search-box input:focus
-  background-color #fff !important
+  background-color: #fff !important
 
 .navbar, .navbar .links
-  background-color #F1F5F8 !important
+  background-color: $navbarColor !important
 
-blockquote
-  font-size: 1.1rem;
-  color: #606F7B;
-  border-left: 0.25rem solid #8795A1;
+.page
 
+  code
+    user-select: none
+
+  blockquote
+    font-size: 1.1rem;
+    color: #606F7B;
+    border-left: 0.25rem solid #8795A1;
+
+  p
+    text-align: justify
+
+    img
+      background: $codeBgColor
+      box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)
+      display: block
+      margin-left: auto
+      margin-right: auto
+
+  li
+    text-align: justify
+    margin: .5rem 0
+
+  ol
+    padding: 0
+    counter-reset: item
+
+    &> li
+      padding: 0 0 0 2rem
+      text-indent: -2rem
+      list-style-type: none
+      counter-increment: item
+
+      &:before
+        color: $titleColor
+        display: inline-block
+        width: 1.25rem
+        padding-right: .75rem
+        font-weight: bold
+        text-align: right
+        content: counter(item) "."

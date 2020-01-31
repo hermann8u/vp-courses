@@ -6,10 +6,10 @@ Les bundles sont les **blocs de construction** élémentaires de n'importe quell
 Avant la version 4 de Symfony, il était recommandé d'organiser son code en utilisant les bundles. C'est à dire que le code source de l'application (le dossier **/src/**) était divisé en bundle. Ce n'est plus le cas et les bundles doivent être **seulement** utilisés pour **partager du code et des fonctionnalités** d'un projet à un autre.
 
 ::: tip
-Les bundles restent très important dans Symfony. Sur internet, on trouve une multitude de bundles nous permettant d'intégrer des fonctionnalités déjà développer.
+Les bundles restent très important dans Symfony. Sur internet, on trouve une multitude de bundles nous permettant d'intégrer des fonctionnalités déjà développées.
 :::
 
-Pour être fonctionnelle dans votre application, les bundles doivent être définis dans le fichier **/config/bundles.php**. Il contient une array associative avec, en clé, le namespace complet la classe du bundle pour l'initialisation, et en valeur, les environnements pour lequel/lesquels ce bundle est activé.
+Pour être fonctionnels dans votre application, les bundles doivent être définis dans le fichier **/config/bundles.php**. Il contient une array associative avec, en clé, le namespace complet la classe du bundle pour l'initialisation, et en valeur, les environnements pour lequel/lesquels ce bundle est activé.
 
 Je vous ai préparé une liste de quelques bundles à connaître/utiliser. Vous pouvez les retrouver dans la partie [ressources/bundles](/ressources/bundles.html) de ce site.
 
@@ -26,7 +26,7 @@ Symfony Flex est un plugin pour Composer qui a été introduit avec Symfony 4. S
 Les bundles et composants disposant d'une recette sont tous référencés sur le site [https://flex.symfony.com](https://flex.symfony.com). Je vous conseille de regarder d'abord sur ce site si vous êtes à la recherche d'une librairie (ou d'un bundle) pour répondre à une fonctionnalité dont vous avez besoin.
 
 Les principales fonctionnalités de Flex sont les suivantes :
-- Configuration automatiques des librairies
+- Configuration automatique des librairies
 - Définition d'alias : Il n'est plus nécessaire de taper le nom complet d'un package s'il possède un alias, par exemple **composer req admin** à la place de **composer require easycorp/easyadmin-bundle**
 - Plus besoin non plus de taper *symfony* pour installer un package de Symfony (**composer req serializer**)
 - Le fichier **/config/bundles.php** se remplit automatiquement à l'installation d'un bundle, même si celui-ci n'a pas de recette.
