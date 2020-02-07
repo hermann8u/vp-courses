@@ -77,7 +77,7 @@ En local :
 2. [Mettre à jour les dépendances sans celles de développement et en optimisant l'autoload de **Composer**](/cours/mise-en-ligne.html#composer-pour-la-production)
 
 Sur le serveur :
-1. [Envoyer les fichiers (via FTP) sur le serveur sans le dossier **/var/** et le fichier **.env.local**](/cours/mise-en-ligne.html#envoie-de-fichier)
+1. [Envoyer les fichiers (via FTP) sur le serveur sans le dossier **/var/** et le fichier **.env.local**](/cours/mise-en-ligne.html#envoi-de-fichier)
 2. Créer la base de données avec un script SQL (ex: export de la version local)
 3. Recréer le fichier .env.local à partir du .env en adaptant les valeurs (environnement de production, connexion base de données, ...)
 5. [Mettre en place un fichier .htaccess à la racine si nécessaire](/cours/mise-en-ligne.html#reecrire-les-url)
@@ -125,7 +125,7 @@ composer install --no-dev -o
 composer dump-autoload -o
 ```
 
-#### Envoie de fichier
+#### Envoi de fichier
 
 Notre projet est plein de dossier et de fichiers, seulement, tout ne doit pas être envoyé sur le serveur ! Pour savoir quoi envoyer, vous pouvez consulter le fichier **/.gitignore** à la racine de votre projet.
 

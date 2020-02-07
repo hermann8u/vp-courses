@@ -228,7 +228,7 @@ class AnotherService
 }
 ```
 
-## Cas concret : Envoie de mail
+## Cas concret : Envoi de mail
 
 Dans une application aussi simple, la création de service n'est pas vraiment nécessaire car il a peu de code, et donc peu qui peut être utilisé à plusieurs endroits. Nous allons devoir nous contenter d'utiliser des services qui existent déjà dans nos dépendances, notamment le Mailer que nous avons vu plus haut.
 
@@ -249,10 +249,10 @@ Afin de l'utiliser, il faut commencer par le configurer, mais Symfony Flex a dé
 2. Dans le fichier **/.env.local**, modifier le paramètre **MAILER_DSN** en [fonction du provider choisit](https://symfony.com/doc/current/components/mailer.html#mailer-dsn)
 
 ::: warning
-L'envoie de mail en locale est toujours quelque chose qui reste bancale. C'est possible que, même si votre configuration est bonne, rien ne se passe.
+L'envoi de mail en locale est toujours quelque chose qui reste bancale. C'est possible que, même si votre configuration est bonne, rien ne se passe.
 :::
 
-### Envoie de mail
+### Envoi de mail
 
 Le composant fonctionne grâce à la création, la configuration et enfin à l'envoi d'objets **Symfony\Component\Mime\Email**. Le service **Mailer** est responsable de l'envoi réel du message à travers sa méthode **send**.
 
@@ -296,7 +296,7 @@ swiftmailer:
 
 ``` -->
 
-### Analyser ses envoies
+### Analyser ses envois
 
 Vous pouvez voir tous les emails envoyés durant une unique réponse lorsque vous êtes dans l'environnement dev via **la barre de debug**. L'icône d'email dans la barre d'outils montrera combien d'emails ont été envoyés. Si vous cliquez dessus, un rapport s'ouvrira montrant les détails des emails envoyés.
 
@@ -325,4 +325,4 @@ Améliorons à présent notre formulaire de contact afin d'alerter l'administrat
 
 - [Symfony best practices : Organizing Your Business Logic](https://symfony.com/doc/current/best_practices.html#business-logic)
 - [Symfony best practices : Configuration](https://symfony.com/doc/current/best_practices.html#configuration)
-- [Documentation de Symfony sur l'envoie d'email](https://symfony.com/doc/current/mailer.html)
+- [Documentation de Symfony sur l'envoi d'email](https://symfony.com/doc/current/mailer.html)

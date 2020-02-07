@@ -30,6 +30,7 @@ themeConfig:
       '/cours/entities',
       '/cours/relations',
       '/cours/repositories',
+      '/cours/security',
       #'/cours/mise-en-ligne',
       #'/cours/plus-loin'
     ],
