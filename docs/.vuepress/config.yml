@@ -31,13 +31,13 @@ themeConfig:
       '/cours/relations',
       '/cours/repositories',
       '/cours/security',
-      #'/cours/mise-en-ligne',
-      #'/cours/plus-loin'
+      '/cours/mise-en-ligne',
+      '/cours/plus-loin'
     ],
     /projets/: [
       '/projets/',
       '/projets/shoefony',
-      # '/projets/procom'
+      '/projets/procost'
     ],
     /ressources/: [
       '/ressources/',

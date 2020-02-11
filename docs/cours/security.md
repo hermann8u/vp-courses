@@ -214,7 +214,7 @@ Si notre contrôleur étant l'**AbstractController**, nous pouvons par exemple f
 public function index()
 {
     $currentUser = $this->getUser();
-    if ($user instanceof User) {
+    if (!$user instanceof User) {
         throw $this->createAccessDeniedException();
     }
 
@@ -304,7 +304,7 @@ public function index()
 {
     // Cette méthode est un raccourci fournit par l'AbstractController
     // qui utilise en fait le service d'AuthorizationChecker
-    if ($this->isGranted('ROLE_ADMIN')) {
+    if ($this->isGranted('ROLE_ADMIN') === false) {
         throw $this->createAccessDeniedException();
     }
 
@@ -318,7 +318,7 @@ De la même façon, dans nos templates **Twig** afin d'afficher conditionnelleme
 ``` twig
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     <li>
-        <a href="#">Se connecter</a>
+        <a href="#">Se déconnecter</a>
     </li>
 {% endif %}
 ```

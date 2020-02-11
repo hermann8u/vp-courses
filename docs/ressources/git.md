@@ -28,7 +28,7 @@ Ouvrez une invite de commande à la racine de votre projet et exécuter les comm
 git init
 git add .
 git commit -m "Initial commit"
-git remote add origin https://github.com/hermann8u/symfony_procom_fhermann.git
+git remote add origin https://github.com/hermann8u/symfony_procost_fhermann.git
 git push -u origin master
 ```
 

@@ -12,3 +12,33 @@ Voici une liste de quelques points à découvrir ou approfondir par vous-même.
 D'une manière générale, si vous avez l'intention de continuer à développer avec Symfony, je vous conseille de commencer par :
 - Lire les [bonnes pratiques](https://symfony.com/doc/current/best_practices.html) dans leur ensemble
 - Jeter un coup d'oeil à [l'application de démo de Symfony](https://github.com/symfony/demo) et d'apprendre du code
+
+## Essai
+
+Vous avez passé cette année à apprendre à écrire du code qui **fonctionne**. Vous allez passer le reste de votre carrière de développeur à apprendre à écrire du code qui est **maintenable**.
+
+Make it work. Make it pretty. Make it work again. Repeat.
+
+### Pourquoi
+
+Parce que vous ne travaillez pas seul.
+Parce que votre code sera amené à évoluer
+Pour limiter les bugs
+Pour les performances
+Parce qu'on passe 90% de notre temps à lire du code, pas à l'écrire
+
+
+### Comment
+
+Reformat
+Tests
+Pattern (design)
+Remise en question
+
+### Comment apprendre ?
+
+Youtube
+Twitter
+Lire des articles
+Lire du code
+Participer à des events
