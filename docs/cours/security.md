@@ -1,4 +1,4 @@
-# Authentification et autorisation
+# Authentification et autorisations
 
 Symfony propose un mécanisme très complet permettant de gérer l'**authentification** et les **autorisations**. Dans ce chapitre, nous allons mettre en place une système d'authentification à l'aide d'un formulaire de connexion et évoquer les bases des autorisations.
 

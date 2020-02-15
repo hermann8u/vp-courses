@@ -15,6 +15,7 @@ Au fur et mesure, je vous mettrai à disposition le corrigé pour chaque chapitr
 - [Les entités Doctrine](/sources/shoefony-entities.zip)
 - [Relations entre entités](/sources/shoefony-relations.zip)
 - [Les repositories](/sources/shoefony-repositories.zip)
+- [Authentification et autorisations](/sources/shoefony-security.zip)
 
 <!--
 - [Shoefony final](/sources/shoefony-final.zip) : Templates d'erreur, recherche et EventSubscriber pour l'envoi de mail.
