@@ -4,11 +4,17 @@
 
 Avec Symfony, lorsqu'une exception est déclenchée, le noyau l'attrape. Cela lui permet ensuite d'effectuer l'action adéquate.
 
-Le comportement par défaut du noyau consiste à appeler un contrôleur particulier intégré à Symfony : **TwigBundle:Exception:show**. Ce contrôleur récupère les informations de l'exception, choisi le template adéquat (un template différent par type d'erreur : 404, 500, etc.), passe les informations au template et envoie la réponse générée.
+Le comportement par défaut du noyau consiste à appeler un contrôleur particulier intégré à Symfony : **Symfony\Component\HttpKernel\Controller\ErrorController**. Ce contrôleur récupère les informations de l'exception, choisi le template adéquat (un template différent par type d'erreur : 404, 500, etc.), passe les informations au template et envoie la réponse générée.
 
-À partir de là, il est facile de personnaliser ce comportement : **TwigBundle** étant un bundle, on peut surcharger ses vues pour les adapter à nos besoins ! Mais ce n'est pas tout, le comportement que nous voulons changer, c'est juste l'apparence de nos pages d'erreur. Il suffit donc de créer nos propres templates et de dire à Symfony d'utiliser nos templates et non ceux par défaut.
+::: tip
+Depuis Symfony 5, c'est le **composant ErrorHandler** qui est chargé de générer ces pages d'erreurs. Avant, ce mécanisme était intégré dans le **TwigBundle**.
+:::
 
+Ces pages d'erreurs utilise Twig à travers son bundle pour être généré. Dans Symfony, il est possible de surcharger les templates fournit avec un bundle. Puisque **TwigBundle** est un bundle, on peut surcharger ses vues pour les adapter à nos besoins ! Il suffit donc de créer nos propres templates et de dire à Symfony d'utiliser nos templates et non ceux par défaut.
+
+::: tip
 Les pages d'erreur de Symfony sont affichées lorsque le noyau attrape une exception. Il existe deux pages différentes : celle en mode **dev** et celle en mode **prod**.
+:::
 
 Il est possible de personnaliser les deux, mais celle qui nous intéresse le plus ici est la page d'erreur en mode production. En effet, c'est celle qui sera affichée à nos visiteurs.
 
@@ -18,31 +24,18 @@ Voici à quoi ressemble la page d'erreur **404** standard :
 
 Il est très simple de remplacer les vues d'un bundle quelconque par les nôtres. Il suffit de créer le répertoire **/templates/bundles/NomDuBundle/** et d'y placer nos vues à nous ! Et cela est valable quelque soit le bundle.
 
-Dans notre cas, ce sera **/templates/bundles/TwigBundle/Exception**. Et au sein de ce répertoire, le bundle utilise la convention suivante pour chaque nom de template :
+Dans notre cas, ce sera **/templates/bundles/TwigBundle/Exception**. Et au sein de ce dossier, le bundle utilise la convention suivante pour chaque nom de template :
 
-- Il vérifie d'abord l'existence de la vue error[code_erreur].html.twig, par exemple error404.html.twig dans le cas d'une page introuvable (erreur 404).
-- Si ce template n'existe pas, il utilise la vue error.html.twig, une sorte de page d'erreur générique.
+- Il vérifie d'abord l'existence du template **error[code_erreur].html.twig**, par exemple **error404.html.twig** dans le cas d'une page introuvable (erreur 404).
+- Si ce template n'existe pas, il utilise le template **error.html.twig**, une sorte de page d'erreur générique.
 
-Je vous conseille de créer un error404.html.twig pour les pages non trouvées, en plus du error.html.twig générique. Cela vous permet d'afficher un petit texte sympa pour que l'utilisateur ne soit pas trop perdu.
-
-Pour savoir quoi mettre dans ces vues, je vous propose de jeter un oeil à celle qui existe déjà, error.html.
-
-Vous la trouvez comme indiqué plus haut dans le répertoire :
-**vendor\symfony\src\Symfony\Bundle\TwigBundle\Resources\views\Exception**
+Je vous conseille de créer un **error404.html.twig** pour les pages non trouvées, en plus du **error.html.twig** générique. Cela vous permet d'afficher un petit texte sympa pour que l'utilisateur ne soit pas trop perdu.
 
 ::: tip
-Vous pouvez donc utiliser Twig pour générer vos pages d'erreur, ce qui signifie que vous pouvez par exemple étendre le layout (avec la barre de navigation, ...) dans celles-ci !
+Vous pouvez donc utiliser Twig pour générer vos pages d'erreur, ce qui signifie que vous pouvez par exemple étendre le layout (avec la barre de navigation, ...) dans celles-ci. Très pratique pour ne pas perdre nos visiteurs quand ils arrivent sur une page d'erreurs !
 :::
 
 ## Vérifier son site Symfony
-
-Votre site web terminé et prêt à être mis en production, il arrive régulièrement que vous soyez obligé de déployer votre projet sur un serveur distant. Il y a plusieurs points auxquels il est nécessaire de porter une attention particulière lorsqu'il s'agit du framework Symfony.
-
-La méthodologie est la suivante :
-1. Uploader votre code à jour sur le serveur de production (toujours sans les fichiers et dossiers à exclure du **.gitignore**)
-2. Mettre à jour vos dépendances via Composer
-3. Mettre à jour votre base de données
-4. Vider le cache
 
 ### Tester son application
 
@@ -63,6 +56,8 @@ Pour cela, il existe un outil : [Security Checker](https://security.symfony.com/
 
 ## Déployer son site Symfony en ligne
 
+Votre application web est terminée et prête à être mise en production ! Avant de déployer votre projet sur un serveur, il y a plusieurs points auxquels il est nécessaire de porter une attention particulière lorsqu'il s'agit du framework Symfony.
+
 Le déploiement d'une application est toujours une étape délicate qui touche au domaine de la configuration du serveur. En général, on se retrouve dans deux cas :
 
 1. Soit vous n'avez pas accès en SSH à votre serveur (la plupart des hébergements mutualisés, etc.)
@@ -77,7 +72,7 @@ En local :
 2. [Mettre à jour les dépendances sans celles de développement et en optimisant l'autoload de **Composer**](/cours/mise-en-ligne.html#composer-pour-la-production)
 
 Sur le serveur :
-1. [Envoyer les fichiers (via FTP) sur le serveur sans le dossier **/var/** et le fichier **.env.local**](/cours/mise-en-ligne.html#envoi-de-fichier)
+1. [Envoyer les fichiers (via SFTP) sur le serveur sans le dossier **/var/** et le fichier **.env.local**](/cours/mise-en-ligne.html#envoi-de-fichier)
 2. Créer la base de données avec un script SQL (ex: export de la version local)
 3. Recréer le fichier .env.local à partir du .env en adaptant les valeurs (environnement de production, connexion base de données, ...)
 5. [Mettre en place un fichier .htaccess à la racine si nécessaire](/cours/mise-en-ligne.html#reecrire-les-url)
@@ -91,7 +86,7 @@ En local :
 Sur le serveur :
 1. [Envoyer les fichiers sur le serveur (par exemple avec Git) sans les dossiers **/var/** et **/vendor/** et le fichier **.env.local**](/cours/mise-en-ligne.html#envoie-de-fichier)
 2. [Mettre à jour les dépendances sans celles de développement et en optimisant l'autoload de **Composer**](/cours/mise-en-ligne.html#composer-pour-la-production)
-3. Configurer le serveur web (Apache, NGINX) en pointant sur la partie public de votre projet (ex: /var/www/shoefony/public/)
+3. Configurer le serveur web (Apache, NGINX, ...) en pointant sur la partie public de votre projet (ex: /var/www/shoefony/public/)
 4. Ajouter les variables d'environnements dans la configuration serveur (environnement de production, connexion base de données, ...)
 5. Créer et/ou mettre à jour la base de données en ligne de commande
 6. Exécuter la commande **cache:clear** et si erreur : [Vérifier les droits d'écriture de /var/](/cours/mise-en-ligne.html#regler-les-droits-sur-le-dossier-var)
@@ -100,7 +95,7 @@ Sur le serveur :
 
 #### Dépendances de développement
 
-Lorsque nous développons notre application, nous avons des outils comme la DebugBar, le MakerBundle, etc. Ce sont ce qu'on appelle des dépendances de développement. Ces dépendances doivent se trouver dans la partie **require-dev** de notre fichier **composer.json**. Avant de mettre en production un projet, il est nécessaire de vérifier que les dépendances de développement et de production soit bien séparées.
+Lorsque nous développons notre application, nous avons des outils comme la **DebugBar**, le **MakerBundle**, etc. Ce sont ce qu'on appelle des dépendances de développement. Ces dépendances doivent se trouver dans la partie **require-dev** de notre fichier **composer.json**. Avant de mettre en production un projet, il est nécessaire de vérifier que les dépendances de développement et de production soit bien séparées.
 
 Lorsque nous avons accès à la configuration de notre serveur web de production, nous pouvons déplacer deux dépendances de plus dans le require-dev :
 - **symfony/apache-pack** : Cette dépendance est utile uniquement avec Flex pour créer un fichier **.htaccess** dans le dossier **/public/**. Il est possible de gérer ça directement dans la configuration serveur (ce qui est aussi plus performant).

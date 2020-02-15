@@ -44,8 +44,7 @@ themeConfig:
       '/ressources/commandes',
       '/ressources/bundles',
       '/ressources/sources',
-      '/ressources/git'
+      '/ressources/git',
+      '/ressources/apprendre'
     ]
   }
-  
-  

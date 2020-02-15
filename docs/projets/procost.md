@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Durant nos différentes séances de travaux pratiques, nous avons exploité ensemble les notions de bases proposées par le framework de développement Symfony. Vous devriez à présent être en mesure de réaliser vous-même un système complet, et c'est le but de ce projet !
+Durant nos différentes séances de travaux pratiques, nous avons exploité ensemble les notions de base proposées par le framework de développement Symfony. Vous devriez à présent être en mesure de réaliser vous-même un système complet, et c'est le but de ce projet !
 
 Le sujet porte sur la création d'une interface web, intitulée **Procost**, et permettant de calculer de manière sommaire les coûts de développement des projets réalisés par les équipes de production d'une entreprise.
 
