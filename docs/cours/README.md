@@ -45,6 +45,7 @@ Malheureusement, et comme pour toutes bonnes choses, il existe quelques points n
 - Nécessité de se former à l'usage du framework (peut s'avérer long)
 - Coût de mise oeuvre assez important
 - Lenteurs engendrées (les frameworks de développement ont tendances à voir leurs performances améliorées, donc cet inconvénient devient des moindres depuis ces dernières années)
+- Fort couplage
 
 ## Découvrir Symfony
 
@@ -52,7 +53,7 @@ Malheureusement, et comme pour toutes bonnes choses, il existe quelques points n
 
 Symfony est un framework de développement Open source écrit en PHP et lancé en 2005 par Fabien Potencier pour la société française [SensioLabs](https://sensiolabs.com)
 
-Comme beaucoup d'autre, ce framework est basé sur une structure **MVC** (Modèle Vue Contrôleur), ce qui permet de travailler dans le respect des bonnes pratiques et de réutiliser des méthodologies de conception standardisées. Il s'agit d'un **design pattern** ayant déjà fait ses preuves et qui s'avère aujourd'hui un indispensable en programmation.
+Comme beaucoup d'autre, ce framework utilise par défaut une structure **MVC** (Modèle Vue Contrôleur). Il s'agit d'un **pattern architecturale** ayant déjà fait ses preuves et qui s'avère aujourd'hui un indispensable en programmation.
 
 ![MVC](/img/mvc.png)
 
@@ -86,7 +87,7 @@ D'autres fonctionnalités très intéressantes sont proposées par Symfony dont 
 
 ### Pourquoi Symfony et pas un autre ?
 
-Symfony est un framework codé en PHP qui va nous permettre de développer une immensité d'applications web de la plus simple à la plus complexe imaginable. Il définit un squelette de base à respecter, mais dans lequel on peut y mettre tout le code que l'on souhaite.
+Symfony est un framework PHP qui va nous permettre de développer différents types d'applications web, de la plus simple à la plus complexe. Il définit un squelette de base à respecter, mais dans lequel on peut y mettre tout le code que l'on souhaite.
 
 Il n'y a donc aucune limite ! Seule votre motivation pourra vous freiner, mais nous avons tous un énorme potentiel qui ne demande qu'à être exploité. Symfony est là pour nous aider à le mettre en avant.
 
@@ -98,15 +99,6 @@ En résumé, nous allons étudier Symfony car il possède :
 - Une grande capacité d'évolution
 - Des références connues (exemples : Yahoo!, DailyMotion, AdopteUnMec, BlaBlaCar, Allocine, ...)
 - Une bonne notoriété dans les entreprises et crée de l'emploi
-
-### Vocabulaire à connaître
-
-Le vocabulaire utile lorsque l'on commence à travailler avec Symfony :
-- **BUNDLE** : Un module, une fonctionnalité de l'application.
-- **DOCTRINE** : Librairie PHP de gestion de base de données.
-- **FIXTURE** : Scripts permettant de générer des ensembles de données de départ à injecter dans la base de données.
-- **TWIG** : Moteur de template pour les applications PHP.
-- **ROUTING** : Fonctionnalité qui mappe les URLs aux actions du controller
 
 ## Pour aller plus loin
 
