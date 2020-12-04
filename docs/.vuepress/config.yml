@@ -24,20 +24,20 @@ themeConfig:
       '/cours/structure',
       '/cours/bundle-et-flex',
       '/cours/controleur-et-routing',
-      '/cours/twig',
-      '/cours/formulaire',
-      '/cours/service',
-      '/cours/entities',
-      '/cours/relations',
-      '/cours/repositories',
-      '/cours/security',
-      '/cours/mise-en-ligne',
-      '/cours/plus-loin'
+      #'/cours/twig',
+      #'/cours/formulaire',
+      #'/cours/service',
+      #'/cours/entities',
+      #'/cours/relations',
+      #'/cours/repositories',
+      #'/cours/security',
+      #'/cours/mise-en-ligne',
+      #'/cours/plus-loin'
     ],
     /projets/: [
       '/projets/',
       '/projets/shoefony',
-      '/projets/procost'
+      # '/projets/procost'
     ],
     /ressources/: [
       '/ressources/',
@@ -45,6 +45,6 @@ themeConfig:
       '/ressources/bundles',
       '/ressources/sources',
       '/ressources/git',
-      '/ressources/apprendre'
+      # '/ressources/apprendre'
     ]
   }

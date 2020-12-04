@@ -45,7 +45,7 @@ Le routing est aussi définie dans le dossier de configuration. Nous y reviendro
 Le dossier **/public/** représente la partie public de l'application. Concrètement, ça signifie que si l'on met en ligne notre projet shoefony sur le domaine http://shoefony.fr, il faudra faire pointer la configuration serveur sur ce dossier public et faire en sorte que toutes les requêtes arrivent sur le fichier index.php (avec Apache, on peut faire cette configuration dans un fichier **.htaccess** par exemple). Ce système permet de faire en sorte que tous nos fichiers ne soient pas accessibles directement depuis le navigateur, notamment pour des raisons de sécurité.
 
 ::: tip
-Le fait de faire passer toutes les requêtes par notre fichier index.php est un **pattern design** appelé "Front Controller".
+Le fait de faire passer toutes les requêtes par notre fichier index.php est un **pattern architectural** appelé "Front Controller".
 :::
 
 C'est aussi dans ce dossier public que se trouvera le css, les images et le javascript de notre application. En bref, toutes les ressources accessibles depuis le navigateur se trouvent dans ce dossier.

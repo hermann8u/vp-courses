@@ -53,7 +53,7 @@ Malheureusement, et comme pour toutes bonnes choses, il existe quelques points n
 
 Symfony est un framework de développement Open source écrit en PHP et lancé en 2005 par Fabien Potencier pour la société française [SensioLabs](https://sensiolabs.com)
 
-Comme beaucoup d'autre, ce framework utilise par défaut une structure **MVC** (Modèle Vue Contrôleur). Il s'agit d'un **pattern architecturale** ayant déjà fait ses preuves et qui s'avère aujourd'hui un indispensable en programmation.
+Comme beaucoup d'autre, ce framework utilise par défaut une structure **MVC** (Modèle Vue Contrôleur). Il s'agit d'un **pattern architectural** ayant déjà fait ses preuves et qui s'avère aujourd'hui un indispensable en programmation.
 
 ![MVC](/img/mvc.png)
 
@@ -61,7 +61,7 @@ Le **modèle** est la partie du code se chargeant d'interagir avec la base de do
 
 La **vue** est la partie du code qui se charge uniquement d'afficher les données qui lui ont été fournies. En aucun cas, la vue ne doit effectuer de traitement sur les données, sauf dans le but d'en embellir l'affichage.
 
-Le **contrôleur** est le centre du design pattern MVC, il reçoit la requête HTTP du client, l'interprète et coordonne le tout. Il se charge de demander au modèle les données puis effectue plus ou moins de traitements dessus afin d'envoyer à la vue les données à afficher et de retourner une réponse à l'émetteur de la requête.
+Le **contrôleur** est le centre du pattern MVC, il reçoit la requête HTTP du client, l'interprète et coordonne le tout. Il se charge de demander au modèle les données puis effectue plus ou moins de traitements dessus afin d'envoyer à la vue les données à afficher et de retourner une réponse à l'émetteur de la requête.
 
 On remarque que chaque phase du travail est bien séparée, ce qui permet une organisation plus claire du code.
 

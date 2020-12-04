@@ -40,10 +40,6 @@ Je vous ai précisé dans le chapitre d'installation qu'il y avait deux façons 
 
 Puisque nous avons choisi la première solution, nous allons nous servir de Flex, non pas pour configurer, mais pour dé-configurer les dépendances dont nous nous ne servirons pas.
 
-::: danger
-Sans doutes dû à un bug, le fichier **/config/bootstrap.php** va être supprimé lors des étapes suivantes. Faites-en une copie pour pouvoir le recréer plus tard.
-:::
-
 #### Unpack le pack
 
 Pour faciliter l'installation avec Flex, certaines dépendances ont été groupées par pack. Nous avons besoin de supprimer une seule dépendances du pack **symfony/orm-pack**, donc on va commencer par le dépacker pour faire apparaître les dépendances explicitement.
@@ -58,8 +54,6 @@ La suppression des packages se fait en une étape en utilisant la commande Compo
 ``` bash
 composer rem annot intl security test-pack web-link process serializer-pack expression-language translation doctrine/doctrine-migrations-bundle
 ```
-
-Vous pouvez maintenant remettre votre fichier **/config/bootstrap.php** et vider le cache.
 
 #### Comparaison
 
