@@ -10,7 +10,7 @@ Dans Symfony, un formulaire se construit le plus souvent sur un objet existant, 
 
 On va donc créer une classe Contact dans le dossier **/src/Entity/**
 
-Cette classe devra être composée d'un namespace afin de permettre d'identifier son emplacement au sein du projet, de propriétés **privées** composants une demande de contact, mais également des accesseurs liés à ces informations. Ce type de classe est appelé **POPO** (Plain Old PHP Object), il n'a rien à voir avec Symfony ou une autre librairie.
+Cette classe devra être composée d'un namespace afin de permettre d'identifier son emplacement au sein du projet, de propriétés **privées** composants une demande de contact, mais également des accesseurs liés à ces informations. Ce type de classe est appelé [Plain Old PHP Object](/ressources/glossaire.md#popo), il n'a rien à voir avec Symfony ou une autre librairie.
 
 Pour cette fois, nous la créerons manuellement car nous n'avons pas encore vu le chapitre sur **Doctrine**.
 
@@ -18,7 +18,12 @@ Pour cette fois, nous la créerons manuellement car nous n'avons pas encore vu l
 
 Afin de permettre la génération d'un formulaire dans Symfony, il est nécessaire de disposer de deux choses, un objet représentant les données sur lesquels s'appuyer, mais également un moyen permettant de construire le formulaire correspondant à cet objet. Pour cela, nous allons définir une classe qui contiendra la définition de notre formulaire.
 
-Nous allons créer une classe dans le dossier **/src/Type/** en reprenant le nom de notre objet suivi du mot clé **Type**, donc le fichier **ContactType.php**
+Nous allons créer une classe dans le dossier **/src/Form/** en reprenant le nom de notre objet suivi du mot clé **Type**, donc le fichier **ContactType.php**
+
+
+::: tip
+Le suffix **Type** est une convention de Symfony pour la déclaration de nos classes formulaires.
+:::
 
 ``` php
 <?php

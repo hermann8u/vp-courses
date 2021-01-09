@@ -28,7 +28,7 @@ namespace App\Service;
 
 class MessageGenerator
 {
-    public function getHappyMessage(): string
+    public function getRandomMessage(): string
     {
         $messages = [
             'You did it! You updated the system! Amazing!',
@@ -49,21 +49,36 @@ Finalement, c'est une classe toute simple ! Il ne nous reste plus qu'à l'utilis
 
 Pour utiliser un service, nous pouvons utiliser l'**autowiring** qui est activé par défaut dans notre application. Ce mécanisme permet d'injecter les dépendances simplement en utilisant le type de l'objet le représentant. En exemple vaut mieux que des explications :
 
-``` php {2,7}
+``` php
 // ...
 use App\Service\MessageGenerator;
 // ...
-/**
- * @Route("/products")
- */
-public function list(MessageGenerator $messageGenerator): Response
+
+class ProductController
 {
-    $message = $messageGenerator->getHappyMessage();
-    // ...
+    /** @var MessageGenerator */
+    private $messageGenerator;
+
+    public function __construct(MessageGenerator $messageGenerator)
+    {
+        $this->messageGenerator = $messageGenerator;
+    }
+
+    /**
+    * @Route("/products")
+    */
+    public function list(): Response
+    {
+        $message = $this->messageGenerator->getRandomMessage();
+        // ...
+    }
 }
+
 ```
 
-Cet exemple montre une injection de service dans **une action d'un contrôleur**. Nous avons directement injecté le service simplement en ajoutant un paramètre à notre action en précisant son type !
+Cet exemple montre l'injection d'un service dans **un contrôleur**. Pas besoin de plus de configuration, notre service sera automatiquement injecté en se basant sur le type du paramètre du constructeur !
+
+
 
 Pratique, mais lorsque l'on crée nos propres services, ils peuvent aussi avoir besoin d'autres services ! Voici comment ajouter une dépendance à un service de manière générale :
 
@@ -72,17 +87,17 @@ Pratique, mais lorsque l'on crée nos propres services, ils peuvent aussi avoir 
 
 namespace App\Service;
 
-use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
 
 class MessageSender
 {
-    /** @var Mailer */
+    /** @var MailerInterface */
     private $mailer;
 
     /** @var MessageGenerator */
     private $messageGenerator;
 
-    public function __construct(Mailer $mailer, MessageGenerator $messageGenerator)
+    public function __construct(MailerInterface $mailer, MessageGenerator $messageGenerator)
     {
         $this->mailer = $mailer;
         $this->messageGenerator = $messageGenerator;
@@ -105,26 +120,14 @@ Nous avons injecter ici deux services :
 - Notre service **MessageGenerator** que nous avons créé plus haut
 
 ::: tip
-Dans le cas d'un **contrôleur**, on peut injecter les services soit avec le **constructeur**, soit dans nos **actions** directement. Si les deux méthodes fonctionnent, la plupart des développeurs conseils d'utiliser uniquement l'injection depuis le constructeur, afin d'éviter de mélanger les paramètres qui proviennent du routing avec les dépendances.
+Dans le cas d'un **contrôleur**, on peut injecter les services soit avec le **constructeur**, soit dans nos **actions** directement. Si les deux méthodes fonctionnent, on préférera utiliser uniquement l'injection depuis le constructeur, notamment afin d'éviter de mélanger les paramètres qui proviennent du routing avec les dépendances.
 :::
 
-Afin de **lister tous les services** que vous pouvez injecter avec l'**autowiring**, vous pouvez utiliser la commande suivante:
 
-``` bash
-php bin/console debug:autowiring
-```
-
-Certains services sont également utilisés par Symfony pour réaliser des tâches **internes au framework**. Ils ne sont pas forcement disponible pour l'autowiring car vous n'avez pas besoin de les utiliser. Il existe quand même une commande pour **lister tous les services de l'application**.
-
-``` bash
-php bin/console debug:container
-```
-
-::: warning
-Depuis Symfony 4, les services sont **privés par défaut** (à part quelques exceptions), ce qui signifie qu'il n'est pas possible de les obtenir directement depuis le **Container**, mais qu'il faut les injecter depuis le constructeur comme nous l'avons fait.
-:::
 
 ## Configuration
+
+Si l'on regarde la configuration initiale, on se rend compte que la plupart 
 
 Avant l'arrivée de l'**autowiring** dans Symfony, il fallait également configurer chacun de nos services manuellement. Heureusement ce n'est plus le cas, car un mécanisme d'auto-configuration existe aussi. Pour nous en rendre compte, regardons en détail le fichier **/config/services.yaml** :
 
