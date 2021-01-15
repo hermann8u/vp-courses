@@ -18,6 +18,10 @@ Prenons pour exemple les produits de nos marques : En SQL pur, vous disposeriez 
 
 Une relation peut être à sens unique ou à double sens. Une relation unidirectionnelle signifie que vous pourrez faire **$entiteProprietaire->getEntiteInverse()** (dans notre exemple $product->getBrand()), mais vous ne pourrez pas faire **$entiteInverse->getEntiteProprietaire()** (pour nous, $brand->getProducts()). Cela ne nous empêchera pas de récupérer les produits d'une marque, on utilisera juste une autre méthode, via le repository.
 
+::: warning
+Si une relation est toujours au moins unidirectonnelle, on préfère éviter de la rendre bidirectionnelle si ce n'est pas nécessaire, du point de vue de la logique métier.
+:::
+
 ## Les types de relations
 
 Il y a plusieurs façons de lier des entités entre elles. En effet, il n'est pas pareil de lier une multitude de produits à une seule marque et de lier un membre à un seul avis. Il existe donc plusieurs types de relations, pour répondre à plusieurs besoins concrets. Ce sont les relations **OneToOne**, **ManyToOne** et **ManyToMany**.

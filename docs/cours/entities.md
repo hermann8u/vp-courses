@@ -1,10 +1,10 @@
 # Les entités Doctrine
 
-L'objectif d'un **Object-Relation Mapper** (ORM) est simple : se charger de l'enregistrement de vos données en vous faisant oublier que vous avez une base de données. Comment ? En s'occupant de tout ! Nous n'allons plus écrire de requêtes, ni créer de tables via phpMyAdmin. Dans notre code PHP, nous allons utiliser **Doctrine**, l'ORM par défaut de Symfony.
+L'objectif d'un **Object-Relation Mapper** (ORM) est le suivant : se charger de l'enregistrement de vos données en vous faisant oublier que vous avez une base de données. Comment ? En s'occupant de tout ! Nous n'allons plus écrire de requêtes, ni créer de tables via phpMyAdmin. Dans notre code PHP, nous allons utiliser **Doctrine**, l'ORM par défaut de Symfony.
 
 ## Créer une entité
 
-Une entité, ce que l'ORM va manipuler et enregistrer dans la base de données, n'est rien d'autre qu'un **Plain Old PHP Object** (POPO) représenté par une classe à créer au sein du répertoire **Entity** de notre projet. Cette entité correspondra simplement à une table de notre base de données.
+Une entité, ce que l'ORM va manipuler et enregistrer dans la base de données, n'est rien d'autre qu'un **Plain Old PHP Object** représenté par une classe à créer au sein du répertoire **Entity** de notre projet. Cette entité correspondra à une table de notre base de données.
 
 Voici ce à quoi pourrait ressembler l'entité **Product** de notre site :
 
@@ -25,7 +25,7 @@ class Product
 }
 ```
 
-Comme vous pouvez le voir, c'est très simple. Un objet, des propriétés, et bien sûr, les getters / setters correspondants.
+Comme vous pouvez le voir, il n'y a pas grand chose. Un objet, des propriétés, et bien sûr, les getters / setters correspondants.
 
 On pourrait en réalité utiliser notre objet dès maintenant, mais l'ORM ne pourrait pour le moment pas enregistrer notre objet en base de données.
 
@@ -38,7 +38,7 @@ php bin/console make:entity Store\\Product
 ```
 
 ::: warning
-Vous avez remarqué le double anti slash. Il est probable qu'avec Windows vous ayez une erreur. Si c'est le cas, essayez alors avec un seul anti slash.
+Vous avez remarqué le double anti-slash. Il est probable qu'avec Windows vous ayez une erreur. Si c'est le cas, essayez alors avec un seul anti-slash.
 :::
 
 Lorsqu'on l'exécute, elle nous guide pour générer les différentes propriétés en nous demandant, dans l'ordre et pour chacune :
@@ -50,7 +50,7 @@ Lorsqu'on l'exécute, elle nous guide pour générer les différentes propriét�
 Les **Getters** et **Setters** seront également générés pour nous. L'avantage est que, là encore, le code généré suit des conventions, notamment de typage pour nos Getters et Setters.
 
 ::: tip
-Pour modifier une entité qui existe déjà, vous pouvez utiliser la même commande, ce qui permettra d'ajouter de nouvelles propriétés !
+Pour modifier une entité qui existe déjà, vous pouvez utiliser la même commande, ce qui permettra d'ajouter de nouvelles propriétés.
 :::
 
 Voici ce que ça donne pour notre nouvelle entité **App\\Entity\\Store\\Product** :
@@ -117,57 +117,42 @@ D'abord, si vous ne l'avez pas déjà fait, il faut créer la base de données. 
 php bin/console doctrine:database:create
 ```
 
-On peut ensuite y modifier nos tables avec la commande :
+### Les migrations
+
+Afin de modifier la structures de notre base de données, nous allons utiliser un autre bundle : **DoctrineMigrationsBundle**.
+
+Premièrement, nous allons **comparer l'état actuel de notre base de données** avec les informations que nous avons fournit à Doctrine à travers **les métadata des entités** :
 
 ``` bash
-php bin/console doctrine:schema:update --dump-sql
+php bin/console doctrine:migrations:diff
 ```
 
-Cette dernière commande est vraiment performante. Elle va **comparer l'état actuel de la base de données** avec ce qu'elle devrait être en tenant compte de toutes nos entités. Puis, elle **affiche les requêtes SQL** à exécuter pour passer de l'état actuel au nouvel état.
-
-Pour l'instant, **rien n'a été exécuté** en base de données, Doctrine nous a seulement affiché la ou les requêtes qu'il s'apprête à exécuter.
+Pour l'instant, rien n'a modifié notre base de données. Cette commande à générer un fichier pour nous dans le dossier **migrations** (depuis la racine du projet). Dans celle-ci se trouvent deux méthodes intéressantes :
+- **up** qui contient tout le SQL à éxécuter pour que notre base de données soit à jour.
+- **down** qui contient le SQL pour revenir à l'état précédant.
 
 ::: tip
-Pensez à toujours valider rapidement ces requêtes, pour être sûrs de ne pas avoir fait d'erreur dans le mapping des entités. 
+Pensez à toujours vérifier ces requêtes, pour être sûrs de ne pas avoir fait d'erreur dans le mapping des entités. 
 :::
 
-Mais maintenant, il est temps de passer aux choses sérieuses, et d'**exécuter concrètement** cette requête avec la commande suivante :
+Mais maintenant, il est temps de passer aux choses sérieuses, et d'**exécuter concrètement** ce SQL avec la commande suivante :
 
 ``` bash
-php bin/console doctrine:schema:update --force
+php bin/console doctrine:migrations:migrate
 ```
 
 Si tout se passe bien, en ouvrant **phpMyAdmin** et en allant dans votre base de données vous devriez pouvoir constater le résultat. Les tables correspondantes aux entités ont été créées et les annotations prises en compte pour tous les champs.
 
 Vous pouvez également **modifier** une entité depuis sa classe (ou avec la commande make:entity) en y ajoutant ou en retirant des champs. Une fois l'opération réalisée et le fichier enregistré, il vous faudra **relancer les commandes précédentes**.
- 
-::: tip
-Pour gérer l'état de la base de données, on peut aussi utiliser le bundle **doctrine/doctrine-migrations-bundle** que nous avons supprimé dans le chapitre sur Flex. C'est notamment utile lorsque l'on travail à plusieurs sur un projet. 
 
-Je suis habitué à cette méthode et elle me convient, mais si vous voulez utiliser les migrations plus tard, n'hésitez pas !
+## Interagir avec Doctrine
 
-:::
+Doctrine est un projet très complet qui est constitué de plusieurs packages, dont principalement :
+- **Le DBAL** (Doctrine Abstraction layer) : C'est la couche **bas niveau** de Doctrine. Elle consiste principalement en une **abstraction de PDO** et permet donc de fournir une interface commune, **peu importe le SGDB utilisé** (MySQL, PostgreSQL, ...).
+- **L'ORM** : C'est la couche **haut niveau**, qui nous permet de manipuler nos entités, rendant transparentes la plupart des interactions que l'on pourrait avoir avec la base de données. On utilisera dans ce but principalement l'**EntityManager**.
 
-## Le service Doctrine
 
-Afin de gérer la **persistance de nos entités**, nous allons devoir utiliser le **service Doctrine**, cela nous permettra d'effectuer des enregistrements en base de données et également y récupérer des éléments. Ce service est **accessible depuis le contrôleur** avec la syntaxe suivante :
-
-``` php
-$doctrine = $this->getDoctrine();
-```
-
-Les **deux choses** que ce service va nous permettre de gérer sont :
-- Les différentes connexions à des bases de données. C'est la partie **DBAL** de Doctrine. En effet, vous pouvez tout à fait utiliser plusieurs connexions à plusieurs bases de données différentes. Cela n'arrive que dans des cas particuliers, mais c'est toujours bon à savoir que Doctrine le gère bien. Le service Doctrine dispose donc, entre autres, de la méthode **$doctrine->getConnection($name)** qui permet de récupérer une connexion à partir de son nom. Cette partie DBAL permet l'abstraction de la base de données, et donc à Doctrine de fonctionner sur plusieurs types de SGBDR, tels que MySQL, PostgreSQL, etc.
-
-- Les différents gestionnaires d'entités, ou **EntityManager**. C'est la partie ORM de Doctrine. Encore une fois, c'est logique, vous pouvez bien sûr utiliser plusieurs gestionnaires d'entités, ne serait-ce qu'un par connexion ! Le service dispose donc, entre autres, de la méthode dont nous nous servirons beaucoup **$doctrine->getManager($name)** qui permet de récupérer un ORM à partir de son nom.
-
-On vient de le voir, le service qui va nous intéresser vraiment n'est pas doctrine, mais **l'EntityManager** de Doctrine. Vous savez déjà le récupérer depuis le contrôleur via :
-
-``` php
-$em = $this->getDoctrine()->getManager();
-```
-
-Ou de manière plus générale, avec **l'injection de dépendance** et **l'autowiring**, ce que je **recommande** :
+Voici comment injecter cet **EntityManager**, encore une fois, en typant sur son interface :
 
 ``` php
 use Doctrine\ORM\EntityManagerInterface;
@@ -183,24 +168,15 @@ public function __construct(EntityManagerInterface $em)
 
 C'est avec l'**EntityManager** que l'on va passer le plus clair de notre temps. C'est lui qui permet de dire à Doctrine « Persiste cet objet », c'est lui qui va exécuter les requêtes SQL (que l'on ne verra jamais car nous utilisons une couche d'abstraction), bref, c'est lui qui fera tout.
 
-La seule chose qu'il ne sait pas faire facilement, c'est récupérer les entités depuis la base de données. Pour faciliter l'accès aux objets, on va utiliser des **Repository**. On accède à ces repositories de la manière suivante :
-
-``` php
-$em = $this->getDoctrine()->getManager();
-$product = $em->getRepository(Product::class);
-```
+La seule chose qu'il ne sait pas faire facilement, c'est récupérer les entités depuis la base de données. Pour faciliter l'accès aux objets, on va utiliser des **Repository**.
 
 ::: tip
-Lorsque vous avez généré votre entité avec la commande, elle a aussi généré le repository pour vous dans le dossier **/src/Repository/**. Si votre repository étend la classe **ServiceEntityRepository**, ce qui devrait être le cas, vous pouvez aussi utiliser l'autowiring avec lui&nbsp;!
+Lorsque vous avez généré votre entité avec la commande, elle a aussi généré le repository pour vous dans le dossier **/src/Repository/**.
 :::
-
-## Manipuler ses entités
-
-Nous venons de voir comment accéder au service Doctrine, nous allons maintenant à l'aide de ce dernier manipuler nos entités.
 
 ### Insertion
 
-L'enregistrement effectif en base de données se fait en deux étapes depuis un contrôleur :
+L'enregistrement effectif en base de données se fait en deux étapes depuis un service, dans lequel on a injecté au préalable l'**EntityManager** :
 
 ``` php
 // Création de l'entité Product
@@ -209,14 +185,11 @@ $product = (new Product())
     ->setDescription('Une super description')
     ->setPrice(129.99);
 
-// On récupère l'EntityManager
-$em = $this->getDoctrine()->getManager();
-
 // Etape 1 : On "persiste" l'entité
-$em->persist($product);
+$this->em->persist($product);
 
 // Etape 2 : On "flush" tout ce qui a été persisté avant
-$em->flush();
+$this->em->flush();
 ```
 
 ::: tip
@@ -268,17 +241,15 @@ Bien entendu, après avoir effectué de telles modifications il va falloir, via 
 Après avoir vu comment enregistrer une nouvelle entité, voyons comment en **récupérer** une et la **modifier**, toujours grâce à notre **EntityManager** :
 
 ``` php
-// On récupère l'EntityManager
-$em = $this->getDoctrine()->getManager();
 
 // On récupère le produit grâce au repository avec la méthode find()
 // qui prend en paramètre l'id de notre entité (SELECT ... WHERE id = 5)
-$product = $em->getRepository(Product::class)->find(5);
+$product = $this->productRepository->find(5);
 
 $product->setName('Produit 5');
 
-// Pas besoin de persister car l'ORM connaît déjà notre entité
-$em->flush();
+// Pas besoin de persister car l'ORM connaît déjà notre entité, c'est lui qui vient de nous la fournir.
+$this->em->flush();
 ```
 
 Dans ce cas, la méthode **flush()** n'effectue plus un INSERT dans notre base de données, mais un **UPDATE** de notre entité déjà existante (l'EntityManager de Doctrine gère ça tout seul). Vous constaterez dans l'exemple précédent l'utilisation de la méthode **find()** permettant d'aller récupérer un enregistrement par rapport à son identifiant. Il est également possible d'utiliser la méthode **findAll()** afin de récupérer l'ensemble des enregistrements.
@@ -288,12 +259,10 @@ Dans ce cas, la méthode **flush()** n'effectue plus un INSERT dans notre base d
 De la même manière vous avez la possibilité d'exécuter une requête DELETE en utilisant la méthode **remove()** de l'**EntityManager** :
 
 ``` php
-$em = $this->getDoctrine()->getManager();
+$product = $this->productRepository->find(5);
 
-$product = $em->getRepository(Product::class)->find(5);
-
-$em->remove($product);
-$em->flush();
+$this->em->remove($product);
+$this->em->flush();
 ```
 
 ## Des données de développement
@@ -325,9 +294,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 final class AppFixtures extends Fixture
 {
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $manager;
 
     public function load(ObjectManager $manager): void
@@ -367,7 +334,7 @@ $ php bin/console doctrine:fixtures:load
 Les données présentent dans les fixtures devraient à présent avoir été intégrées dans votre base de données.
 
 ::: warning
-Lorsque vous lancez la commande, elle vous demande de vider votre base de données pour pouvoir s'exécuter, et ce à chaque fois.
+Lorsque vous lancez la commande, elle vous demande de vider les données de votre base de données pour pouvoir s'exécuter, et ce à chaque fois.
 :::
 
 ## A vous de jouer
@@ -381,3 +348,7 @@ Rendons l'affichage de nos produits dynamique en créant une base de données et
 5. Mettre en place une classe gérant les **fixtures** et implémentez-y une boucle chargée de peupler votre table de **20 produits**.
 6. Affichez sur la page de **listing des produits** les fiches produits issues de la base de données, en pensant à afficher un message dans le cas où le catalogue ne dispose d'aucuns produits enregistrés.
 7. Utilisez un **filtre Twig** permettant de toujours afficher le nom des produits avec une **majuscule sur la première lettre**.
+
+## Pour aller plus loin
+
+- [Documentation de Symfony sur le DoctrineMigrationsBundle](https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html)
