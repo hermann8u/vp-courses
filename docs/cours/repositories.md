@@ -2,7 +2,7 @@
 
 L'une des principales fonctions de la couche **Modèle** dans une application **MVC**, c'est la récupération des données. Récupérer des données n'est pas toujours évident, surtout lorsqu'on veut récupérer seulement certaines données, les classer selon des critères, etc. Tout cela se fait grâce aux **repositories**, que nous étudions dans ce chapitre.
 
-Un **repository** centralise tout ce qui touche à la **récupération de vos entités**. Concrètement, cela veut dire que vous ne devez pas faire la moindre requête SQL ailleurs que dans un repository, c'est la règle. On va donc y construire des méthodes pour récupérer une entité par son id, pour récupérer une liste d'entités suivant un critère spécifique. A chaque fois que vous devez récupérer des entités dans votre base de données, vous utiliserez le **repository** de l'entité correspondante.
+Un **repository** centralise tout ce qui touche à la **récupération de vos entités**. Concrètement, cela veut dire que c'est à l'intérieur de nos repositories que nous ferons nos requêtes SQL ailleurs. On va donc y construire des méthodes pour récupérer une entité par son id, pour récupérer une liste d'entités suivant un critère spécifique. A chaque fois que vous devez récupérer des entités dans votre base de données, vous utiliserez le **repository** de l'entité correspondante.
 
 Il existe **un repository par entité**. Cela permet de bien organiser son code. Bien sûr, cela n'empêche pas qu'un repository utilise plusieurs entités, dans le cas d'une **jointure** par exemple.
 
@@ -14,7 +14,7 @@ Il existe deux moyens de récupérer les entités : en utilisant du **DQL** ou e
 
 ### Doctrine Query Language (DQL)
 
-Le DQL n'est rien d'autre que du SQL adapté à la vision par objets que Doctrine utilise. Il s'agit donc de faire ce dont on a l'habitude, des requêtes textuelles comme celle-ci par exemple :
+Le **DQL** n'est rien d'autre que du SQL adapté à la vision par objets que Doctrine utilise. Il s'agit donc de faire ce dont on a l'habitude, des requêtes textuelles comme celle-ci par exemple :
 
 ``` php
 $query = $this->em->createQuery('SELECT p FROM App\\Entity\\Store\\Product p');
@@ -49,23 +49,17 @@ Que vous ayez défini un repository pour votre classe existe ou non, ces méthod
 
 #### find($id)
 
-La méthode **find($id)** récupère tout simplement l'entité correspondant à l'id de notre entité fournit en paramètre. Dans le cas de notre **ProductRepository**, elle retourne une instance de Product ou null si il n'y a pas de résultat. 
+La méthode **find($id)** récupère l'entité correspondant à l'id de notre entité fournit en paramètre. Dans le cas de notre **ProductRepository**, elle retourne une instance de Product ou *null* si il n'y a pas de résultat. 
 
 ``` php
-// Depuis l'entity Manager ou avec l'injection de dépendance
-$productRepository = $this->em->getRepository(Product::class);
-
 $product = $productRepository->find($id);
 ```
 
 #### findAll()
 
-La méthode findAll() retourne toutes les entités contenue dans la base de données. Le format du retour est une array d'entité, que vous pouvez parcourir (avec un foreach par exemple) pour utiliser les objets qu'elle contient.
+La méthode findAll() retourne toutes les entités contenue dans la base de données. Le format du retour est une array d'entités, que vous pouvez parcourir (avec un foreach par exemple) pour utiliser les objets qu'elle contient.
 
 ``` php
-// Depuis l'entity Manager ou avec l'injection de dépendance
-$productRepository = $this->em->getRepository(Product::class);
-
 $products = $productRepository->findAll();
 
 foreach ($products as $product) {
@@ -97,12 +91,9 @@ Cet exemple va récupérer toutes les entités ayant comme titre "Product 1", en
 
 #### findOneBy()
 
-La méthode **findOneBy()** fonctionne sur le même principe que la méthode **findBy()**, sauf qu'elle ne retourne qu'une seule entité. Les arguments **$limit** et **$offset** n'existent donc pas.
+La méthode **findOneBy()** fonctionne sur le même principe que la méthode **findBy()**, sauf qu'elle ne retourne qu'une seule entité. De ce fait, elle ne conserve que le premier argument des critères.
 
 ``` php
-// Depuis l'entity Manager ou avec l'injection de dépendance
-$productRepository = $this->em->getRepository(Product::class);
-
 // Retourne le produit avec le nom "Product 1"
 $product = $productRepository->findOneBy(
     ['name' => 'Product 1'], // Critère(s)
@@ -122,7 +113,7 @@ Ces méthodes permettent de couvrir pas mal de besoins. Mais pour aller plus loi
 Les méthodes magiques sont des méthodes qui n'existent pas dans la classe mais qui sont émulées. Elles sont prises en charge par la méthode PHP **__call()** qui va exécuter du code en fonction du nom de la méthode appelée.
 
 ::: warning
-Je vous parle de ces méthodes pour que vous sachiez qu'elles existent, mais, personnellement, je déconseille de les utiliser.
+Je vous parle de ces méthodes pour que vous sachiez qu'elles existent, mais je vous déconseille de les utiliser.
 :::
 
 #### findByX($value)
@@ -131,9 +122,6 @@ Première méthode, en remplaçant « X » par le nom d'une propriété de votre
 Cette méthode fonctionne comme si vous utilisiez **findBy()** avec un seul critère, celui du nom de la méthode.
 
 ``` php
-// Depuis l'entity Manager ou avec l'injection de dépendance
-$productRepository = $this->em->getRepository(Product::class);
-
 // Retourne une array de produit avec le nom "Product 1"
 $products = $productRepository->findByName('Product 1');
 ```
@@ -143,9 +131,6 @@ $products = $productRepository->findByName('Product 1');
 Deuxième méthode, en remplaçant « X » par le nom d'une propriété de votre entité. Dans notre cas, pour l'entité **Product**, nous avons donc plusieurs méthodes : **findOneByName()**, **findOneByDescription()**, **findOneByCreatedAt()**, etc. Cette méthode fonctionne comme **findOneBy()**, sauf que vous ne pouvez mettre qu'un seul critère, celui du nom de la méthode.
 
 ``` php
-// Depuis l'entity Manager ou avec l'injection de dépendance
-$productRepository = $this->em->getRepository(Product::class);
-
 // Retourne un produit avec le nom "Product 1"
 $product = $productRepository->findOneByName('Product 1');
 ```
@@ -225,12 +210,10 @@ public function myFindAll(): array
 }
 ```
 
-Et bien sûr, pour récupérer les résultats depuis un contrôleur il faut faire comme avec n'importe quelle autre méthode du repository, comme ceci :
+Et bien sûr, pour récupérer les résultats depuis un contrôleur, il faut faire comme avec n'importe quelle autre méthode du repository, comme ceci, en ayant injecter au préalable le repository :
 
 ``` php
-// Depuis l'entity Manager ou avec l'injection de dépendance
-$productRepository = $this->em->getRepository(Product::class);
-$products = $productRepository->myFindAll();
+$products = $this->productRepository->myFindAll();
 ```
 
 Le **QueryBuilder** dispose de plusieurs méthodes afin de construire notre requête. Il y a une ou plusieurs méthodes par partie de requête : le **WHERE**, le **ORDER BY**, le **FROM**, etc.

@@ -42,7 +42,7 @@ Does this app need to hash/check user passwords? (yes/no) [yes]:
 Nous avons donc créer une entité Doctrine **App\Entity\User** qui se connectera avec un nom d'utilisateur et l'application sera chargée de gérer le hachage des mots de passe.
 
 La commande a donc :
-1. Créée cette entité et son repository.
+1. Créée une entité User et son repository.
 2. Implémentée l'interface correctement en fonction de nos réponses.
 3. Modifiée le fichier de configuration **security.yaml**.
 
@@ -61,7 +61,7 @@ security:
                 property: username
 ```
 
-La clé **encoders** permet de préciser que pour notre classe **App\Entity\User**, les mots de passe seront encodés avec l'algorithme **auto**. Ce dernier correspond en faite à la constante **PASSWORD_DEFAULT** de la méthode PHP [password_hash](https://www.php.net/manual/fr/function.password-hash.php). En ce moment, c'est **bcrypt** qui est considéré comme le meilleur algorithme pour les mots de passe par **PHP**.
+La clé **encoders** permet de préciser que pour notre classe **App\Entity\User**, les mots de passe seront encodés avec l'algorithme **auto**. Ce dernier correspond en faite à la constante **PASSWORD_DEFAULT** de la méthode PHP [password_hash](https://www.php.net/manual/fr/function.password-hash.php). En ce moment, c'est **bcrypt** qui est considéré comme le meilleur algorithme pour les mots de passe pour **PHP**.
 
 La clé **providers** configure les différents **User Providers**.
 
@@ -79,7 +79,7 @@ Il existe d'autre **providers** mis à disposition dont nous pouvons citer par e
 - Le **MemoryUserProvider** qui sert principalement pour le développement et les tests
 - Le **LdapUserProvider** qui permet de se connecter avec un serveur **LDAP**
 
-Comme vous vous en doutez, vous pouvez également créer vos propres provider en implémentant l'interface **Symfony\Component\Security\Core\User\UserProviderInterface**.
+Vous pouvez également créer vos propres provider en implémentant l'interface **Symfony\Component\Security\Core\User\UserProviderInterface**.
 
 ### Les Firewalls
 
@@ -94,9 +94,11 @@ security:
             security: false
         main:
             anonymous: lazy
+            lazy: true
+            provider: app_user_provider
 ```
 
-Comme vous pouvez le voir, il y a actuellement **deux firewalls** définis par défaut :
+Il y a actuellement **deux firewalls** définis par défaut :
 - Le firewall **dev** est seulement ici pour empêcher de bloquer accidentellement les outils de debug de Symfony.
 - Le firewall **main**, qui correspond actuellement à toutes les URLs de notre application (car il n'y pas de clé *pattern* définie).
 
