@@ -11,7 +11,7 @@ jobs:
                 uses: actions/checkout@master
 
             -   name: Build and Deploy
-                uses: rreichel3/vuepress-github-actions-deploy@v3.1
+                uses: rreichel3/vuepress-github-actions-deploy@master
                 env:
                     ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                     BUILD_DIR: docs/.vuepress/dist
