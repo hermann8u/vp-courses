@@ -15,5 +15,5 @@ jobs:
                 env:
                     ACCESS_TOKEN: "$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}"
                     BUILD_DIR: docs/.vuepress/dist
-                    BUILD_SCRIPT: npm install && npm run docs:build
+                    BUILD_SCRIPT: npm install && npm run docs:build && echo "$PAGES_CNAME" > CNAME
                     PAGES_CNAME: ${{ secrets.PAGES_CNAME }}
