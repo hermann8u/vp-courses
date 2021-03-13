@@ -8,16 +8,16 @@ jobs:
         runs-on: ubuntu-20.04
         environment:
             name: github-pages
-            url: ${{ steps.url_build.outputs.url }}
+#             url: ${{ steps.url_build.outputs.url }}
         steps:
-            -   name: url_build
-                run: echo "::set-output name=url::https://${{ secrets.PAGES_CNAME }}"
+#             -   name: url_build
+#                 run: echo "::set-output name=url::https://${{ secrets.PAGES_CNAME }}"
 
             -   name: checkout
                 uses: actions/checkout@master
 
             -   name: build_deploy
-                uses: rreichel3/vuepress-github-actions-deploy@master
+                uses: rreichel3/vuepress-github-actions-deploy@master # Try to find a solution to tag master
                 env:
                     ACCESS_TOKEN: "$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}"
                     BUILD_DIR: docs/.vuepress/dist
