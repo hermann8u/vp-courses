@@ -18,7 +18,7 @@ Chaque fonctionnalité est décrite avec une quantité d'informations suffisante
 
 ### Le tableau de bord
 
-Le tableau de bord doit permettre au utilisateurs d'avoir un aperçu rapide de la situation de leur entreprise. Pour cela, il est nécessaire de leur offrir une visibilité sur les éléments suivants :
+Le tableau de bord doit permettre aux utilisateurs d'avoir un aperçu rapide de la situation de leur entreprise. Pour cela, il est nécessaire de leur offrir une visibilité sur les éléments suivants :
 - Indicateurs : projets en cours, projets livrés, nombre d'employés, nombre d'heures saisies
 - **Le taux de projet rentable** : Parmi les projets livrés, le pourcentage dont le coût de production est inférieur au prix de vente.
 - **Le taux de livraison** (ratio projets en cours / livrés)
@@ -113,11 +113,11 @@ Je vous ai écrit un petit guide pour vous expliquer comment procéder ici : [Pa
 
 ### Quoi
 
-Le repository devra comporter l'ensemble des sources du projet qui utilisera **Symfony 5.0.x**, ainsi qu'un fichier **README.md** déclinant votre prénom, nom, email. Vous y ajouterez des notes pouvant être utiles à l'évaluation du projet (partie ne fonctionnant pas, précisions concernant d'éventuels fixtures, etc.).
+Le repository devra comporter l'ensemble des sources du projet qui utilisera **Symfony 5.2.x**, ainsi qu'un fichier **README.md** contenant votre prénom, nom, email. Vous y ajouterez des notes pouvant être utiles à l'évaluation du projet (partie ne fonctionnant pas, précisions concernant d'éventuels fixtures, etc.).
 
 ### Quand
 
-Au plus tard le **dimanche 23 mars 2020 à minuit**. Le dernier commit ne doit pas dépasser cette date, sous peine de pénalité.
+Au plus tard le **dimanche 14 mars 2020 à minuit**. Le dernier commit ne doit pas dépasser cette date, sous peine de pénalité.
 
 ## Critères d'évaluations
 
