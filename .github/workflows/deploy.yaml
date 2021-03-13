@@ -8,7 +8,7 @@ jobs:
         runs-on: ubuntu-20.04
         environment:
             name: github-pages
-            url: ${{ steps.build_deploy.outputs.url }}
+            url: ${{ steps.url_build.outputs.url }}
         steps:
             -   name: checkout
                 uses: actions/checkout@master
@@ -20,5 +20,9 @@ jobs:
                     BUILD_DIR: docs/.vuepress/dist
                     BUILD_SCRIPT: npm install && npm run docs:build
                     PAGES_CNAME: ${{ secrets.PAGES_CNAME }}
-                outputs:
-                    url: "https://${{ secrets.PAGES_CNAME }}"
+
+            -   name: url_build
+                run: echo "::set-output name=url::https://${{ secrets.PAGES_CNAME }}"
+        outputs:
+            url: ${{ steps.url_build.outputs.url }}
+
