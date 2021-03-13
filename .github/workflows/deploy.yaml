@@ -1,0 +1,19 @@
+name: deploy
+on:
+    push:
+        branches:
+            - master
+jobs:
+    deploy:
+        runs-on: ubuntu-20.04
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@master
+
+            -   name: Build and Deploy
+                uses: rreichel3/vuepress-github-actions-deploy@v3.1
+                env:
+                    ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    BUILD_DIR: docs/.vuepress/dist
+                    BUILD_SCRIPT: npm install && npm run docs:build
+                    PAGES_CNAME: ${{ secrets.PAGES_CNAME }}
