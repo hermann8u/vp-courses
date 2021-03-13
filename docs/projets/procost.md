@@ -117,7 +117,7 @@ Le repository devra comporter l'ensemble des sources du projet qui utilisera **S
 
 ### Quand
 
-Au plus tard le **dimanche 14 mars 2020 à minuit**. Le dernier commit ne doit pas dépasser cette date, sous peine de pénalité.
+Au plus tard le **vendredi 19 mars 2020 à 23h59**. Le dernier commit ne doit pas dépasser cette date, sous peine de pénalité.
 
 ## Critères d'évaluations
 
