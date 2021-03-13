@@ -6,6 +6,9 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-20.04
+        environment:
+            name: github-pages
+            url: "https://${{ secrets.PAGES_CNAME }}"
         steps:
             -   name: Checkout
                 uses: actions/checkout@master
