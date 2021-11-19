@@ -1,6 +1,6 @@
 # Les entités Doctrine
 
-L'objectif d'un **Object-Relation Mapper** (ORM) est le suivant : se charger de l'enregistrement de vos données en vous faisant oublier que vous avez une base de données. Comment ? En s'occupant de tout ! Nous n'allons plus écrire de requêtes, ni créer de tables via phpMyAdmin. Dans notre code PHP, nous allons utiliser **Doctrine**, l'ORM par défaut de Symfony.
+L'objectif d'un **Object-Relation Mapper** (ORM) est le suivant : se charger de l'enregistrement de vos données en vous faisant oublier que vous avez une base de données. Comment ? En s'occupant de tout&nbsp;! Nous n'allons plus écrire de requêtes, ni créer de tables via phpMyAdmin. Dans notre code PHP, nous allons utiliser **Doctrine**, l'ORM par défaut de Symfony.
 
 ## Créer une entité
 

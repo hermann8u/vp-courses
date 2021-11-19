@@ -77,7 +77,7 @@ Le container peut être comparé a un tableau clé/valeur, dont :
 - La valeur est une référence au service demandé, soit créée à la demande, soit restituée depuis la précédente création.
 
 ::: tip
-Dans 99,9% du temps, les services ne sont **instancier qu'une seule fois**. Gardez ça en tête.
+Dans 99,9% du temps, les services ne sont **instancier qu'une seule fois**. C'est pourquoi on évite d'avoir un "state" qui évolue lorsqu'on les développe. Gardez ça en tête.
 :::
 
 Pour remplir son rôle, le container aura besoin de comprendre votre **graphe de dépendance**. Dans ce but, il y a deux méthodes *classiques* qui s'opposent :

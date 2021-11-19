@@ -99,25 +99,24 @@ Nous n'y échapperons pas, il faut quand même jetez un coup d'oeil au fichier d
 
 ``` yaml
 services:
-    # Default configuration for all services in *this* file
+    # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically tags your services
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
 ```
 
-Sous la clé services._defaults, on définie une configuration globales pour tous les services que nous allons déclarer. Nous indiquons ensuite à Symfony de considérer tous les fichiers du namespace App comme étant des services, en prenant soit d'exclure quelques exceptions.
+Sous la clé *services._defaults*, on définie une configuration globales pour tous les services que nous allons déclarer. Nous indiquons ensuite à Symfony de considérer tous les fichiers du namespace App comme étant des services, en prenant soin d'exclure quelques exceptions.
 
 ::: tip
 Dans le cas des **contrôleurs**, on peut injecter les services soit avec le **constructeur**, soit dans nos **actions** directement. Si les deux méthodes fonctionnent, on préférera utiliser uniquement l'injection depuis le constructeur, notamment afin d'éviter de mélanger les paramètres qui proviennent du routing avec les dépendances.
@@ -197,11 +196,7 @@ class AnotherService
 
 ## Exemple : Utilisation du Mailer
 
-[Le composant Mailer](https://symfony.com/doc/current/components/mailer.html) est sorti avec la version 4.2 de Symfony. 
-
-::: tip Information
-Ce composant vient remplacer **SwiftMailer** qui était auparavant le solution pour envoyer des emails dans Symfony. Cette librairie, elle aussi développée par **Fabien Potencier**, commençait a se faire vieille et il était difficile de la faire évoluer. C'est pourquoi elle a été remplacée par ce nouveau composant.
-:::
+Nous allons maintenant pouvoir pratiquer l'injection de dépendances avec un cas concret : l'utilisation du [composant Mailer](https://symfony.com/doc/current/components/mailer.html).
 
 Ce composant est, comme beaucoup, intégré à Symfony à travers le **FrameworkBundle**.
 
@@ -269,7 +264,7 @@ Améliorons à présent notre formulaire de contact afin d'alerter l'administrat
 3. Configurez le composant **Mailer** afin de pouvoir envoyer des emails depuis votre projet.
 4. Créez un service **App\Mailer\ContactMailer** et injectez-y le service **Mailer**, le service de **Twig** et le paramètre **app.email_address.contact**. Vérifiez ensuite que ça fonctionne avec la fonction de debug **dd()**.
 5. Ajoutez une méthode **send** qui prendra en paramètre notre entité de contact et qui utilisera les dépendances de notre service pour procéder à l'envoi. Le contenu de l'email devra être généré grâce à Twig.
-6. Injectez notre service dans le MainController et utilisez sa méthode après la validation des données.
+6. Injectez notre service dans le **MainController** et utilisez sa méthode après la validation des données.
 7. Testez le résultat grâce à la barre de debug.
 
 ## Pour aller plus loin
