@@ -30,7 +30,6 @@ Les principales fonctionnalités de Flex sont les suivantes :
 - Définition d'alias : Il n'est plus nécessaire de taper le nom complet d'un package s'il possède un alias, par exemple **composer req admin** à la place de **composer require easycorp/easyadmin-bundle**
 - Plus besoin non plus de taper *symfony* pour installer un package de Symfony (**composer req serializer**)
 - Le fichier **/config/bundles.php** se remplit automatiquement à l'installation d'un bundle, même si celui-ci n'a pas de recette.
-- Optimisation de **Composer** pour télécharger les packages en asynchrone.
 
 ### Nettoyage du projet
 
@@ -40,13 +39,13 @@ Je vous ai précisé dans le chapitre d'installation qu'il y avait deux façons 
 
 Puisque nous avons choisi la première solution, nous allons nous servir de Flex, non pas pour configurer, mais pour dé-configurer les dépendances dont nous nous ne servirons pas.
 
-#### Unpack le pack
+<!-- #### Unpack le pack
 
 Pour faciliter l'installation avec Flex, certaines dépendances ont été groupées par pack. Nous avons besoin de supprimer une seule dépendances du pack **symfony/orm-pack**, donc on va commencer par le dépacker pour faire apparaître les dépendances explicitement.
 
 ``` bash
 composer unpack orm
-```
+``` -->
 
 #### Suppression des packages
 

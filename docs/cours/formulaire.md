@@ -94,7 +94,7 @@ La méthode **add** du builder possède les arguments suivants :
 On peut enchaîner les appels à la méthode **add** car elle retourne l'instance du builder sur laquelle elle a été appelée.
 :::
 
-Il ne s'agit que d'un rapide exemple des types de champs disponibles, mais [de nombreux types](https://symfony.com/doc/current/forms.html#built-in-field-types) sont accessibles dans le composant.
+Il ne s'agit que d'un rapide exemple des types de champs disponibles, mais [de nombreux types](https://symfony.com/doc/current/reference/forms/types.html) sont accessibles dans le composant.
 
 ## Implementation du formulaire
 
