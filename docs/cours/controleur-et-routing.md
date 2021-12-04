@@ -202,7 +202,7 @@ Nous avons utilisé dans ce cas précis **$request->query**, cela permet de réc
 | $request->request      | $_POST              | $request->request->get('tag')        |
 | $request->cookies      | $_COOKIE            | $request->cookies->get('tag')        |
 | $request->server       | $_SERVER            | $request->server->get('REQUEST_URI') |
-| $request->headers      | $_SERVER['HTTP\_*'] | $request->header->get('USER_AGENT')  |
+| $request->headers      | $_SERVER['HTTP\_*'] | $request->headers->get('USER_AGENT')  |
 | $request->getSession() | $_SESSION           | $request->getSession()->get('tag')   |
 
 ## A vous de jouer

@@ -47,7 +47,6 @@ themeConfig:
       '/ressources/glossaire',
       '/ressources/commandes',
       '/ressources/bundles',
-      '/ressources/sources',
       '/ressources/git',
       # '/ressources/apprendre'
     ]
