@@ -204,7 +204,7 @@ La création se fait en deux étapes:
 - La méthode **persist** indique à Doctrine que **l'entité existe** et qu'il peut **traquer ses modifications**.
 - La méthode **flush** exécute toutes les insertions et modifications avec des requêtes SQL.
 
-Doctrine va en fait géré des **transactions SQL**. C'est à dire que lors de l'ajout de 10 produits, si l'une des insertions provoque une **erreur SQL**, **aucun** des produits ne sera enregistré. La méthode **flush** exécute en fait la transaction.
+Doctrine va en fait gérer des **transactions SQL**. C'est à dire que lors de l'ajout de 10 produits, si l'une des insertions provoque une **erreur SQL**, **aucun** des produits ne sera enregistré. La méthode **flush** exécute en fait la transaction.
 
 #### Ajout de la date de création
 
@@ -308,7 +308,7 @@ final class AppFixtures extends Fixture
 
     private function loadProducts(): void
     {
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 1; $i < 15; $i++) {
             $product = (new Product())
                 ->setName('product '.$i)
                 ->setDescription('Produit de description '.$i)
@@ -345,7 +345,7 @@ Rendons l'affichage de nos produits dynamique en créant une base de données et
 2. Créez l'entité **App\\Entity\\Store\\Product** et générez la table correspondante dans votre base de données comprenant les champs suivants : *id, name (string 255), description (text), price (decimal, 10,2), created_at (datetime)*.
 3. Complétez manuellement l'entité **App\\Entity\\Contact**. Ajoutez également le **createdAt** et nommez sa table **app_contact**
 4. Enregistrez la demande de contact après validation du formulaire et avant d'envoyer cette dernière par email.
-5. Mettre en place une classe gérant les **fixtures** et implémentez-y une boucle chargée de peupler votre table de **20 produits**.
+5. Mettre en place une classe gérant les **fixtures** et implémentez-y une boucle chargée de peupler votre table de **14 produits**.
 6. Affichez sur la page de **listing des produits** les fiches produits issues de la base de données, en pensant à afficher un message dans le cas où le catalogue ne dispose d'aucuns produits enregistrés.
 7. Utilisez un **filtre Twig** permettant de toujours afficher le nom des produits avec une **majuscule sur la première lettre**.
 
