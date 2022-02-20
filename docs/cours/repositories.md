@@ -243,7 +243,7 @@ Maintenant, voyons un des avantages du **QueryBuilder**. En considérant que la 
 private function whereCurrentYear(QueryBuilder $qb)
 {
     $qb
-        ->andWhere('p.createdAt BETWEEN : start AND :end')
+        ->andWhere('p.createdAt BETWEEN :start AND :end')
         ->setParameter('start', new \DateTime(date('Y').'-01-01'))
         ->setParameter('end', new \DateTime(date('Y').'-12-31'));
 }

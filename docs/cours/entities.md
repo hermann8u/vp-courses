@@ -214,23 +214,16 @@ Il arrive régulièrement que l'on veuille enregistrer également la **date de c
 /**
  * @ORM\Column(type="datetime")
  */
-private $createdAt;
+private \DateTime $createdAt;
 
 public function __construct()
 {
     $this->createdAt = new \DateTime();
 }
 // ...
-public function getCreatedAt(): ?\DateTime
+public function getCreatedAt(): \DateTime
 {
     return $this->createdAt;
-}
-
-public function setCreatedAt(\Datetime $createdAt): self
-{
-    $this->createdAt = $createdAt;
-
-    return $this;
 }
 ```
 
