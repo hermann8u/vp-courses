@@ -69,7 +69,7 @@ Chaque projet devra disposer d'une fiche détails, celle-ci affichera toutes les
 
 Chaque projet doit pouvoir accueillir des temps de production, sachant qu'un employé peut tout à fait se voir attribuer plusieurs saisies de temps pour un même projet. Le temps de production doit être indiqué en nombre de jours travaillés, son coût est déduit d'une simple multiplication entre le nombre de jour de production et le coût journalier de l'employé.
 
-La saisie de temps se passe sur la page de détail d'un employé. Il est à noter qu'un temps ne peut être qu'ajouté, il ne sera ainsi pas possible de modifier un temps déjà saisi. Il n'est également pas possible d'ajouter du temps pour un manager.
+La saisie de temps se passe sur la page de détail d'un employé. Il est à noter qu'un temps ne peut être qu'ajouté, il ne sera ainsi pas possible de modifier un temps déjà saisi.
 
 <!-- ### Les rôles et les droits
 
