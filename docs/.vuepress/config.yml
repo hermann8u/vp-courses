@@ -32,7 +32,7 @@ themeConfig:
       '/cours/entities',
       '/cours/relations',
       '/cours/repositories',
-      '/cours/security',
+      # '/cours/security',
       '/cours/event-dispatcher',
       '/cours/mise-en-ligne',
       '/cours/plus-loin',
