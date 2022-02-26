@@ -286,7 +286,7 @@ Voici à quoi pourraient ressembler le contenu des différents templates en choi
 
 {% block javascripts %}
     {{ parent() }}
-    <script href="{{ asset('js/js-du-front.js') }}"></script>
+    <script src="{{ asset('js/js-du-front.js') }}"></script>
 {% endblock %}
 ```
 
@@ -329,7 +329,7 @@ Ce qui va générer le html suivant:
         <p>Du contenu</p>
 
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script href="/js/js-du-front.js"></script>
+        <script src="/js/js-du-front.js"></script>
     </body>
 </html>
 ```
