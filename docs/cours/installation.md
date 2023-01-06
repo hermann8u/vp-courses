@@ -8,13 +8,9 @@ L'installation de Symfony nécessite un environnement de travail spécifique, po
 - Utiliser un environnement local avec Wamp, Lamp, etc.
 - Utiliser le PHP built-in server (nécessite d'avoir PHP d'installer sur sa machine)
 
-Dans tous les cas il est impératif de posséder un moteur de base de données, **MySQL** dans notre cas, et **PHP 7.2.5** (ou plus) correctement installé.
+Dans tous les cas il est impératif de posséder un moteur de base de données, **MySQL** dans notre cas, et **PHP 8.1** (ou plus) correctement installé.
 
-Nous allons utilisé la version 5.4 de Symfony.
-
-::: tip
-Si vous utilisez **PHP 8.0.2** ou supérieur, vous pouvez créer votre projet avec la version 6 de Symfony. C'est en faite la même version, mais dont le code *deprecated* a été supprimé.
-:::
+Nous allons utilisé la version **6.2** de Symfony.
 
 ## Télécharger et installer Symfony
 

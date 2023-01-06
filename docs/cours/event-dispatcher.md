@@ -126,7 +126,7 @@ Une priorité peut également être définit pour chacune de ces méthodes grâc
 ## A vous de jouer
 
 1. Créez une classe pour représenter l'événement **ContactCreated**.
-2. Créez un service \App\Manager\ContactManager afin d'envoyer cet événement au lieu d'envoyer l'email directement.
+2. Créez un service **\App\Manager\ContactManager** afin d'envoyer cet événement au lieu d'envoyer l'email directement.
 3. Écoutez l'événement grâce à un **EventSubscriber** afin d'envoyer l'email.
 4. Créez et écouter tous les événements nécessaires afin d'ajouter les messages flashs de l'application dans des EventSubscribers.
 
