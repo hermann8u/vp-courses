@@ -26,7 +26,7 @@ Le contrôleur peut renvoyer vers une vue, mais également en récupérer son co
 return $this->render('main/product.html.twig', [
     'id' => $id,
     'slug' => $slug,
-    'ip' => $request->getClientIp()
+    'ip' => $request->getClientIp(),
 ]);
 ```
 

@@ -25,7 +25,7 @@ themeConfig:
       '/cours/structure',
       '/cours/bundle-et-flex',
       '/cours/controleur-et-routing',
-      # '/cours/twig',
+      '/cours/twig',
       # '/cours/formulaire',
       # '/cours/injection-dependances',
       # '/cours/service',
