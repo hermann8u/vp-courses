@@ -168,9 +168,7 @@ Pour ça, il faut injecter la Request dans l'action de notre contrôleur de cett
 // ...
 use Symfony\Component\HttpFoundation\Request;
 // ...
-    /**
-     * @Route("/store/product/{id}", name="store_show_product", requirements={"id" = "\d+"})
-     */
+    #[Route('/store/product/{id}', name: 'store_show_product', requirements: ['id' => '\d+'])]
     public function showProduct(Request $request, int $id): Response
     {
         // ...
