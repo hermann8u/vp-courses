@@ -41,22 +41,21 @@ L'ordre de définition des routes est donc important, car la premiere route qui 
 :::
 
 Le routing est divisé en plusieurs fichiers et dossiers appelés dans l'ordre suivant :
-- **/config/routes/{environnement_courant}/** : Le dossier qui contiendra les routes des différents packages installés pour chaque environnement.
-- **/config/routes/** : Même chose qu'au-dessus mais sans restriction d'environnement.
+- **/config/routes/** : Le dossier qui contiendra les routes des différents packages installés.
 - **/config/routes.yaml** : Un fichier pour définir vos routes au format YAML (nous ne l'utiliserons pas).
 
-Regardons le contenu de notre fichier **/config/routes/annotations.yaml** : 
+Regardons le contenu de notre fichier **/config/routes.yaml** : 
 
 ``` yaml
 controllers:
     resource: ../../src/Controller/
-    type: annotation
+    type: attribute
 ```
 
-Cette configuration active les annotations comme moyen de routing pour tous nos contrôleurs ! Les annotations de routing sont situées dans le code même des contrôleurs. Comme nous allons utiliser uniquement ce format, nous n'avons pas besoin de configurer quoi que ce soit.
+Cette configuration active les **attributes** comme moyen de routing pour tous nos contrôleurs ! Les **attributes** de routing sont situées dans le code même des contrôleurs. Comme nous allons utiliser uniquement ce format, nous n'avons pas besoin de configurer quoi que ce soit.
 
 ::: tip
-Le format recommandé dans Symfony pour gérer les routes dans votre application est le format **annotations** mais il est également possible d'utiliser YAML, XML ou PHP.
+Le format recommandé dans Symfony pour gérer les routes dans votre application est le format **attributes** mais il est également possible d'utiliser YAML, XML ou PHP.
 :::
 
 ### Configuration d'une route
@@ -77,9 +76,7 @@ Voici les paramètres les plus importants pour la configuration de route :
 Certaines routes peuvent nécessiter la prise en compte de paramètres, par exemple lorsque vous voudrez afficher la fiche d'un produit sur votre site vitrine, il vous faudra passer en paramètre l'identifiant du produit.
 
 ``` php
-/**
- * @Route("/store/product/{id}", name="store_show_product" requirements={"id" = "\d+"}, methods={"GET"})
- */
+#[Route('/store/product/{id}', name: 'store_show_product', requirements: ['id' => '\d+'], methods: ['GET'])]
 public function showProduct(int $id): Response
 {
     // ...
@@ -122,17 +119,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StoreController extends AbstractController
 {
-    /**
-     * @Route("/store/product", name="store_list_product")
-     */
+    #[Route('/store/product', name: 'store_list_product')]
     public function listProduct(): Response
     {
         return $this->render('product/list.html.twig');
     }
 
-    /**
-     * @Route("/store/product/{id}", name="store_show_product", requirements={"id" = "\d+"})
-     */
+    #[Route('/store/product/{id}', name: 'store_show_product', requirements: ['id' => '\d+'])]
     public function showProduct(int $id): Response
     {
         return new Response("Produit d'id $id");
