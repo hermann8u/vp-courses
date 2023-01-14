@@ -54,7 +54,7 @@ La suppression des packages se fait en une étape en utilisant la commande Compo
 composer rem package-name-or-alias
 ```
 
-Voici la liste des package que nous pouvons supprimer dans notre cas : **phpdocumentor/reflection-docblock annot expression-language http-client notifier process proxy-manager-bridge serializer web-link phpunit/phpunit browser-kit css-selector phpunit-bridge**
+Voici la liste des package que nous pouvons supprimer dans notre cas : **phpdocumentor/reflection-docblock annot expression-language http-client process proxy-manager-bridge serializer web-link phpunit/phpunit browser-kit css-selector phpunit-bridge**
 
 Notre projet est déjà plus léger ! Vous devriez avoir remarqué que certains dossiers et fichiers (principalement de configurations) ont disparus. Par exemple, le dossier des */tests* à la racine du projet n'est plus présent. 
 
