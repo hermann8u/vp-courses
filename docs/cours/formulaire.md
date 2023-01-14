@@ -234,35 +234,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class Contact
 {
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
-     */
-    private $firstName;
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.']
+    private ?string $firstName = null;
 
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
-     */
-    private $lastName;
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.']
+    private ?string $lastName = null;
 
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
-     * @Assert\Email(message="L'email {{ value }} n'est pas valide.")
-     */
-    private $email;
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.']
+    #[Assert\Email(message: 'L\'email {{ value }} n\'est pas valide.')]
+    private ?string $email = null;
 
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
-     * @Assert\Length(min="25", minMessage="Votre message doit contenir au minimum {{ limit }} caractères.")
-     */
-    private $message;
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.']
+    #[Assert\Length(min: 25, minMessage: 'Votre message doit contenir au minimum {{ limit }} caractères.')]
+    private ?string $message = null;
+
+    // GETTERS AND SETTERS ...
 ```
 
 Afin de définir les validateurs, nous devons mettre en place des annotations sur les propriétés de notre classe. Nous pouvons utiliser ces dernières pour définir des contraintes par l'intermédiaire de ce qu'on appelle des **Asserts**.
