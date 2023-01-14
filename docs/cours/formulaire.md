@@ -111,9 +111,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 // ...
 
-/**
- * @Route("/contact", name="main_contact", methods={"GET", "POST"})
- */
+#[Route('/contact', name: 'main_contact', methods: ['GET', 'POST'])]
 public function contact(Request $request): Response
 {
     // Création de notre entité et du formulaire basé dessus

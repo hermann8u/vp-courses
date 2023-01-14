@@ -76,15 +76,15 @@ Voici les paramètres les plus importants pour la configuration de route :
 Certaines routes peuvent nécessiter la prise en compte de paramètres, par exemple lorsque vous voudrez afficher la fiche d'un produit sur votre site vitrine, il vous faudra passer en paramètre l'identifiant du produit.
 
 ``` php
-#[Route('/store/product/{id}', name: 'store_show_product', requirements: ['id' => '\d+'], methods: ['GET'])]
+#[Route('/store/products/{id}', name: 'store_show_product', requirements: ['id' => '\d+'], methods: ['GET'])]
 public function showProduct(int $id): Response
 {
     // ...
 }
 ```
 
-Grâce au paramètre **{id}** dans notre route, toutes les URLs du type **/store/product/{id}** seront
-gérées par cette route, par exemple : **/store/product/3**
+Grâce au paramètre **{id}** dans notre route, toutes les URLs du type **/store/products/{id}** seront
+gérées par cette route, par exemple : **/store/products/3**
 
 La paramètre **{id}** est **obligatoire** et devra **impérativement correspondre à un entier positifs**, c'est la propriété indiquée dans requirements qui l'impose. Sans cette dernière, vous pourriez passer ce que vous voulez en paramètre, même une chaîne de type texte.
 
@@ -125,7 +125,7 @@ class StoreController extends AbstractController
         return $this->render('product/list.html.twig');
     }
 
-    #[Route('/store/product/{id}', name: 'store_show_product', requirements: ['id' => '\d+'])]
+    #[Route('/store/products/{id}', name: 'store_show_product', requirements: ['id' => '\d+'])]
     public function showProduct(int $id): Response
     {
         return new Response("Produit d'id $id");
@@ -168,7 +168,7 @@ Pour ça, il faut injecter la Request dans l'action de notre contrôleur de cett
 // ...
 use Symfony\Component\HttpFoundation\Request;
 // ...
-    #[Route('/store/product/{id}', name: 'store_show_product', requirements: ['id' => '\d+'])]
+    #[Route('/store/products/{id}', name: 'store_show_product', requirements: ['id' => '\d+'])]
     public function showProduct(Request $request, int $id): Response
     {
         // ...
@@ -176,7 +176,7 @@ use Symfony\Component\HttpFoundation\Request;
 // ...
 ```
 
-En admettant que l'on décide d'appeler notre page produit en y ajoutant un paramètre GET *slug* correspondant au titre de notre article pour l'URL **/store/product/3/details?slug=titre-de-mon-produit**. Nous pourrions procéder de la manière suivante afin de récupérer ce paramètre :
+En admettant que l'on décide d'appeler notre page produit en y ajoutant un paramètre GET *slug* correspondant au titre de notre article pour l'URL **/store/products/3/details?slug=titre-de-mon-produit**. Nous pourrions procéder de la manière suivante afin de récupérer ce paramètre :
 
 ``` php {3}
     public function showProduct(Request $request, int $id): Response
@@ -202,7 +202,7 @@ Nous avons utilisé dans ce cas précis **$request->query**, cela permet de réc
 2. Nommer la route vous permettant d'accéder à la page d'accueil de votre projet ( avec l'URL */*) de la manière suivante : **main_homepage**
 3. Créer une route, une action et un template vous permettant d'accéder à la présentation de la boutique Shoefony via l'URL suivant **/presentation** et nommer la route **main_presentation**.
 4. Créer un **StoreController**
-5. Créer une route, une action et un template vous permettant d'accéder à la fiche détaillée d'un produit en prenant en paramètre son identifiant, ainsi que son slug, via l'URL suivante **/store/product/{id}/details/{slug}** et nommer la route **store_show_product**.
+5. Créer une route, une action et un template vous permettant d'accéder à la fiche détaillée d'un produit en prenant en paramètre son identifiant, ainsi que son slug, via l'URL suivante **/store/products/{id}/details/{slug}** et nommer la route **store_show_product**.
 6. Créer une route, une action et un template vous permettant d'accéder la page de contact via l'URL suivante **/contact** et nommer la route **main_contact**
 7. Associer un template à la page en charge de l'affichage d'une fiche produit et trouver un moyen d'y afficher l'identifiant et le slug passés en paramètres au contrôleur.
 8. Afficher également sur la page détaillée d'un produit l'adresse IP du client ainsi que l'URL de la page en utilisant la méthode associée au composant router.
