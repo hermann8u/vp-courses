@@ -234,17 +234,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class Contact
 {
-    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.']
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.')]
     private ?string $firstName = null;
 
-    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.']
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.')]
     private ?string $lastName = null;
 
-    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.']
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.')]
     #[Assert\Email(message: 'L\'email {{ value }} n\'est pas valide.')]
     private ?string $email = null;
 
-    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.']
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide.')]
     #[Assert\Length(min: 25, minMessage: 'Votre message doit contenir au minimum {{ limit }} caractères.')]
     private ?string $message = null;
 
