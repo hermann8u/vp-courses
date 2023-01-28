@@ -58,10 +58,13 @@ Voici ce que ça donne pour notre nouvelle entité **App\\Entity\\Store\\Product
 ``` php {9}
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Store;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\Store\ProductRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\Table(name='sto_product')]
@@ -70,7 +73,7 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private string $name;
@@ -80,6 +83,17 @@ class Product
 
     #[ORM\Column]
     private float $price;
+
+    #[ORM\Column]
+    private \DateTimeImmutable $createdAt;
+
+    public function __construct(string $name, string $description, float $price)
+    {
+        $this->name = $name;
+        $this->description = $description;
+        $this->price = $price;
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     // Getters and Setters ...
 }
@@ -289,10 +303,11 @@ final class AppFixtures extends Fixture
     private function loadProducts(): void
     {
         for ($i = 1; $i < 15; $i++) {
-            $product = (new Product())
-                ->setName('product '.$i)
-                ->setDescription('Produit de description '.$i)
-                ->setPrice(mt_rand(10, 100));
+            $product = new Product(
+                'product '.$i,
+                'Produit de description '.$i,
+                mt_rand(10, 100),
+            );
 
             $this->manager->persist($product);
         }
@@ -322,7 +337,7 @@ Lorsque vous lancez la commande, elle vous demande de vider les données de votr
 Rendons l'affichage de nos produits dynamique en créant une base de données et la table correspondante.
 
 1. Configurez le projet Symfony afin de le lier à une base de données en paramétrant le fichier **/.env.local**.
-2. Créez l'entité **App\\Entity\\Store\\Product** et générez la table correspondante dans votre base de données comprenant les champs suivants : *id, name (string 255), description (text), price (decimal, 10,2), created_at (datetime)*.
+2. Créez l'entité **App\\Entity\\Store\\Product** et générez la table correspondante dans votre base de données comprenant les champs suivants : *id, name (string 255), description (text), price (float), created_at (datetime_immutable)*.
 3. Complétez manuellement l'entité **App\\Entity\\Contact**. Ajoutez également le **createdAt** et nommez sa table **app_contact**
 4. Enregistrez la demande de contact après validation du formulaire et avant d'envoyer cette dernière par email.
 5. Mettre en place une classe gérant les **fixtures** et implémentez-y une boucle chargée de peupler votre table de **14 produits**.
