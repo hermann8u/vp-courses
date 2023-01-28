@@ -13,13 +13,13 @@ namespace App\Entity\Store;
 
 class Product
 {
-    private $id;
+    private ?int $id = null;
 
-    private $name;
+    private string $name;
 
-    private $description;
+    private string $description;
 
-    private $price;
+    private float $price;
 
     // Getters and Setters ...
 }
@@ -29,7 +29,7 @@ Comme vous pouvez le voir, il n'y a pas grand chose. Un objet, des propriétés,
 
 On pourrait en réalité utiliser notre objet dès maintenant, mais l'ORM ne pourrait pour le moment pas enregistrer notre objet en base de données.
 
-Nous avions déjà créer une entité dans le chapitre sur les formulaires, **App\\Entity\\Contact**, mais elles pour l'instant encore toutes les deux incomplètes. En effet, afin que Doctrine puisse savoir quoi faire de nos entités, il va falloir lui indiquer à l'aide d'**annotations**.
+Nous avions déjà créer une entité dans le chapitre sur les formulaires, **App\\Entity\\Contact**, mais elles pour l'instant encore toutes les deux incomplètes. En effet, afin que Doctrine puisse savoir quoi faire de nos entités, il va falloir lui indiquer à l'aide d'**attributes**.
 
 Pour générer nos entités, nous n'allons pas le faire manuellement, mais nous servir de la commande mis à disposition par le **maker-bundle** :
 
@@ -61,34 +61,25 @@ Voici ce que ça donne pour notre nouvelle entité **App\\Entity\\Store\\Product
 namespace App\Entity\Store;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\Store\ProductRepository;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\Store\ProductRepository")
- * @ORM\Table(name="sto_product")
- */
+#[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Table(name='sto_product')]
 class Product
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(length: 255)]
+    private string $name;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
+    #[ORM\Column(type: Types::TEXT)]
+    private string $description;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
-     */
-    private $price;
+    #[ORM\Column]
+    private float $price;
 
     // Getters and Setters ...
 }
@@ -98,7 +89,7 @@ class Product
 J'ai surligné la **ligne 9** qui n'a pas été ajoutée par la commande. Elle permet de définir le nom que nous voulons pour notre table en base de données, ce qui m'a permit d'ajouter le prefix "sto_" pour celle-ci.
 :::
 
-Grâce à ces **annotations**, que l'on appelle **metadata**, Doctrine dispose de toutes les informations nécessaires pour utiliser notre objet : 
+Grâce à ces **attributes**, que l'on appelle **metadata**, Doctrine dispose de toutes les informations nécessaires pour utiliser notre objet : 
 - Créer la table correspondante
 - L'enregistrer
 - Définir un identifiant (id) en auto-incrément
@@ -157,11 +148,9 @@ Voici comment injecter cet **EntityManager**, encore une fois, en typant sur son
 ``` php
 use Doctrine\ORM\EntityManagerInterface;
 // ...
-private $em;
-
-public function __construct(EntityManagerInterface $em)
-{
-    $this->em = $em;
+public function __construct(
+    private EntityManagerInterface $em,
+) {
 }
 // ...
 ```
@@ -211,9 +200,7 @@ Doctrine va en fait gérer des **transactions SQL**. C'est à dire que lors de l
 Il arrive régulièrement que l'on veuille enregistrer également la **date de création** d'une entité. Dans le cas de notre produit nous pouvons le faire, mais nous souhaiterions que cela soit réalisé de manière automatique à l'enregistrement de notre entité. Pour cela, il suffit d'aller modifier notre entité en y ajoutant **une propriété date** et **un constructeur** qui l'initialisera :
 
 ``` php
-/**
- * @ORM\Column(type="datetime")
- */
+#[ORM\Column(type='datetime')]
 private \DateTime $createdAt;
 
 public function __construct()
