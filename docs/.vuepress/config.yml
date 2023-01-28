@@ -29,7 +29,7 @@ themeConfig:
       '/cours/formulaire',
       '/cours/injection-dependances',
       '/cours/service',
-      # '/cours/entities',
+      '/cours/entities',
       # '/cours/relations',
       # '/cours/repositories',
       ## '/cours/security',
