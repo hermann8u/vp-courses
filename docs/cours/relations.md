@@ -6,7 +6,7 @@ Le chapitre précédent nous a permis d'introduire l'ensemble des notions de bas
 
 ### Notion de propriétaire et d'inverse
 
-La notion de propriétaire et d'inverse est abstraite mais importante à comprendre. Dans une relation entre deux entités, il y a toujours une entité dite **propriétaire**, et une dite **inverse**. Pour comprendre cette notion, il faut revenir à la vieille époque, lorsque l'on faisait nos bases de données à la main. En générale, **l'entité propriétaire est celle qui contient la référence à l'autre entité**. Ce sera également l'entité qui **recevra le mapping** (annotations), c'est pourquoi il est important de l'identifier.
+La notion de propriétaire et d'inverse est abstraite mais importante à comprendre. Dans une relation entre deux entités, il y a toujours une entité dite **propriétaire**, et une dite **inverse**. Pour comprendre cette notion, il faut revenir à la vieille époque, lorsque l'on faisait nos bases de données à la main. En générale, **l'entité propriétaire est celle qui contient la référence à l'autre entité**. Ce sera également l'entité qui **recevra le mapping** (attributes), c'est pourquoi il est important de l'identifier.
 
 ::: warning
 Cette notion, à avoir en tête lors de la création des entités, n'est pas liée à votre logique métier mais est purement technique.
@@ -34,15 +34,13 @@ La relation **OneToOne**, ou 1..1, est assez classique. Elle correspond, comme s
 
 #### Définition
 
-Afin d'établir notre relation nous devons utiliser les annotations au niveau de nos entités. La relation **OneToOne** entre les entités **Product** et **Image** correspondrait à la syntaxe suivant. Aucun ajout n'est nécessaire au niveau de l'entité Image, car nous allons faire une **relation unidirectionnelle** :
+Afin d'établir notre relation nous devons utiliser les *attributes* au niveau de nos entités. La relation **OneToOne** entre les entités **Product** et **Image** correspondrait à la syntaxe suivant. Aucun ajout n'est nécessaire au niveau de l'entité Image, car nous allons faire une **relation unidirectionnelle** :
 
 ``` php {4}
 // src/Entity/Store/Product.php
 
-/**
- * @ORM\OneToOne(targetEntity="App\Entity\Store\Image", cascade={"persist"})
- */
-private $image;
+#[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist'])]
+private ?Image $image = null;
 
 public function getImage(): ?Image
 {
@@ -58,16 +56,14 @@ public function setImage(Image $image): self
 
 ```
 
-Cette relation est simple et tout à fait fonctionnelle, néanmoins par défaut cette relation est facultative. C'est à dire que vous pouvez avoir un Produit sans Image. Afin de rendre la relation obligatoire il suffit de rajouter une annotation **JoinColumn** :
+Cette relation est simple et tout à fait fonctionnelle, néanmoins par défaut cette relation est facultative. C'est à dire que vous pouvez avoir un Produit sans Image. Afin de rendre la relation obligatoire il suffit de rajouter un *attribut* **JoinColumn** :
 
 ``` php {5}
 // src/Entity/Store/Product.php
 
-/**
- * @ORM\OneToOne(targetEntity="App\Entity\Store\Image", cascade={"persist", "remove"})
- * @ORM\JoinColumn(nullable=false, name="sto_image_id")
- */
-private $image;
+#[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist', 'remove'])]
+#[ORM\JoinColumn(nullable: false, name: 'sto_image_id')]
+private Image $image;
 ```
 
 ::: tip
@@ -96,16 +92,14 @@ Pour illustrer cette relation dans le cadre de notre projet, nous allons créer 
 
 #### Définition
 
-Comme précédemment nous allons intervenir au niveau des annotations de nos entités pour établir une relation **ManyToOne** (de nouveau, aucun ajout n'est nécessaire au niveau de l'entité Brand) :
+Comme précédemment nous allons intervenir au niveau des *attributes* de nos entités pour établir une relation **ManyToOne** (de nouveau, aucun ajout n'est nécessaire au niveau de l'entité Brand) :
 
 ``` php {4}
 // src/Entity/Store/Product.php
 
-/**
- * @ORM\ManyToOne(targetEntity="App\Entity\Store\Brand")
- * @ORM\JoinColumn(nullable=false, name="sto_brand_id")
- */
-private $brand;
+#[ORM\ManyToOne(targetEntity: Brand::class)]
+#[JoinColumn(nullable: false, name: 'sto_brand_id')]
+private Brand $brand;
 
 // Getters and Setters
 
@@ -116,7 +110,7 @@ private $brand;
 De la même manière que pour la relation **OneToOne**, il vous faut définir le **getter** et le **setter** en pensant à bien forcer le type à l'aide de l'entité à laquelle nous faisons référence. Puis nous pourrions ensuite les utiliser de la façon suivante :
 
 ``` php
-$brand = (new Brand)->setName('Adidas');
+$brand = (new Brand())->setName('Adidas');
 
 $product = $this->productRepository->find(1);
 
@@ -135,21 +129,17 @@ Voici les modifications à apporter pour mettre en place une notion de bidirecti
 ``` php {4}
 // src/Entity/Store/Product.php
 
-/**
- * @ORM\ManyToOne(targetEntity="App\Entity\Store\Brand", inversedBy="products")
- * @ORM\JoinColumn(nullable=false, name="sto_brand_id")
- */
-private $brand;
+#[ORM\ManyToOne(targetEntity: Brand::class, inversedBy: 'products')]
+#[ORM\JoinColumn(nullable: false, name: 'sto_brand_id')]
+private Brand $brand;
 
 ```
 
 ``` php {4}
 // src/Entity/Store/Brand.php
 
-/**
- * @ORM\OneToMany(targetEntity="App\Entity\Store\Product", mappedBy="brand")
- */
-private $products;
+#[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'brand')]
+private Collection $products;
 
 ```
 
@@ -167,7 +157,7 @@ public function __construct()
 }
 
 /**
- * @return Collection|Product[]
+ * @return Collection<int, Product>
  */
 public function getProducts(): Collection
 {
@@ -214,7 +204,7 @@ Prenons l'exemple cette fois-ci de nos produits, ayant des couleurs différentes
 
 #### Définition
 
-Comme pour toutes relations, il suffit d'intervenir sur les annotations de nos entités :
+Comme pour toutes relations, il suffit d'intervenir sur les *attributes* de nos entités :
 
 ``` php
 // src/Entity/Store/Product.php
@@ -223,11 +213,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 // ...
 
-/**
- * @ORM\ManyToMany(targetEntity="App\Entity\Store\Color")
- * @ORM\JoinTable(name="sto_product_color")
- */
-private $colors;
+#[ORM\ManyToMany(targetEntity: Color::class)]
+#[@ORM\JoinTable(name: 'sto_product_color')]
+private Collection $colors;
 
 public function __construct()
 {
@@ -236,7 +224,7 @@ public function __construct()
 }
 
 /**
- * @return Collection|Color[]
+ * @return Collection<int, Color>
  */
 public function getColors(): Collection
 {
@@ -264,7 +252,7 @@ public function removeColor(Color $color): self
 
 Les relations **ManyToMany** passe par une **table intermédiaire**. Sa clé primaire est une **clé composée** avec une référence sur l'id des deux entités qu'elle lie. Ca signifie aussi qu'il n'est pas possible d'avoir une entrée avec les deux même id (un produit ne peut avoir qu'une seule fois la couleur jaune).
 
-Vous pouvez remarquez à la **ligne 5** que j'ai utilisé l'annotation **ORM\JoinTable** pour redéfinir le nom de cette table de liaison afin qu'elle respecte le préfixe "sto_".
+Vous pouvez remarquez à la **ligne 5** que j'ai utilisé l'attribut **ORM\JoinTable** pour redéfinir le nom de cette table de liaison afin qu'elle respecte le préfixe "sto_".
 
 ::: tip
 Si vous voulez ajouter d'autres champs à cette table intermédiaire, vous ne pouvez pas utiliser la relation **ManyToMany**. Il faudra créer une entité **ProductColor** avec une relation **ManyToOne** sur Product et Color (et rendre ces relations bidirectionnelles).
@@ -288,7 +276,7 @@ $colors = $this->colorRepository->findAll();
 
 // Ici, on ajoute toutes les couleurs au produit.
 foreach ($colors in $color) {
-    $product->addColors($color);
+    $product->addColor($color);
 }
 
 $this->em->flush();

@@ -30,7 +30,7 @@ themeConfig:
       '/cours/injection-dependances',
       '/cours/service',
       '/cours/entities',
-      # '/cours/relations',
+      '/cours/relations',
       # '/cours/repositories',
       ## '/cours/security',
       # '/cours/event-dispatcher',
