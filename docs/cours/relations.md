@@ -310,7 +310,7 @@ N'oubliez pas de faire attention aux noms des tables et des colonnes de jointure
 1. Créer une nouvelle entité **Image** composée des propriétés suivantes : id, url (string 255), alt (string 255). Puis établissez une **relation OneToOne** avec l'entité Product.
 2. Compléter vos **fixtures** et afficher les images des produits dans votre template représentant la liste des produits (utiliser les images produits présentes dans votre répertoire img).
 3. Maintenant que votre liste de produit est dynamique et que vous pouvez afficher l'image de ces derniers, ajouter une **description longue** et un **slug** à votre entité **Product** (et à vos fixtures).
-4. Rendre dynamique l'affichage des fiches détaillées de vos produits en vérifiant bien que l'identifiant du produit que vous cherchez à afficher existe. Si ce n'est pas le cas, redirigez le visiteur vers une **page 404** (les espaces dédiés aux commentaires et celui des marques resteront statiques).
+4. Rendre dynamique l'affichage des fiches détaillées de vos produits en vérifiant bien que l'identifiant du produit que vous cherchez à afficher existe. Si ce n'est pas le cas, renvoyez un code **HTTP 404** (les espaces dédiés aux commentaires et celui des marques resteront statiques).
 5. Créer une nouvelle entité **Brand** composée des propriétés suivantes : id, name (string 255). Puis établir une relation **ManyToOne** de type **bidirectionnelle** avec l'entité Product et compléter vos fixtures.
 6. Afficher la liste des marques de produits de manière dynamique dans vos templates.
 7. Créer une entité **Color** composée des propriétés suivantes : id, name (string 255). Puis établir une relation **ManyToMany** de type **unidirectionnelle** avec l'entité Product et compléter vos fixtures.
