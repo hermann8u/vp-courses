@@ -47,7 +47,7 @@ public function getImage(): ?Image
     return $this->image;
 }
 
-public function setImage(Image $image): self
+public function setImage(?Image $image): self
 {
     $this->image = $image
 
@@ -126,7 +126,7 @@ En ayant mis en place la relation **ManyToOne** ainsi, nous avons établi une r�
 
 Voici les modifications à apporter pour mettre en place une notion de bidirectionnalité entre nos deux entités :
 
-``` php {4}
+``` php {3}
 // src/Entity/Store/Product.php
 
 #[ORM\ManyToOne(targetEntity: Brand::class, inversedBy: 'products')]
@@ -135,7 +135,7 @@ private Brand $brand;
 
 ```
 
-``` php {4}
+``` php {3}
 // src/Entity/Store/Brand.php
 
 #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'brand')]
@@ -214,7 +214,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 // ...
 
 #[ORM\ManyToMany(targetEntity: Color::class)]
-#[@ORM\JoinTable(name: 'sto_product_color')]
+#[ORM\JoinTable(name: 'sto_product_color')]
 private Collection $colors;
 
 public function __construct()
