@@ -31,7 +31,7 @@ themeConfig:
       '/cours/service',
       '/cours/entities',
       '/cours/relations',
-      # '/cours/repositories',
+      '/cours/repositories',
       ## '/cours/security',
       # '/cours/event-dispatcher',
       # '/cours/mise-en-ligne',
