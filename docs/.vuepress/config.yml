@@ -33,7 +33,7 @@ themeConfig:
       '/cours/relations',
       '/cours/repositories',
       ## '/cours/security',
-      # '/cours/event-dispatcher',
+      '/cours/event-dispatcher',
       # '/cours/mise-en-ligne',
       # '/cours/plus-loin',
     ],

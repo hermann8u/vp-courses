@@ -1,6 +1,6 @@
 # L'event dispatcher
 
-Lorsque nous enregistrons une demande de contact, nous nous attendons à ce qu'un email soit envoyé pour informé l'administrateur de l'application. Que ce passera t'il si nous décidons de changer ce comportement à l'avenir ? Ou alors, si nous voulons le compléter avec l'ajout d'une notification ? Nous serions obliger de modifier notre code existant du ContactManager en prenant le risque d'introduire des bugs dans cette classe. Est-ce vraiment la responsabilité du manager de gérer l'envoie d'email ?
+Lorsque nous enregistrons une demande de contact, nous nous attendons à ce qu'un email soit envoyé pour informé l'administrateur de l'application. Que ce passera t'il si nous décidons de changer ce comportement à l'avenir ? Ou alors, si nous voulons le compléter avec l'ajout d'une notification ? Nous serions obliger de modifier notre code existant en prenant le risque d'introduire des bugs dans cette classe. Est-ce vraiment la responsabilité du controleur de gérer l'envoie d'email ?
 
 Dans ce chapitre, nous allons découvrir une alternative afin de résoudre ce problème, ce qui nous permettra de mieux segmenter notre code et de le préparer à d'éventuelles évolutions, grâce à l'**Event dispatcher**
 
