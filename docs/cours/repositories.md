@@ -57,7 +57,7 @@ $product = $productRepository->find($id);
 
 #### findAll()
 
-La méthode findAll() retourne toutes les entités contenue dans la base de données. Le format du retour est une array d'entités, que vous pouvez parcourir (avec un foreach par exemple) pour utiliser les objets qu'elle contient.
+La méthode **findAll()** retourne toutes les entités contenue dans la base de données. Le format du retour est une array d'entités, que vous pouvez parcourir (avec un foreach par exemple) pour utiliser les objets qu'elle contient.
 
 ``` php
 $products = $productRepository->findAll();
@@ -141,11 +141,9 @@ Toutes les méthodes vu précédemment permettent de récupérer vos entités da
 
 Avant tout, il nous faut créer un repository lié à notre entité, pour cela, assurez-vous que la ligne suivante dans la déclaration de la classe de l'entité concernée est bien définie :
 
-``` php {2}
-/**
- * @ORM\Entity(repositoryClass="App\Repository\Store\ProductRepository")
- * @ORM\Table(name="sto_product")
- */
+``` php {1}
+#[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Table(name: 'sto_product')]
 class Product
 {
     ...
@@ -243,7 +241,7 @@ Maintenant, voyons un des avantages du **QueryBuilder**. En considérant que la 
 private function whereCurrentYear(QueryBuilder $qb)
 {
     $qb
-        ->andWhere('p.createdAt BETWEEN : start AND :end')
+        ->andWhere('p.createdAt BETWEEN :start AND :end')
         ->setParameter('start', new \DateTime(date('Y').'-01-01'))
         ->setParameter('end', new \DateTime(date('Y').'-12-31'));
 }

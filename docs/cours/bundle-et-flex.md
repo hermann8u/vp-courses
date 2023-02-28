@@ -1,7 +1,9 @@
 # Bundles, Flex et auto-configuration
 
 ## Qu'est ce qu'un bundle ?
-Les bundles sont les **blocs de construction** élémentaires de n'importe quelle application Symfony, en fait le framework Symfony est lui même un bundle ! Les bundles permettent de séparer le code en briques **fonctionnelles** et **réutilisables**. Ils encapsulent le fonctionnement des diverses composantes telles que les contrôleurs, le modèle, les templates ainsi que les diverses ressources, aussi bien images que CSS.
+Les bundles sont les **blocs de construction** élémentaires de n'importe quelle application Symfony. En fait le framework Symfony est lui même un bundle ! Les bundles permettent de séparer le code en briques **fonctionnelles** et **réutilisables**. Ils encapsulent le fonctionnement des diverses composantes telles que les contrôleurs, le modèle, les templates ainsi que les diverses ressources, aussi bien images que CSS.
+
+En d'autres termes, un bundle est un librairie PHP avec une couche qui permet son intégration au sein du framework.
 
 Avant la version 4 de Symfony, il était recommandé d'organiser son code en utilisant les bundles. C'est à dire que le code source de l'application (le dossier **/src/**) était divisé en bundle. Ce n'est plus le cas et les bundles doivent être **seulement** utilisés pour **partager du code et des fonctionnalités** d'un projet à un autre.
 
@@ -14,10 +16,8 @@ Pour être fonctionnels dans votre application, les bundles doivent être défin
 Je vous ai préparé une liste de quelques bundles à connaître/utiliser. Vous pouvez les retrouver dans la partie [ressources/bundles](/ressources/bundles.html) de ce site.
 
 ::: warning
-Symfony 5 vient de sortir et il est possible que certain de ces bundles ne soit pas encore compatible avec cette nouvelle version majeure.
+Symfony 6 vient de sortir et il est possible que certain de ces bundles ne soit pas encore compatible avec cette nouvelle version majeure.
 :::
-
-Le site [http://knpbundles.com/](http://knpbundles.com/) recense également un grand nombre de bundles. Cependant, il faut faire attention à leur compatibilité avec Symfony 5.
 
 ## Symfony et Flex
 
@@ -30,7 +30,6 @@ Les principales fonctionnalités de Flex sont les suivantes :
 - Définition d'alias : Il n'est plus nécessaire de taper le nom complet d'un package s'il possède un alias, par exemple **composer req admin** à la place de **composer require easycorp/easyadmin-bundle**
 - Plus besoin non plus de taper *symfony* pour installer un package de Symfony (**composer req serializer**)
 - Le fichier **/config/bundles.php** se remplit automatiquement à l'installation d'un bundle, même si celui-ci n'a pas de recette.
-- Optimisation de **Composer** pour télécharger les packages en asynchrone.
 
 ### Nettoyage du projet
 
@@ -40,21 +39,26 @@ Je vous ai précisé dans le chapitre d'installation qu'il y avait deux façons 
 
 Puisque nous avons choisi la première solution, nous allons nous servir de Flex, non pas pour configurer, mais pour dé-configurer les dépendances dont nous nous ne servirons pas.
 
-#### Unpack le pack
+<!-- #### Unpack le pack
 
 Pour faciliter l'installation avec Flex, certaines dépendances ont été groupées par pack. Nous avons besoin de supprimer une seule dépendances du pack **symfony/orm-pack**, donc on va commencer par le dépacker pour faire apparaître les dépendances explicitement.
 
 ``` bash
 composer unpack orm
-```
+``` -->
 
 #### Suppression des packages
 
 La suppression des packages se fait en une étape en utilisant la commande Composer **remove** :
 ``` bash
-composer rem annot intl security test-pack web-link process serializer-pack expression-language translation doctrine/doctrine-migrations-bundle
+composer rem package-name-or-alias
 ```
 
+Voici la liste des package que nous pouvons supprimer dans notre cas : **phpdocumentor/reflection-docblock annot expression-language http-client process proxy-manager-bridge serializer web-link phpunit/phpunit browser-kit css-selector phpunit-bridge**
+
+Notre projet est déjà plus léger ! Vous devriez avoir remarqué que certains dossiers et fichiers (principalement de configurations) ont disparus. Par exemple, le dossier des */tests* à la racine du projet n'est plus présent. 
+
+<!--
 #### Comparaison
 
 Et voilà, notre projet est déjà un peu plus léger ! Regardons ce qui a changé :
@@ -82,3 +86,4 @@ Il faudrait regarder les sous-dossier ici pour voir une réelle différence, mai
 ![Les bundles](/img/flex/bundles.png)
 
 Là aussi, trois bundles de moins. Toujours ça de moins à instancier : **SensioFrameworkExtraBundle**, **SecurityBundle** et **DoctrineMigrationsBundle**
+-->

@@ -1,6 +1,6 @@
 # Les entités Doctrine
 
-L'objectif d'un **Object-Relation Mapper** (ORM) est le suivant : se charger de l'enregistrement de vos données en vous faisant oublier que vous avez une base de données. Comment ? En s'occupant de tout ! Nous n'allons plus écrire de requêtes, ni créer de tables via phpMyAdmin. Dans notre code PHP, nous allons utiliser **Doctrine**, l'ORM par défaut de Symfony.
+L'objectif d'un **Object-Relation Mapper** (ORM) est le suivant : se charger de l'enregistrement de vos données en vous faisant oublier que vous avez une base de données. Comment ? En s'occupant de tout&nbsp;! Nous n'allons plus écrire de requêtes, ni créer de tables via phpMyAdmin. Dans notre code PHP, nous allons utiliser **Doctrine**, l'ORM par défaut de Symfony.
 
 ## Créer une entité
 
@@ -13,13 +13,13 @@ namespace App\Entity\Store;
 
 class Product
 {
-    private $id;
+    private ?int $id = null;
 
-    private $name;
+    private string $name;
 
-    private $description;
+    private string $description;
 
-    private $price;
+    private float $price;
 
     // Getters and Setters ...
 }
@@ -29,7 +29,7 @@ Comme vous pouvez le voir, il n'y a pas grand chose. Un objet, des propriétés,
 
 On pourrait en réalité utiliser notre objet dès maintenant, mais l'ORM ne pourrait pour le moment pas enregistrer notre objet en base de données.
 
-Nous avions déjà créer une entité dans le chapitre sur les formulaires, **App\\Entity\\Contact**, mais elles pour l'instant encore toutes les deux incomplètes. En effet, afin que Doctrine puisse savoir quoi faire de nos entités, il va falloir lui indiquer à l'aide d'**annotations**.
+Nous avions déjà créer une entité dans le chapitre sur les formulaires, **App\\Entity\\Contact**, mais elles pour l'instant encore toutes les deux incomplètes. En effet, afin que Doctrine puisse savoir quoi faire de nos entités, il va falloir lui indiquer à l'aide d'**attributes**.
 
 Pour générer nos entités, nous n'allons pas le faire manuellement, mais nous servir de la commande mis à disposition par le **maker-bundle** :
 
@@ -58,37 +58,42 @@ Voici ce que ça donne pour notre nouvelle entité **App\\Entity\\Store\\Product
 ``` php {9}
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Store;
 
+use App\Repository\Store\ProductRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\Store\ProductRepository")
- * @ORM\Table(name="sto_product")
- */
+#[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Table(name: 'sto_product')]
 class Product
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(length: 255)]
+    private string $name;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
+    #[ORM\Column(type: Types::TEXT)]
+    private string $description;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
-     */
-    private $price;
+    #[ORM\Column]
+    private float $price;
+
+    #[ORM\Column]
+    private \DateTimeImmutable $createdAt;
+
+    public function __construct(string $name, string $description, float $price)
+    {
+        $this->name = $name;
+        $this->description = $description;
+        $this->price = $price;
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     // Getters and Setters ...
 }
@@ -98,7 +103,7 @@ class Product
 J'ai surligné la **ligne 9** qui n'a pas été ajoutée par la commande. Elle permet de définir le nom que nous voulons pour notre table en base de données, ce qui m'a permit d'ajouter le prefix "sto_" pour celle-ci.
 :::
 
-Grâce à ces **annotations**, que l'on appelle **metadata**, Doctrine dispose de toutes les informations nécessaires pour utiliser notre objet : 
+Grâce à ces **attributes**, que l'on appelle **metadata**, Doctrine dispose de toutes les informations nécessaires pour utiliser notre objet : 
 - Créer la table correspondante
 - L'enregistrer
 - Définir un identifiant (id) en auto-incrément
@@ -157,11 +162,9 @@ Voici comment injecter cet **EntityManager**, encore une fois, en typant sur son
 ``` php
 use Doctrine\ORM\EntityManagerInterface;
 // ...
-private $em;
-
-public function __construct(EntityManagerInterface $em)
-{
-    $this->em = $em;
+public function __construct(
+    private EntityManagerInterface $em,
+) {
 }
 // ...
 ```
@@ -204,33 +207,24 @@ La création se fait en deux étapes:
 - La méthode **persist** indique à Doctrine que **l'entité existe** et qu'il peut **traquer ses modifications**.
 - La méthode **flush** exécute toutes les insertions et modifications avec des requêtes SQL.
 
-Doctrine va en fait géré des **transactions SQL**. C'est à dire que lors de l'ajout de 10 produits, si l'une des insertions provoque une **erreur SQL**, **aucun** des produits ne sera enregistré. La méthode **flush** exécute en fait la transaction.
+Doctrine va en fait gérer des **transactions SQL**. C'est à dire que lors de l'ajout de 10 produits, si l'une des insertions provoque une **erreur SQL**, **aucun** des produits ne sera enregistré. La méthode **flush** exécute en fait la transaction.
 
 #### Ajout de la date de création
 
 Il arrive régulièrement que l'on veuille enregistrer également la **date de création** d'une entité. Dans le cas de notre produit nous pouvons le faire, mais nous souhaiterions que cela soit réalisé de manière automatique à l'enregistrement de notre entité. Pour cela, il suffit d'aller modifier notre entité en y ajoutant **une propriété date** et **un constructeur** qui l'initialisera :
 
 ``` php
-/**
- * @ORM\Column(type="datetime")
- */
-private $createdAt;
+#[ORM\Column(type='datetime')]
+private \DateTime $createdAt;
 
 public function __construct()
 {
     $this->createdAt = new \DateTime();
 }
 // ...
-public function getCreatedAt(): ?\DateTime
+public function getCreatedAt(): \DateTime
 {
     return $this->createdAt;
-}
-
-public function setCreatedAt(\Datetime $createdAt): self
-{
-    $this->createdAt = $createdAt;
-
-    return $this;
 }
 ```
 
@@ -308,11 +302,12 @@ final class AppFixtures extends Fixture
 
     private function loadProducts(): void
     {
-        for ($i = 0; $i < 20; $i++) {
-            $product = (new Product())
-                ->setName('product '.$i)
-                ->setDescription('Produit de description '.$i)
-                ->setPrice(mt_rand(10, 100));
+        for ($i = 1; $i < 15; $i++) {
+            $product = new Product(
+                'product '.$i,
+                'Produit de description '.$i,
+                mt_rand(10, 100),
+            );
 
             $this->manager->persist($product);
         }
@@ -342,10 +337,10 @@ Lorsque vous lancez la commande, elle vous demande de vider les données de votr
 Rendons l'affichage de nos produits dynamique en créant une base de données et la table correspondante.
 
 1. Configurez le projet Symfony afin de le lier à une base de données en paramétrant le fichier **/.env.local**.
-2. Créez l'entité **App\\Entity\\Store\\Product** et générez la table correspondante dans votre base de données comprenant les champs suivants : *id, name (string 255), description (text), price (decimal, 10,2), created_at (datetime)*.
+2. Créez l'entité **App\\Entity\\Store\\Product** et générez la table correspondante dans votre base de données comprenant les champs suivants : *id, name (string 255), description (text), price (float), created_at (datetime_immutable)*.
 3. Complétez manuellement l'entité **App\\Entity\\Contact**. Ajoutez également le **createdAt** et nommez sa table **app_contact**
 4. Enregistrez la demande de contact après validation du formulaire et avant d'envoyer cette dernière par email.
-5. Mettre en place une classe gérant les **fixtures** et implémentez-y une boucle chargée de peupler votre table de **20 produits**.
+5. Mettre en place une classe gérant les **fixtures** et implémentez-y une boucle chargée de peupler votre table de **14 produits**.
 6. Affichez sur la page de **listing des produits** les fiches produits issues de la base de données, en pensant à afficher un message dans le cas où le catalogue ne dispose d'aucuns produits enregistrés.
 7. Utilisez un **filtre Twig** permettant de toujours afficher le nom des produits avec une **majuscule sur la première lettre**.
 

@@ -4,7 +4,7 @@
 
 Un template est un simple fichier texte qui peut générer n'importe quel format basé sur du texte (HTML, XML, CSV, LaTeX ...). Le type de template le plus connu est le template PHP.
 
-Il y a 2 options par défaut pour les templates lorsque l'on utilise Symfony : **Twig** et PHP. Vous pouvez bien sûr n'utiliser ni l'un ni l'autre et opter pour une autre librairie. C'est possible grâce au container d'injection de dépendances. Nous allons utiliser Twig comme moteur de template pour un certain nombre de raisons :
+Il y a 2 options par défaut pour les templates lorsque l'on utilise Symfony : **Twig** et PHP. Vous pouvez bien sûr n'utiliser ni l'un ni l'autre et opter pour une autre librairie. C'est possible grâce au container d'injection de dépendances dont nous parlerons plus tard. Nous allons utiliser Twig comme moteur de template pour un certain nombre de raisons :
 
 - **Twig est rapide** : Les templates Twig sont compilés en code PHP et mis en cache, il y a donc très peu de surcharge lors de l'utilisation des templates.
 
@@ -18,7 +18,7 @@ Il y a 2 options par défaut pour les templates lorsque l'on utilise Symfony : *
 
 En somme, Twig a un objectif : Se rapprocher du langage naturel pour être compris par les intégrateurs et graphistes amenés à travailler sur le projet.
 
-Les templates Twig peuvent et doivent être utilisés partout dans Symfony, même dans la conception des emails.
+Les templates Twig peuvent être utilisés partout dans Symfony, même dans la conception des emails.
 
 Le contrôleur peut renvoyer vers une vue, mais également en récupérer son contenu sans pour autant l'afficher directement, afin de l'envoyer par email par exemple :
 
@@ -26,20 +26,24 @@ Le contrôleur peut renvoyer vers une vue, mais également en récupérer son co
 return $this->render('main/product.html.twig', [
     'id' => $id,
     'slug' => $slug,
-    'ip' => $request->getClientIp()
+    'ip' => $request->getClientIp(),
 ]);
 ```
 
-Et voici un deuxième exemple montrant comment récupérer le contenu d'un template depuis le contrôleur :
+Ici, la méthode render va utiliser Twig pour interpréter la vue localisée grâce au premier paramètre. Le second paramètre est une array de données que l'on souhaite mettre à disposition dans le template. La méthode **render** retourne un objet **Response**. On peut donc retourner directement le retour de la fonction à la fin de notre action.
+
+Et voici un deuxième exemple montrant comment récupérer le contenu d'un template depuis le contrôleur sous forme de chaine de caractères :
 
 ``` php
 $templateAsString = $this->renderView('email/resetting.html.twig', [
     'name' => $name,
 ]);
 ```
+
 ## La syntaxe de Twig
 
 Twig définit deux types de syntaxe spéciale :
+
 ::: v-pre
 - **{{ ... }}** : C'est l'instruction **d'affichage**. Elle permet d'afficher le contenu d'une variable. C'est donc l'équivalent de **echo** en PHP.
 - **{% ... %}** : C'est la syntaxe des **tags**. Ils sont utilisés pour exécuter des instructions spéciales comme la boucle **for** ou la condition **if** par exemple.
@@ -121,7 +125,7 @@ Outre le fait que Twig offre une syntaxe plus lisible, vous pouvez remarquer que
 
 ::: v-pre
 ``` php
-// Définition en PHP
+// Définition de variable en PHP
 
 <?php $foo = 'bar'; ?>
 ```
@@ -129,7 +133,7 @@ Outre le fait que Twig offre une syntaxe plus lisible, vous pouvez remarquer que
 
 ::: v-pre
 ``` twig
-{# Définition en TWIG #}
+{# Définition de variable en Twig #}
 
 {% set foo = 'bar' %}
 ```
@@ -149,14 +153,14 @@ Twig contient également des **filtres**. Ce sont des fonctions qui s'appliquent
 Il est possible d'enchainer les filtres pour en appliquer plusieurs ! Le filtre suivant utilisera le contenu renvoyé par le précédent. L'ordre dans lequel vous les écrivez a donc de l'importance.
 :::
 
-Vous trouverez la liste complètes des filtres Twig dans la [documentation](https://twig.symfony.com/doc/2.x/filters/index.html), mais en voici déjà quelques uns.
+Vous trouverez la liste complètes des filtres Twig dans la [documentation](https://twig.symfony.com/doc/3.x/filters/index.html), mais en voici déjà quelques uns.
 
 | Filtre                                                         | Description                                                                                             |
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| [title](https://twig.symfony.com/doc/2.x/filters/title.html)   | Met la première lettre de chaque mot en majuscule, le reste en minuscule.                              |
-| [date](https://twig.symfony.com/doc/2.x/filters/date.html)     | Formate un objet DateTime en texte. Le format du paramètre correspond à celui de la fonction PHP date. |
-| [length](https://twig.symfony.com/doc/2.x/filters/length.html) | Nombre d'éléments d'un tableau, ou nombre de caractères d'une chaine.                                   |
-| [raw](https://twig.symfony.com/doc/2.x/filters/raw.html)       | Permet au code dans une variable d'être interprété.                                                     |
+| [title](https://twig.symfony.com/doc/3.x/filters/title.html)   | Met la première lettre de chaque mot en majuscule, le reste en minuscule.                              |
+| [date](https://twig.symfony.com/doc/3.x/filters/date.html)     | Formate un objet DateTime en texte. Le format du paramètre correspond à celui de la fonction PHP date. |
+| [length](https://twig.symfony.com/doc/3.x/filters/length.html) | Nombre d'éléments d'un tableau, ou nombre de caractères d'une chaine.                                   |
+| [raw](https://twig.symfony.com/doc/3.x/filters/raw.html)       | Permet au code dans une variable d'être interprété.                                                     |
 
 Démonstration :
 
@@ -282,7 +286,7 @@ Voici à quoi pourraient ressembler le contenu des différents templates en choi
 
 {% block javascripts %}
     {{ parent() }}
-    <script href="{{ asset('js/js-du-front.js') }}"></script>
+    <script src="{{ asset('js/js-du-front.js') }}"></script>
 {% endblock %}
 ```
 
@@ -325,7 +329,7 @@ Ce qui va générer le html suivant:
         <p>Du contenu</p>
 
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script href="/js/js-du-front.js"></script>
+        <script src="/js/js-du-front.js"></script>
     </body>
 </html>
 ```

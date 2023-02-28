@@ -8,7 +8,9 @@ L'installation de Symfony nécessite un environnement de travail spécifique, po
 - Utiliser un environnement local avec Wamp, Lamp, etc.
 - Utiliser le PHP built-in server (nécessite d'avoir PHP d'installer sur sa machine)
 
-Dans tous les cas il est impératif de posséder un moteur de base de données, **MySQL** dans notre cas, et **PHP 7.2.5** (ou plus) correctement installé.
+Dans tous les cas il est impératif de posséder un moteur de base de données, **MySQL** dans notre cas, et **PHP 8.1** (ou plus) correctement installé.
+
+Nous allons utilisé la version **6.2** de Symfony.
 
 ## Télécharger et installer Symfony
 
@@ -43,7 +45,7 @@ composer create-project symfony/website-skeleton shoefony
 Il ne reste plus qu'à attendre que Composer installe toutes les dépendances et initialise votre projet.
 
 ::: tip
-Symfony propose deux différents projets de base lors de l'installation. Si vous utilisez le package symfony/skeleton dans la commande précédente, vous obtiendrez une version beaucoup plus légère du framework. C'est pratique si vous décidez d'installer seulement les packages nécessaires à votre application.
+Symfony propose deux différents projets de base lors de l'installation. Si vous utilisez le package **symfony/skeleton** dans la commande précédente, vous obtiendrez une version beaucoup plus légère du framework. C'est pratique si vous décidez d'installer seulement les packages nécessaires à votre application.
 :::
 
 Une fois l'installation terminée, rendez-vous dans le dossier du projet nouvellement créé et lancer le [PHP built-in server](https://www.php.net/manual/fr/features.commandline.webserver.php) :

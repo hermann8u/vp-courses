@@ -1,3 +1,4 @@
+base: '/'
 locales:
   '/':
     lang: 'fr-FR'
@@ -31,22 +32,21 @@ themeConfig:
       '/cours/entities',
       '/cours/relations',
       '/cours/repositories',
-      '/cours/security',
+      ## '/cours/security',
       '/cours/event-dispatcher',
-      '/cours/mise-en-ligne',
-      '/cours/plus-loin',
+      # '/cours/mise-en-ligne',
+      # '/cours/plus-loin',
     ],
     /projets/: [
       '/projets/',
       '/projets/shoefony',
-      '/projets/procost',
+      # '/projets/procost',
     ],
     /ressources/: [
       '/ressources/',
       '/ressources/glossaire',
       '/ressources/commandes',
       '/ressources/bundles',
-      '/ressources/sources',
       '/ressources/git',
       # '/ressources/apprendre'
     ]
