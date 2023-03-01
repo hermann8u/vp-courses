@@ -40,7 +40,7 @@ themeConfig:
     /projets/: [
       '/projets/',
       '/projets/shoefony',
-      # '/projets/procost',
+      '/projets/procost',
     ],
     /ressources/: [
       '/ressources/',
