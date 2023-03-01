@@ -34,8 +34,8 @@ themeConfig:
       '/cours/repositories',
       ## '/cours/security',
       '/cours/event-dispatcher',
-      # '/cours/mise-en-ligne',
-      # '/cours/plus-loin',
+      '/cours/mise-en-ligne',
+      '/cours/plus-loin',
     ],
     /projets/: [
       '/projets/',
@@ -48,6 +48,6 @@ themeConfig:
       '/ressources/commandes',
       '/ressources/bundles',
       '/ressources/git',
-      # '/ressources/apprendre'
+      '/ressources/apprendre'
     ]
   }

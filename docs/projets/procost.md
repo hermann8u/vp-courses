@@ -113,11 +113,11 @@ Un guide est à disposition pour vous expliquer comment procéder ici : [Partage
 
 ### Quoi
 
-Le repository devra comporter l'ensemble des sources du projet qui utilisera **Symfony 6.0.x** (ou Symfony 5.4 si vous n'utilisez pas PHP 8), ainsi qu'un fichier **README.md** contenant votre prénom, nom, email. Vous y ajouterez des notes pouvant être utiles à l'évaluation du projet (partie ne fonctionnant pas, précisions concernant d'éventuels fixtures, etc.).
+Le repository devra comporter l'ensemble des sources du projet qui utilisera **Symfony 6.2.x** (ou Symfony 5.4 si vous n'utilisez pas PHP 8), ainsi qu'un fichier **README.md** contenant votre prénom, nom, email. Vous y ajouterez des notes pouvant être utiles à l'évaluation du projet (partie ne fonctionnant pas, précisions concernant d'éventuels fixtures, etc.).
 
 ### Quand
 
-Au plus tard le **samedi 19 mars 2022 à 23h59**. Le dernier commit ne doit pas dépasser cette date, sous peine de pénalité.
+Au plus tard le **samedi 1 avril 2023 à 23h59**. Le dernier commit ne doit pas dépasser cette date, sous peine de pénalité.
 
 ## Critères d'évaluations
 

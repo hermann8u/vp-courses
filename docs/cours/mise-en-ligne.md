@@ -7,7 +7,7 @@ Avec Symfony, lorsqu'une exception est déclenchée, le noyau l'attrape. Cela lu
 Le comportement par défaut du noyau consiste à appeler un contrôleur particulier intégré à Symfony : **Symfony\Component\HttpKernel\Controller\ErrorController**. Ce contrôleur récupère les informations de l'exception, choisi le template adéquat (un template différent par type d'erreur : 404, 500, etc.), passe les informations au template et envoie la réponse générée.
 
 ::: tip
-Depuis Symfony 5, c'est le **composant ErrorHandler** qui est chargé de générer ces pages d'erreurs. Avant, ce mécanisme était intégré dans le **TwigBundle**.
+Depuis Symfony 5, c'est le **composant ErrorHandler** qui est chargé de générer ces pages d'erreurs.
 :::
 
 Ces pages d'erreurs utilise Twig à travers son bundle pour être généré. Dans Symfony, il est possible de surcharger les templates fournit avec un bundle. Puisque **TwigBundle** est un bundle, on peut surcharger ses vues pour les adapter à nos besoins ! Il suffit donc de créer nos propres templates et de dire à Symfony d'utiliser nos templates et non ceux par défaut.
@@ -48,11 +48,6 @@ L'importance d'écrire un code de qualité n'est plus à démontrer. Symfony ét
 Je vous invite à aller voir, à l'adresse précédente, les points que cet outil vérifie. Ils sont tous intéressants à prendre en compte si vous voulez avoir une application Symfony de grande qualité.
 
 Vous pouvez utiliser gratuitement l'outil sur vos projets publics, c'est-à-dire que votre projet doit avoir un Git publiquement accessible
-
-### Vérifier la sécurité de vos dépendances
-Un projet Symfony contient beaucoup de dépendances : cela se voit très bien en constatant le nombre de bibliothèques dans le répertoire vendor. Il est impossible de se tenir au courant des failles de sécurité découverte dans toutes ces dépendances... mais pourtant cela serait indispensable ! Vous n'imaginez pas envoyer en ligne votre application alors qu'une de vos dépendances contient une faille de sécurité.
-
-Pour cela, il existe un outil : [Security Checker](https://security.symfony.com/).
 
 ## Déployer son site Symfony en ligne
 
